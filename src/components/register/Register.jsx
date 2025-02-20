@@ -76,9 +76,14 @@ const Register = () => {
         </div>
       </div>
       <div className='register-form-additional-options'>
-        <p>Help</p>
-        <p>Privacy</p>
-        <p>Terms</p>
+        <div>
+          <p>English (United States)</p>
+        </div>
+        <div>
+          <p>Help</p>
+          <p>Privacy</p>
+          <p>Terms</p>
+        </div>
       </div>
     </div>
   )
