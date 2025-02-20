@@ -19,9 +19,15 @@ const Register = () => {
             <div className='register-input-name-fields'>
               <TextField
                 id="outlined-basic"
-                placeholder='First Name*'
+                label='First Name*'
                 variant="outlined"
                 className='register-input-fields-custom-class'
+                InputLabelProps={{
+                  style: { 
+                    fontSize: '0.8rem',
+                    top: '-5px'
+                   } 
+                }}
               />
               <TextField
                 id="outlined-basic"
