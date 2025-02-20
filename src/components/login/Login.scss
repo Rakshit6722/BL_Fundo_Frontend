@@ -69,6 +69,35 @@ form {
     gap: 1rem;
 }
 
+.login-main-form-input-error {
+    color: red;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px; 
+    margin-top: 1px;
+    background-color: rgba(255, 0, 0, 0.1); 
+    padding: 5px 10px;
+    border-radius: 4px; 
+    border-left: 3px solid red; 
+    max-width: fit-content;
+}
+.login-main-form-input-email-valid-error {
+    color: red;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin-top: 1px;
+    background-color: rgba(255, 0, 0, 0.1); 
+    padding: 5px 10px;
+    border-radius: 4px; 
+    border-left: 3px solid red; 
+    max-width: fit-content;
+}
+
+
 .login-main-form-forgetpassword {
     p {
         font-size: .8rem;
