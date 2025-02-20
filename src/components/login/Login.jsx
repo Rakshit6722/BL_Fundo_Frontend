@@ -32,7 +32,7 @@ const Login = () => {
                             />
                             <TextField
                                 id="outlined-basic"
-                                label='password'
+                                label='password*'
                                 variant="outlined"
                                 className='login-form-custom-class'
                                 InputLabelProps={{
