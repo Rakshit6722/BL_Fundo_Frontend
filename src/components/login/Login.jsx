@@ -26,7 +26,7 @@ const Login = () => {
                                 InputLabelProps={{
                                     style: {
                                         fontSize: '0.8rem',
-                                        top: '-5px'
+                                    
                                     }
                                 }}
                             />
@@ -38,7 +38,7 @@ const Login = () => {
                                 InputLabelProps={{
                                     style: {
                                         fontSize: '0.8rem',
-                                        top: '-5px'
+                        
                                     }
                                 }}
                             />
@@ -56,9 +56,14 @@ const Login = () => {
             </div>
 
             <div className='login-form-additional-options'>
-                <p>Help</p>
-                <p>Privacy</p>
-                <p>Terms</p>
+                <div>
+                    <p>English (United Kingdom)</p>
+                </div>
+                <div className='login-form-additional-options-footer'>
+                    <p>Help</p>
+                    <p>Privacy</p>
+                    <p>Terms</p>
+                </div>
             </div>
         </div>
     )

@@ -5,8 +5,8 @@ import Register from './components/register/Register'
 const App = () => {
   return (
     <div>
-      {/* <Login /> */}
-      <Register/>
+      <Login />
+      {/* <Register/> */}
     </div>
   )
 }
