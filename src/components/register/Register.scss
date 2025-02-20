@@ -72,6 +72,7 @@ form {
 .register-input-fields-custom-class .MuiOutlinedInput-input {
     padding: .6rem .6rem !important;
     font-size: 0.9rem !important;
+
 }
 
 .register-input-fields-custom-class .MuiOutlinedInput-input::placeholder {
@@ -142,25 +143,49 @@ form {
 
 
 @media screen and (max-width: 480px) {
+ 
     .register-container {
-        padding: 1.25rem;
+        // padding-bottom: 2rem;
+        min-height: 100vh;
+        height: unset;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: -1rem;
     }
-
     .reigster-sub-container {
         width: 100%;
-        padding: 1rem;
+        padding: 2.8rem 1.5rem;
         flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .register-sub-container-content {
+        gap: .6rem
     }
 
     .register-sub-container-image-div {
-        font-size: 1.25rem;
-        text-align: center
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 250px;
+        text-align: center;
+        margin-right: 1rem;
+        margin-top: unset;
+    }
+
+    .register-sub-container-image-div-content{
+        display: none;
     }
 
     .register-sub-container-image-div img {
-        margin-right: 1rem;
+        width: 46%; 
+        max-width: 200px; 
+        height: auto;
+        object-fit: contain;
     }
-
     .register-sub-container-content-header {
         text-align: center;
 
@@ -184,11 +209,9 @@ form {
     .reigster-sub-container{
         border: none;
     }
-    .register-container{
-        padding-bottom: 4rem;
-    }
 
     .register-form-additional-options{
+        padding: 1rem;
         div:nth-child(2){
             gap: .5rem;
         }

@@ -25,18 +25,30 @@ const Register = () => {
               />
               <TextField
                 id="outlined-basic"
-                placeholder='Last Name*'
+                label='Last Name*'
                 variant="outlined"
                 className='register-input-fields-custom-class'
+                InputLabelProps={{
+                  style: { 
+                    fontSize: '0.8rem',
+                    top: '-5px'
+                   } 
+                }}
               />
             </div>
 
             <div className='register-input-fields'>
               <TextField
                 id="outlined-basic"
-                placeholder='Username*'
+                label='Username*'
                 variant="outlined"
                 className='register-input-fields-custom-class'
+                InputLabelProps={{
+                  style: { 
+                    fontSize: '0.8rem',
+                    top: '-5px'
+                   } 
+                }}
               />
               <p>You can use letters, numbers & periods</p>
             </div>
@@ -45,15 +57,27 @@ const Register = () => {
               <div className='register-input-fields-password'>
                 <TextField
                   id="outlined-basic"
-                  placeholder='Password*'
+                  label='Password*'
                   variant="outlined"
                   className='register-input-fields-custom-class'
+                  InputLabelProps={{
+                    style: { 
+                      fontSize: '0.8rem',
+                      top: '-5px'
+                     } 
+                  }}
                 />
                 <TextField
                   id="outlined-basic"
-                  placeholder='Confirm*'
+                  label='Confirm*'
                   variant="outlined"
                   className='register-input-fields-custom-class'
+                  InputLabelProps={{
+                    style: { 
+                      fontSize: '0.8rem',
+                      top: '-5px'
+                     } 
+                  }}
                 />
               </div>
               <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
@@ -69,7 +93,7 @@ const Register = () => {
 
         <div className='register-sub-container-image-div'>
           <img src={googleOneAccount} width={200}></img>
-          <div>
+          <div className='register-sub-container-image-div-content'>
             <p>One account. All of Fundo</p>
             <p>working for you</p>
           </div>
