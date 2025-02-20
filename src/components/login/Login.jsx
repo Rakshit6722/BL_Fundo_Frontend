@@ -5,6 +5,7 @@ import './Login.scss'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import { Link, NavLink } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -26,7 +27,7 @@ const Login = () => {
                                 InputLabelProps={{
                                     style: {
                                         fontSize: '0.8rem',
-                                    
+
                                     }
                                 }}
                             />
@@ -38,7 +39,7 @@ const Login = () => {
                                 InputLabelProps={{
                                     style: {
                                         fontSize: '0.8rem',
-                        
+
                                     }
                                 }}
                             />
@@ -49,7 +50,9 @@ const Login = () => {
                     </div>
 
                     <div className='login-main-form-login-section'>
-                        <p>Create account</p>
+                        <Link to={'/register'}>
+                            <p>Create account</p>
+                        </Link>
                         <Button variant="contained">Login</Button>
                     </div>
                 </form>

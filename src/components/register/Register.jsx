@@ -3,6 +3,7 @@ import './Register.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import googleOneAccount from '../../assets/googleOneAccount.png'
+import { Link } from 'react-router-dom';
 
 const Register = () => {
   return (
@@ -23,10 +24,10 @@ const Register = () => {
                 variant="outlined"
                 className='register-input-fields-custom-class'
                 InputLabelProps={{
-                  style: { 
+                  style: {
                     fontSize: '0.8rem',
                     top: '-5px'
-                   } 
+                  }
                 }}
               />
               <TextField
@@ -35,10 +36,10 @@ const Register = () => {
                 variant="outlined"
                 className='register-input-fields-custom-class'
                 InputLabelProps={{
-                  style: { 
+                  style: {
                     fontSize: '0.8rem',
                     top: '-5px'
-                   } 
+                  }
                 }}
               />
             </div>
@@ -50,10 +51,10 @@ const Register = () => {
                 variant="outlined"
                 className='register-input-fields-custom-class'
                 InputLabelProps={{
-                  style: { 
+                  style: {
                     fontSize: '0.8rem',
                     top: '-5px'
-                   } 
+                  }
                 }}
               />
               <p>You can use letters, numbers & periods</p>
@@ -67,10 +68,10 @@ const Register = () => {
                   variant="outlined"
                   className='register-input-fields-custom-class'
                   InputLabelProps={{
-                    style: { 
+                    style: {
                       fontSize: '0.8rem',
                       top: '-5px'
-                     } 
+                    }
                   }}
                 />
                 <TextField
@@ -79,10 +80,10 @@ const Register = () => {
                   variant="outlined"
                   className='register-input-fields-custom-class'
                   InputLabelProps={{
-                    style: { 
+                    style: {
                       fontSize: '0.8rem',
                       top: '-5px'
-                     } 
+                    }
                   }}
                 />
               </div>
@@ -92,7 +93,9 @@ const Register = () => {
           </form>
 
           <div className='register-sub-container-buttons'>
-            <p>Sign in instead</p>
+            <Link to={'/'}>
+              <p>Sign in instead</p>
+            </Link>
             <Button variant="contained">Register</Button>
           </div>
         </div>

@@ -83,11 +83,17 @@ form {
 }
 
 .login-main-form-login-section {
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    a{
+        text-decoration: none;
+    }
+
     p {
+        text-decoration: none;
         font-size: .8rem;
         font-weight: 500;
         color: rgb(16, 16, 167);
