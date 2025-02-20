@@ -18,8 +18,30 @@ const Login = () => {
                 <form>
                     <div>
                         <div className='login-main-form-input-fields'>
-                            <TextField id="outlined-basic" placeholder='Email or phone*' variant="outlined" className='login-form-custom-class' />
-                            <TextField id="outlined-basic" placeholder='password' variant="outlined" className='login-form-custom-class' />
+                            <TextField
+                                id="outlined-basic"
+                                label='Email or phone*'
+                                variant="outlined"
+                                className='login-form-custom-class'
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: '0.8rem',
+                                        top: '-5px'
+                                    }
+                                }}
+                            />
+                            <TextField
+                                id="outlined-basic"
+                                label='password'
+                                variant="outlined"
+                                className='login-form-custom-class'
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: '0.8rem',
+                                        top: '-5px'
+                                    }
+                                }}
+                            />
                         </div>
                         <div className='login-main-form-forgetpassword'>
                             <p>Forgot password</p>
