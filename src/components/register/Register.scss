@@ -112,13 +112,14 @@ form {
     }
 }
 
-.register-form-additional-options{
+.register-form-additional-options {
     display: flex;
     gap: 2rem;
     text-align: right;
     width: 400px;
     justify-content: center;
-    p{
+
+    p {
         font-size: .7rem;
         font-weight: 500;
         color: rgb(17, 17, 17);
@@ -127,39 +128,52 @@ form {
         margin-left: .5rem;
         font-weight: normal;
     }
-    :hover{
+
+    :hover {
         color: rgb(16, 16, 167);
         text-decoration: underline;
     }
 }
 
-@media screen and (max-width: 480px){
-    .register-container{
+@media screen and (max-width: 480px) {
+    .register-container {
         padding: 1.25rem;
     }
-    .reigster-sub-container{
+
+    .reigster-sub-container {
         width: 100%;
         padding: 1rem;
         flex-direction: column-reverse;
     }
+
     .register-sub-container-image-div {
         font-size: 1.25rem;
         text-align: center
     }
-    .register-sub-container-image-div img{
-       margin-right: 1rem;
+
+    .register-sub-container-image-div img {
+        margin-right: 1rem;
     }
-    .register-sub-container-content-header{
+
+    .register-sub-container-content-header {
         text-align: center;
-        p:nth-child(1){
+
+        p:nth-child(1) {
             font-size: 2rem;
         }
     }
-    .register-sub-container-buttons{
+
+    .register-sub-container-buttons {
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
         gap: 1rem;
     }
-    
+
+    .register-input-name-fields,
+    .register-input-fields-password {
+        flex-direction: column;
+    }
+
+
 }
