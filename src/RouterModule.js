@@ -2,6 +2,10 @@ import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import DashboardContainer from './components/DashboardContainer/DashboardContainer'
+import NotesContainer from './components/NotesContainer/NotesContainer'
+import TrashContainer from './components/TrashContainer/TrashContainer'
+import ArchiveContainer from './components/ArchiveContainer/ArchiveContainer'
 
 const RouterModule = () => {
 
@@ -11,9 +15,27 @@ const RouterModule = () => {
             element:<Login/>
         },
         {
-            path:'register',
+            path:'/register',
             element:<Register/>
         },
+        {
+          path:'/dashboard',
+          element:<DashboardContainer/>,
+          children:[
+            {
+              path:"notes",
+              element:<NotesContainer/>
+            },
+            {
+              path:"archive",
+              element:<ArchiveContainer/>
+            },
+            {
+              path:"trash",
+              element:<TrashContainer/>
+            },
+          ]
+        }
     ])
 
   return (

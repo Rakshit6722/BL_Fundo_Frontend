@@ -101,7 +101,7 @@ const Register = () => {
         </div>
 
         <div className='register-sub-container-image-div'>
-          <img src={googleOneAccount} width={200}></img>
+          <img src={googleOneAccount} alt='register' width={200}></img>
           <div className='register-sub-container-image-div-content'>
             <p>One account. All of Fundo</p>
             <p>working for you</p>
