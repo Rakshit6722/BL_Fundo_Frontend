@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api';
 
 const Login = () => {
-
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
@@ -16,37 +15,35 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState(false)
     const [emailValidError, setEmailValidError] = useState(false)
 
-    const handleLogin = async () => {
-        try {
+    const handleLogin = () => {
+        setEmailError(false);
+        setPasswordError(false);
+        setEmailValidError(false);
 
-            setEmailError(false);
-            setPasswordError(false);
-            setEmailValidError(false);
+        if (!email) return setEmailError(true);
+        if (!password) return setPasswordError(true);
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
+            return setEmailValidError(true);
 
-            if (!email) return setEmailError(true);
-            if (!password) return setPasswordError(true);
-            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
-                return setEmailValidError(true);
-
-            const payload = {
-                email,
-                password
-            }
-
-            const data = login(payload).then((res)=>navigate('/dashboard/notes')).catch((err)=>console.log(err));
-            // if (data) {
-            //     console.log(data);
-            //     alert('Login success');
-            //     localStorage.setItem('token', data.id);
-            // }
-
-            setEmail('');
-            setPassword('');
-        } catch (err) {
-            console.log("Error", err);
-            console.log("Error status", err?.status);
-            alert(`Login failed: ${err?.message}`);
+        const payload = {
+            email,
+            password
         }
+
+        login(payload)
+            .then((res) => {
+                localStorage.setItem("token", res?.data?.id)
+                localStorage.setItem("firstName", res?.data?.firstName)
+                navigate('/dashboard/notes')
+                // alert("Login success!")
+            })
+            .catch((err) => {
+                console.log(err)
+                alert(`Login failed! ${err.message}`)
+            })
+
+        setEmail('');
+        setPassword('');
     };
 
 
