@@ -1,0 +1,19 @@
+.dashboard-main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dashboard-content-container{
+    display: flex;
+    width: 100%;
+}
+
+.sidebar-container{
+    // z-index: -1;
+    background-color: transparent;
+}
+
+.content-container{
+    margin-top: 4rem;
+}

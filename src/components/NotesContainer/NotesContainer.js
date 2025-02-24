@@ -15,9 +15,9 @@ export default function NotesContainer() {
 
     return (
         <div>
-            {/* {
+            {
                 notesList.map((note) => <NoteCard noteDetails={note} container={"notes"} />)
-            } */}
+            }
         </div>
     )
 }

@@ -3,13 +3,14 @@ import './Header.scss'
 import { IoIosMenu } from "react-icons/io";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5"
 import { MdOutlineRefresh } from "react-icons/md"
-import Avatar from '@mui/material/Avatar';
 import keepLogo from '../../assets/keep_logo.png'
+import ProfileDropdown from './ProfileDropdown';
 
-function Header() {
+function Header({ handleSetOpen }) {
 
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
+    const [isScrolled, setIsScrolled] = useState(false)
 
     const getInitials = () => {
         let name = localStorage.getItem("firstName");
@@ -29,13 +30,26 @@ function Header() {
     useEffect(() => {
         setInitials(getInitials)
         setColor(getRandomColor)
+
+        const handleScroll = () => {
+            if (window.scrollY > 20) {
+                setIsScrolled(true)
+            } else {
+                setIsScrolled(false)
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll)
+        return () => {
+            window.removeEventListener('scroll', handleScroll)
+        }
     }, [])
 
     return (
         <>
-            <div className='header-main-container'>
+            <div className={`${isScrolled ? "header-main-container-shadow": ""} header-main-container`}>
                 <div className='header-logo-container'>
-                    <div className='menu-logo-container'>
+                    <div className='menu-logo-container' onClick={handleSetOpen}>
                         <IoIosMenu className='menu-logo' />
                     </div>
                     <img src={keepLogo} alt='keep_logo' />
@@ -49,22 +63,22 @@ function Header() {
                 </div>
                 <div className='header-additional-icons-container'>
 
-                    <div className='header-additional-icon-sub-container header-additional-search-icon-container'>
-                        <IoSearch className='header-additional-icon' />
+                    <div className='header-additional-icons-sub-container1'>
+                        <div className='header-additional-icon-sub-container header-additional-search-icon-container'>
+                            <IoSearch className='header-additional-icon' />
+                        </div>
+
+                        <div className='header-additional-icon-sub-container'>
+                            <MdOutlineRefresh className='header-additional-icon' />
+                        </div>
+
+                        <div className='header-additional-icon-sub-container'>
+                            <IoSettingsOutline className='header-additional-icon' />
+                        </div>
                     </div>
 
-                    <div className='header-additional-icon-sub-container'>
-                        <MdOutlineRefresh className='header-additional-icon' />
-                    </div>
-
-                    <div className='header-additional-icon-sub-container'>
-                        <IoSettingsOutline className='header-additional-icon' />
-                    </div>
-
-                    <div className='header-profile-initial-container'>
-                        <Avatar sx={{
-                            bgcolor: color
-                        }}>{initials}</Avatar>
+                    <div className='header-additional-icons-sub-container2'>
+                        <ProfileDropdown initials={initials} color={color} />
                     </div>
                 </div>
             </div>
