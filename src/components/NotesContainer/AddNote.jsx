@@ -39,7 +39,8 @@ function AddNote({handleNotes}) {
         if(isExpanded){
             addNote(formData)
                 .then(res=>{
-                    handleNotes(formData,'add')
+                    handleNotes(res?.data?.status?.details,'add')
+                    // console.log(res?.data?.status?.details)
                 })
                 .catch(err=>console.log(err))
             

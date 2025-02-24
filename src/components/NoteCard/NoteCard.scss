@@ -27,6 +27,12 @@
     margin-top: .15rem;
 }
 
+.note-card-delete-icons-container{
+     width: 100%;
+    display: flex;
+    gap: .5rem;
+}
+
 .note-card-icon{
     display: flex;
     align-items: center;
@@ -37,6 +43,10 @@
     width: 32px;
     padding: .25rem;
     border-radius: 50%;
+}
+
+.delete-icon{
+    font-size: 1.3rem;
 }
 
 .note-card-icon:hover{
