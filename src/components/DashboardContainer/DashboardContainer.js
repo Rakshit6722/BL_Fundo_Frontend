@@ -3,10 +3,12 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import './DashboardContainer.scss'
+import ProgressBar from './ProgressBar'
 
 export default function DashboardContainer() {
 
-  const [open, setOpen] = useState(()=>getInitialState())
+  const [open, setOpen] = useState(() => getInitialState())
+  
 
   function getInitialState() {
     if (window.innerWidth > 480) {
@@ -33,18 +35,21 @@ export default function DashboardContainer() {
   }
 
   return (
-    <div className='dashboard-main-container' >
-      <div>
-        <Header handleSetOpen={handleSetOpen} />
-      </div>
-      <div className='dashboard-content-container'>
-        <div className='sidebar-container'>
-          <Sidebar open={open} />
+    <>
+      {/* <ProgressBar /> */}
+      <div className='dashboard-main-container' >
+        <div>
+          <Header handleSetOpen={handleSetOpen} />
         </div>
-        <div className='content-container'>
-          <Outlet />
+        <div className='dashboard-content-container'>
+          <div className='sidebar-container'>
+            <Sidebar open={open} />
+          </div>
+          <div className='content-container'>
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

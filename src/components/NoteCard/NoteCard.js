@@ -1,12 +1,16 @@
 import React from 'react'
+import './NoteCard.scss'
 
-function NoteCard({noteDetails, container, ...props}) {
-    // console.log(props)
+function NoteCard({ noteDetails, container, ...props }) {
+  // console.log(props)
   return (
-    <div>
-      <span>{noteDetails.title}</span><br></br>
-      <span>{noteDetails.description}</span>
-      <span>2*2</span>
+    <div className='note-card-container'>
+      <div className='note-card-title'>
+        {noteDetails.title}
+      </div>
+      <div className='note-card-description'>
+        {noteDetails.description}
+      </div>
     </div>
   )
 }

@@ -1,0 +1,43 @@
+.notes-main-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.show-notes-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem;
+    gap: .8rem;
+}
+
+.notes-add-note-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.show-notes-note-container{
+    width: 20%;
+    max-height: 200px;
+}
+
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    .show-notes-note-container{
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .show-notes-note-container{
+        width: 100%;
+    }
+    .show-notes-container{
+        padding: 1rem;
+    }
+}

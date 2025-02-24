@@ -20,3 +20,11 @@ export const getNotes = () => {
         }
     })
 }
+
+export const addNote = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/addNotes`, payload, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
