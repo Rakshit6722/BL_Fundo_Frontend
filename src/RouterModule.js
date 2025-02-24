@@ -1,6 +1,6 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Register from './components/Register/register'
+import Register from './components/Register/Register'
 import Login from './components/Login/Login'
 import DashboardContainer from './components/DashboardContainer/DashboardContainer'
 import NotesContainer from './components/NotesContainer/NotesContainer'

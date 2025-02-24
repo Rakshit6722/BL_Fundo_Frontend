@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import Sidebar from './Sidebar'
 import './DashboardContainer.scss'
-import ProgressBar from './ProgressBar'
 
 export default function DashboardContainer() {
 
