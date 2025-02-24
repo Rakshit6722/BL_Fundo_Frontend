@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import './Header.scss'
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
-// import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 
 function ProfileDropdown({ initials, color }) {
@@ -36,8 +33,8 @@ function ProfileDropdown({ initials, color }) {
                     >
                         <Avatar sx={{
                             bgcolor: color,
-                            width: { xs: 30, sm: 40, md: 40 },
-                            height: { xs: 30, sm: 40, md: 40 },
+                            width: { xs: 25, sm: 40, md: 40 },
+                            height: { xs: 25, sm: 40, md: 40 },
                             fontSize: { xs: 14, sm: 18, md: 24 }
                         }}>{initials}</Avatar>
                     </IconButton>

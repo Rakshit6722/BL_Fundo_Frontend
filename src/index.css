@@ -4,9 +4,11 @@
   box-sizing: border-box;
 }
 
+@import url('https://fonts.cdnfonts.com/css/google-sans');
+
 html, body{
   /* height: 100%; */
   width: 100%;
   overflow-x: hidden;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Product Sans Light', sans-serif;
 }

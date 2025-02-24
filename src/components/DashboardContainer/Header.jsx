@@ -5,6 +5,7 @@ import { IoSearch, IoSettingsOutline } from "react-icons/io5"
 import { MdOutlineRefresh } from "react-icons/md"
 import keepLogo from '../../assets/keep_logo.png'
 import ProfileDropdown from './ProfileDropdown';
+import ProgressBar from './ProgressBar';
 
 function Header({ handleSetOpen }) {
 

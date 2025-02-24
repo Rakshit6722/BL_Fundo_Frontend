@@ -14,6 +14,7 @@ import { MdLightbulbOutline } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
+
 function Sidebar({ open }) {
 
     const location = useLocation()
@@ -99,13 +100,13 @@ function Sidebar({ open }) {
             whiteSpace: 'nowrap',
             boxSizing: 'border-box',
             // position: 'relative',
-            top: "62px",
+            top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
             overflow: 'hidden',
             '& .MuiDrawer-paper': {
                 // position: 'relative',
-                top: "63px",
+                top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
                 height: '100vh',
-                boxShadow: "none",
+                boxShadow: drawerWidth <= 210 ? open ? "0 2px 4px rgba(3, 3, 3, 0.418)" : "none" : "none",
                 borderRight: "none",
                 overflow: 'hidden',
                 backgroundColor: 'transparent',
@@ -133,7 +134,8 @@ function Sidebar({ open }) {
             <Drawer variant="permanent" open={open} >
                 <List
                     sx={{
-                        py: { xs: 0, sm: .8, md: .8 },
+                        py: { xs: 0, sm: 0, md: .8 },
+                        marginTop: ".5rem"
                     }}
                 >
                     {[
@@ -160,7 +162,7 @@ function Sidebar({ open }) {
                                             width: "100%", 
                                             minHeight: 48,
                                             px: open ? 2.5 : 0,
-                                            py: 1.4,
+                                            py: {xs:0,sm:1,md:1.4},
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: open ? { xs: ".5rem", sm: "1rem", md: ".8rem" } : "0",
@@ -205,9 +207,10 @@ function Sidebar({ open }) {
                                             <Typography
                                                 sx={{
                                                     fontSize: { xs: ".8rem", sm: ".85rem", md: ".85rem" },
-                                                    fontWeight: 500,
-                                                    letterSpacing: ".0178571429em",
-                                                    color: "black !important"
+                                                    fontWeight: 600,
+                                                    letterSpacing: ".0755555em",
+                                                    color: "black !important",
+                                                    fontFamily: "Product Sans Light",
                                                 }}
                                             >
                                                 {item.text}

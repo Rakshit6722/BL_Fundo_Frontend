@@ -1,0 +1,31 @@
+.show-archive-notes-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem;
+    gap: .8rem;
+}
+
+.show-archive-notes-note-container{
+    width: 20%;
+    max-height: 200px;
+}
+
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    .show-archive-notes-note-container{
+        width: 49%;
+    }
+}
+
+
+@media screen and (max-width: 480px) {
+    .show-archive-notes-note-container{
+        width: 85%;
+    }
+
+    .show-archive-notes-container {
+        padding: 1rem 0;
+    }
+}

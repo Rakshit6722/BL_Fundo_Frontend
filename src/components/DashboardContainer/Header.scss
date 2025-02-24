@@ -22,7 +22,7 @@
     img {
         width: 40px;
         height: 40px;
-        margin-left: .2rem;
+        // margin-left: .1rem;
         user-select: none;
     }
 
@@ -30,6 +30,7 @@
         font-size: 1.3rem;
         color: rgb(88, 88, 88);
         user-select: none;
+        font-weight: 550;
     }
 }
 
@@ -162,6 +163,11 @@
 }
 
 @media screen and (max-width: 480px){
+
+    .header-main-container{
+        padding: .12rem .3rem;
+    }
+
     .header-search-container {
         display: none;
     }
@@ -189,7 +195,9 @@
 
     .header-logo-container{
         p{
-            display: none;
+            font-size: 1rem;
+            letter-spacing: .04rem;
+            font-weight: 600;
         }
     }
 
@@ -198,22 +206,26 @@
     }
 
     .header-additional-icon{
-        font-size: 1.4rem;
+        font-size: 1rem;
     }
 
     .menu-logo{
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
+    .menu-logo-container {
+        padding: 0.3rem;
+    }
     .header-logo-container{
         img{
-            width: 35px;
-            height: 35px;
+            width: 32px;
+            height: 32px;
         }
     }
 
-    .header-profile-initial-container{
-        margin-left: 0;
+    .header-profile-initial-container {
+        margin-left: -19px;
+        user-select: none;
     }
 
 }
