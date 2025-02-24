@@ -2,48 +2,50 @@ import React, { useState } from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './Login.scss'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api';
 
 const Login = () => {
+    const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const[emailError, setEmailError] = useState(false)
-    const[passwordError, setPasswordError] = useState(false)
-    const[emailValidError, setEmailValidError] = useState(false)
+    const [emailError, setEmailError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false)
+    const [emailValidError, setEmailValidError] = useState(false)
 
-    const handleLogin = async () => {
-        try {
-        
-            setEmailError(false);
-            setPasswordError(false);
-            setEmailValidError(false);
-    
-            if (!email) return setEmailError(true);
-            if (!password) return setPasswordError(true);
-            if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) 
-                return setEmailValidError(true);
-    
-         
-            const data = await login({ email, password });
-            if(data){
-                console.log(data);
-                alert('Login success');
-                localStorage.setItem('token', data.id);
-            }
-    
-            setEmail('');
-            setPassword('');
-        } catch (err) {
-            console.error(err.message);
+    const handleLogin = () => {
+        setEmailError(false);
+        setPasswordError(false);
+        setEmailValidError(false);
+
+        if (!email) return setEmailError(true);
+        if (!password) return setPasswordError(true);
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
+            return setEmailValidError(true);
+
+        const payload = {
+            email,
+            password
         }
+
+        login(payload)
+            .then((res) => {
+                localStorage.setItem("token", res?.data?.id)
+                localStorage.setItem("firstName", res?.data?.firstName)
+                navigate('/dashboard/notes')
+                // alert("Login success!")
+            })
+            .catch((err) => {
+                console.log(err)
+                alert(`Login failed! ${err.message}`)
+            })
+
+        setEmail('');
+        setPassword('');
     };
-    
+
 
     return (
         <div className='login-container'>
@@ -68,7 +70,7 @@ const Login = () => {
                                     }
                                 }}
                                 value={email}
-                                onChange={(e)=>setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             {emailError && <span className='login-main-form-input-error'>Email is required</span>}
                             {emailValidError && <span className='login-main-form-input-email-valid-error'>Email is not valid</span>}
@@ -84,7 +86,7 @@ const Login = () => {
                                     }
                                 }}
                                 value={password}
-                                onChange={(e)=>setPassword(e.target.value)}
+                                onChange={(e) => setPassword(e.target.value)}
                             />
                             {passwordError && <span className='login-main-form-input-error'>password is required</span>}
                         </div>
@@ -97,9 +99,9 @@ const Login = () => {
                         <Link to={'/register'}>
                             <p>Create account</p>
                         </Link>
-                        <Button 
-                        variant="contained"
-                        onClick={handleLogin}
+                        <Button
+                            variant="contained"
+                            onClick={handleLogin}
                         >Login</Button>
                     </div>
                 </form>

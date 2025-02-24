@@ -1,0 +1,219 @@
+.header-main-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: .4rem .7rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #e0e0e0;
+    position: fixed;
+    top: 0;
+    background-color: white;
+}
+
+.header-main-container-shadow{
+    box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+
+    img {
+        width: 40px;
+        height: 40px;
+        margin-left: .2rem;
+        user-select: none;
+    }
+
+    p {
+        font-size: 1.3rem;
+        color: rgb(88, 88, 88);
+        user-select: none;
+    }
+}
+
+.menu-logo {
+    font-size: 1.7rem;
+    color: rgb(88, 88, 88);
+}
+
+.menu-logo-container {
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-logo-container:hover {
+    cursor: pointer;
+    background-color: #f1f3f4;
+    border-radius: 100%;
+    padding: .5rem;
+}
+
+.header-search-container {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    width: 45%;
+    padding: .1rem .4rem;
+    border-radius: .5rem;
+    background-color: #f1f3f4;
+
+    input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        width: 100%;
+        height: auto;
+    }
+
+    input::placeholder {
+        font-size: 1rem;
+        color: rgb(88, 88, 88);
+        font-weight: 500;
+    }
+}
+
+.header-search-icon-container {
+    padding: .6rem;
+}
+
+.header-search-icon-container:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border-radius: 100%;
+}
+
+.header-search {
+    font-size: 1.4rem;
+    color: rgb(88, 88, 88);
+    font-weight: bold;
+}
+
+.header-additional-icons-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.header-additional-icon-sub-container {
+    padding: .5rem;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-additional-icon-sub-container:hover {
+    background-color: #f1f3f4;
+    color: black;
+}
+
+.header-additional-icon {
+    font-size: 1.6rem;
+    color: rgb(88, 88, 88);
+    font-weight: bold;
+}
+
+.header-additional-icon-sub-container:hover .header-additional-icon {
+    color: black;
+}
+
+.header-profile-initial-container{
+    margin-left: 1rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.header-additional-search-icon-container{
+    display: none;
+}
+
+.header-additional-icons-sub-container1{
+    display: flex;
+    align-items: center;
+    // gap: 1rem;
+}
+
+@media (min-width:769px) and (max-width: 892px){
+    .header-search-container{
+        display: none;
+    }
+
+    .header-additional-search-icon-container{
+        display: block;
+        padding: .5rem;
+        border-radius: 100%;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px){
+    .header-search-container{
+        display: none;
+    }
+
+    .header-additional-search-icon-container{
+        display: block;
+        padding: .5rem;
+        border-radius: 100%;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .header-search-container {
+        display: none;
+    }
+
+    .header-additional-search-icon-container{
+        display: block;
+        padding: .5rem;
+        border-radius: 100%;
+    }
+
+    .header-additional-search-icon-container:hover {
+        background-color: #f1f3f4;
+        color: black;
+    }
+
+    .header-additional-search-icon {
+        font-size: 1.6rem;
+        color: rgb(88, 88, 88);
+        font-weight: bold;
+    }
+
+    .header-additional-search-icon-container:hover .header-additional-search-icon {
+        color: black;
+    }
+
+    .header-logo-container{
+        p{
+            display: none;
+        }
+    }
+
+    .header-additional-icons-container{
+        gap: .4rem;
+    }
+
+    .header-additional-icon{
+        font-size: 1.4rem;
+    }
+
+    .menu-logo{
+        font-size: 1.5rem;
+    }
+
+    .header-logo-container{
+        img{
+            width: 35px;
+            height: 35px;
+        }
+    }
+
+    .header-profile-initial-container{
+        margin-left: 0;
+    }
+
+}

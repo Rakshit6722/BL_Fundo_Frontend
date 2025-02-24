@@ -1,17 +1,22 @@
 import axios from 'axios'
 
-const BASE_URL = 'https://fundoonotes.incubation.bridgelabz.com/api/user'
+const USER_BASE_URL = 'https://fundoonotes.incubation.bridgelabz.com/api/user'
+const NOTE_BASE_URL = 'https://fundoonotes.incubation.bridgelabz.com/api/notes'
 
-export const login = async (payload) => {
-    try {
-        const response = await axios.post(`${BASE_URL}/login`, payload)
+export const login = (payload) => {
+    return axios.post(`${USER_BASE_URL}/login`, payload, {
+        'Content-Type':"application/json"
+    })
+}
 
-        if (response.status === 200) {
-            return response?.data
-        }else{
-            throw new Error(response?.data?.message)
+export const signup = (payload) => {
+    return axios.post(`${USER_BASE_URL}/userSignUp`, payload)
+}
+
+export const getNotes = () => {
+    return axios.get(`${NOTE_BASE_URL}/getNotesList`, {
+        headers: {
+            Authorization: localStorage.getItem('token')
         }
-    } catch (err) {
-        throw err
-    }
+    })
 }

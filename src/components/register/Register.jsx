@@ -1,11 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Register.scss'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import googleOneAccount from '../../assets/googleOneAccount.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { signup } from '../../api';
 
 const Register = () => {
+
+  const navigate = useNavigate()
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    service:"advance"
+  })
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData((prev)=>{
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
+
+  const handleSignup = () => {
+
+    const payload = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.username,
+      password: formData.password,
+      service: "advance"
+    }
+
+
+    console.log(formData)
+
+    signup(payload)
+      .then((res)=>{
+        alert("Signup success!")
+        navigate('/')
+      })
+      .catch((err)=>{
+        console.log(err)
+        alert(`Signup failed! ${err.message}`)
+      });
+
+      setFormData((prev)=>{
+        return {
+          ...prev,
+          firstName: '',
+          lastName: '',
+          username: '',
+          password: '',
+          confirmPassword: ''
+        }
+      })
+
+  }
+
   return (
     <div className='register-container'>
       <div className='reigster-sub-container'>
@@ -29,6 +88,9 @@ const Register = () => {
                     top: '-5px'
                   }
                 }}
+                name='firstName'
+                value={formData.firstName}
+                onChange={(e) => handleChange(e)}
               />
               <TextField
                 id="outlined-basic"
@@ -41,6 +103,9 @@ const Register = () => {
                     top: '-5px'
                   }
                 }}
+                name='lastName'
+                value={formData.lastName}
+                onChange={(e) =>handleChange(e)}
               />
             </div>
 
@@ -56,6 +121,9 @@ const Register = () => {
                     top: '-5px'
                   }
                 }}
+                name='username'
+                value={formData.username}
+                onChange={(e) =>handleChange(e)}
               />
               <p>You can use letters, numbers & periods</p>
             </div>
@@ -73,6 +141,9 @@ const Register = () => {
                       top: '-5px'
                     }
                   }}
+                  name='password'
+                  value={formData.password}
+                  onChange={(e) =>handleChange(e)}
                 />
                 <TextField
                   id="outlined-basic"
@@ -85,6 +156,9 @@ const Register = () => {
                       top: '-5px'
                     }
                   }}
+                  name='confirmPassword'
+                  value={formData.confirmPassword}
+                  onChange={(e) =>handleChange(e)}
                 />
               </div>
               <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
@@ -96,12 +170,16 @@ const Register = () => {
             <Link to={'/'}>
               <p>Sign in instead</p>
             </Link>
-            <Button variant="contained">Register</Button>
+            <Button
+              variant="contained"
+              onClick={handleSignup}
+            >Register
+            </Button>
           </div>
         </div>
 
         <div className='register-sub-container-image-div'>
-          <img src={googleOneAccount} width={200}></img>
+          <img src={googleOneAccount} alt='register' width={200}></img>
           <div className='register-sub-container-image-div-content'>
             <p>One account. All of Fundo</p>
             <p>working for you</p>
