@@ -7,20 +7,31 @@ import AddNote from './AddNote'
 export default function NotesContainer() {
 
     const [notesList, setNotesList] = useState([])
+    const [isActive, setIsActive] = useState(null)
 
     useEffect(() => {
         getNotes().then((data) => {
             console.log("data", data)
-            setNotesList(data?.data?.data?.data)
+            setNotesList(data?.data?.data?.data.filter((note)=> note.isDeleted === false && note.isArchived === false))
         })
     }, [])
 
-    const handleNotes = (payload) => {
-        setNotesList(prev => ([
-            payload,
-            ...prev
-        ])
-        )
+    const handleNotes = (payload, action) => {
+        if (action === 'add') {
+            setNotesList(prev => ([
+                payload,
+                ...prev
+            ])
+            )
+        }else if(action === 'archive' || action === 'trash'){
+            setNotesList(prev => (
+                prev.filter(note => note.id !== payload?.id)
+            ))
+        }
+    }
+
+    const handleCardClick = (id) => {
+        setIsActive((prevId) => (prevId === id ? null : id))
     }
 
 
@@ -33,7 +44,13 @@ export default function NotesContainer() {
                 {
                     notesList.map((note) => (
                         <div className='show-notes-note-container'>
-                            <NoteCard noteDetails={note} container={"notes"} />
+                            <NoteCard
+                                noteDetails={note}
+                                container={"notes"}
+                                isActive={isActive === note?.id}
+                                onClick={() => handleCardClick(note?.id)}
+                                handleNotes={handleNotes}
+                            />
                         </div>
                     ))
                 }

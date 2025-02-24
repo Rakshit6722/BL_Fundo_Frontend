@@ -28,3 +28,19 @@ export const addNote = (payload) => {
         }
     })
 }
+
+export const archiveNote = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/archiveNotes`, payload, {
+        headers: {
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
+
+export const trashNote = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/trashNotes`,payload,{
+        headers:{
+            Authorization: localStorage.getItem("token")
+        }
+    })
+}
