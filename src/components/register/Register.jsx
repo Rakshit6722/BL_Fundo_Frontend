@@ -65,6 +65,9 @@ const Register = () => {
 
   }
 
+
+  
+
   return (
     <div className='register-container'>
       <div className='reigster-sub-container'>
