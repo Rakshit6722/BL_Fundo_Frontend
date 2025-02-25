@@ -114,7 +114,8 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                 .catch(err => console.log(err))
 
             setModalOpen(false)
-            navigate(`/dashboard/notes`)        }
+            // navigate(`/dashboard/notes`)   
+             }
     }
 
     const handleClickOutside = (e) => {

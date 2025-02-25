@@ -17,10 +17,18 @@ export default function ArchiveContainer() {
       .catch(err => console.log(err))
   }
 
-  const handleArchiveNotes = (payload) => {
-    setArchiveNotesList(prev => (
-      prev.filter(note => note.id !== payload?.id)
-    ))
+  const handleArchiveNotes = (payload, action) => {
+    if (action === 'update') {
+      setArchiveNotesList(prev => (
+        prev.map(note => (
+          note.id === payload.id ? payload : note
+        ))
+      ))
+    } else {
+      setArchiveNotesList(prev => (
+        prev.filter(note => note.id !== payload?.id)
+      ))
+    }
   }
 
   return (

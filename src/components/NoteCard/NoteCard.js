@@ -136,7 +136,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
       <div className="note-card-content" onClick={(e) => {
         e.stopPropagation()
         setModalOpen(true)
-        navigate(`/dashboard/notes/${noteDetails?.id}`)
+        // navigate(`/dashboard/notes/${noteDetails?.id}`)
       }}>
         <div className='note-card-title'>
           {noteDetails?.title}

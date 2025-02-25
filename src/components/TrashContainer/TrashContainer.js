@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import NoteCard from '../NoteCard/NoteCard'
 import './TrashContainer.scss'
 import { getTrashNotes } from '../../api'
@@ -16,10 +16,18 @@ export default function TrashContainer() {
       .catch(err => console.log(err))
   }
 
-  const handleTrashNotes = (payload) => {
-    setTrashNotesList(prev => (
-      prev.filter(note => note.id !== payload?.id)
-    ))
+  const handleTrashNotes = (payload, action) => {
+    if (action === 'update') {
+      setTrashNotesList(prev => (
+        prev.map(note => (
+          note.id === payload.id ? payload : note
+        ))
+      ))
+    } else {
+      setTrashNotesList(prev => (
+        prev.filter(note => note.id !== payload?.id)
+      ))
+    }
   }
 
   return (
