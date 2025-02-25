@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoBrushOutline } from "react-icons/io5";
 import './AddNote.scss'
-import { addNote } from '../../api';
+import { addNote, updateNote } from '../../api';
 import { LuBellPlus } from "react-icons/lu";
 import { RiUserAddLine } from "react-icons/ri";
 import { IoColorPaletteOutline } from "react-icons/io5";
@@ -19,17 +19,26 @@ import { AiOutlineDelete } from "react-icons/ai";
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function AddNote({ handleNotes }) {
+function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
+
+    const idParams = useParams()
+    const { id } = idParams
+    console.log(id)
+    console.log(noteDetails?.id)
+    console.log(id === noteDetails?.id)
+
+    const navigate = useNavigate()
 
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
 
     const [formData, setFormData] = useState({
-        title: '',
-        description: ''
+        title: noteDetails?.title || '',
+        description: noteDetails?.description || ''
     })
-    const [isExpanded, setIsExpanded] = useState(false)
+    const [isExpanded, setIsExpanded] = useState(noteDetails ? true : false)
 
     const containerRef = useRef(null)
 
@@ -50,7 +59,7 @@ function AddNote({ handleNotes }) {
 
     const handleToggleMenuIcon = () => {
         setOpen((prevOpen) => !prevOpen);
-      };
+    };
 
     function handleListKeyDown(event) {
         if (event.key === 'Tab') {
@@ -82,9 +91,10 @@ function AddNote({ handleNotes }) {
     }
 
     const handleToggle = () => {
+        // noteDetails && setModalOpen(false)
         setIsExpanded(prev => !prev)
 
-        if (isExpanded) {
+        if (isExpanded && !noteDetails) {
             addNote(formData)
                 .then(res => {
                     handleNotes(res?.data?.status?.details, 'add')
@@ -96,7 +106,15 @@ function AddNote({ handleNotes }) {
                 title: '',
                 description: ''
             })
-        }
+        } else if (noteDetails) {
+            updateNote({ ...noteDetails, title: formData.title, description: formData.description, noteId: noteDetails.id })
+                .then((res) => {
+                    handleIconClick({ ...noteDetails, title: formData.title, description: formData.description}, 'update')
+                })
+                .catch(err => console.log(err))
+
+            setModalOpen(false)
+            navigate(`/dashboard/notes`)        }
     }
 
     const handleClickOutside = (e) => {
@@ -129,14 +147,14 @@ function AddNote({ handleNotes }) {
                     ) :
                         (
                             <>
-                                <div ref={containerRef} className='add-note-expanded-container'>
-                                    <div className='add-note-expanded-title'>
+                                <div ref={containerRef} className={`${noteDetails ? 'add-note-expanded-container-editMode' : 'add-note-expanded-container'}`}>
+                                    <div className={`${noteDetails ? 'add-note-expanded-title-editMode' : 'add-note-expanded-title'}`}>
                                         <input type='text' name='title' value={formData.title} onChange={handleChange} placeholder='Title' />
                                         {/* <span>pin</span> */}
                                     </div>
                                     <input type='text' name='description' value={formData.description} onChange={handleChange} placeholder='Take a note...' />
                                     <div className='add-note-expanded-icons-container'>
-                                        <div className='add-note-icon-container'>
+                                        <div className={`${noteDetails ? 'add-note-icon-container-editMode' : 'add-note-icon-container'}`}>
                                             <div className='add-note-icons-expanded'>
                                                 <LuBellPlus />
                                             </div>
@@ -151,14 +169,14 @@ function AddNote({ handleNotes }) {
                                             </div>
 
                                             <div
-                                                className='add-note-icons'
+                                                className='add-note-icons-expanded'
                                                 ref={anchorRef}
                                                 id="composition-button"
                                                 aria-controls={open ? 'composition-menu' : undefined}
                                                 aria-expanded={open ? 'true' : undefined}
                                                 aria-haspopup="true"
                                                 onClick={handleToggleMenuIcon}
-                                                
+
                                             >
                                                 <BsThreeDotsVertical />
                                                 <Popper
@@ -187,9 +205,9 @@ function AddNote({ handleNotes }) {
                                                                         aria-labelledby="composition-button"
                                                                         onKeyDown={handleListKeyDown}
                                                                     >
-                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Delete Note</MenuItem>
-                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}></MenuItem>
-                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add drawing</MenuItem>
+                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '.8rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add label</MenuItem>
+                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '.8rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add drawing</MenuItem>
+                                                                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '.8rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Show checkboxes</MenuItem>
                                                                     </MenuList>
                                                                 </ClickAwayListener>
                                                             </Paper>
@@ -198,7 +216,10 @@ function AddNote({ handleNotes }) {
                                                 </Popper>
                                             </div>
                                         </div>
-                                        <button onClick={handleToggle}>Close</button>
+                                        <button onClick={() => {
+                                            handleToggle()
+                                        }
+                                        }>Close</button>
                                     </div>
                                 </div>
                             </>

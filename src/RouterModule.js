@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Register from './components/Register/Register'
-import Login from './components/Login/Login'
+import Register from './components/register/Register'
+import Login from './components/login/Login'
 import DashboardContainer from './components/DashboardContainer/DashboardContainer'
 import NotesContainer from './components/NotesContainer/NotesContainer'
 import TrashContainer from './components/TrashContainer/TrashContainer'
@@ -24,7 +24,11 @@ const RouterModule = () => {
           element:<DashboardContainer/>,
           children:[
             {
-              path:"notes",
+              path:"notes/",
+              element:<NotesContainer/>
+            },
+            {
+              path:"notes/:id",
               element:<NotesContainer/>
             },
             {

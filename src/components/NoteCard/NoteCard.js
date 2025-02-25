@@ -20,17 +20,25 @@ import { MdDelete } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaTrashRestoreAlt } from "react-icons/fa";
 import { archiveNote, deleteForeverNotes, trashNote } from '../../api';
+import Modal from '@mui/material/Modal';
+import AddNote from '../NotesContainer/AddNote';
+import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 
 function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...props }) {
 
+  const navigate  = useNavigate()
+
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+
+  const [modalOpen, setModalOpen] = useState(false)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleIconClick = (action) => {
+  const handleIconClick = (noteDetailsParam=null,action) => {
     const archivePayload = {
       noteIdList: [noteDetails?.id],
       isArchived: true
@@ -91,6 +99,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
         .catch(err => {
           console.log(err.message)
         })
+    } else if (action === 'update') {
+      handleNotes(noteDetailsParam, 'update')
     }
   }
 
@@ -122,10 +132,13 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
 
   return (
     <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick}>
-      <div className="note-card-content">
+      <div className="note-card-content" onClick={(e) => {
+        e.stopPropagation()
+        setModalOpen(true)
+        navigate(`/dashboard/notes/${noteDetails?.id}`)
+      }}>
         <div className='note-card-title'>
           {noteDetails?.title}
-
           <div className='note-card-title-pin note-card-icon'>
             <BsPin />
           </div>
@@ -215,6 +228,15 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
           </div>
         </div>
       }
+      <Modal
+        open={modalOpen}
+        // onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        onclick={() => setModalOpen(false)}
+      >
+          <AddNote setModalOpen={setModalOpen} noteDetails={noteDetails} handleIconClick={handleIconClick} />
+      </Modal>
     </div>
   )
 }

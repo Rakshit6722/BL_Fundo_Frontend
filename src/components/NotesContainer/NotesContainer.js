@@ -12,7 +12,7 @@ export default function NotesContainer() {
     useEffect(() => {
         getNotes().then((data) => {
             console.log("data", data)
-            setNotesList(data?.data?.data?.data.filter((note)=> note.isDeleted === false && note.isArchived === false))
+            setNotesList(data?.data?.data?.data.filter((note) => note.isDeleted === false && note.isArchived === false))
         })
     }, [])
 
@@ -23,9 +23,15 @@ export default function NotesContainer() {
                 ...prev
             ])
             )
-        }else if(action === 'archive' || action === 'trash'){
+        } else if (action === 'archive' || action === 'trash') {
             setNotesList(prev => (
                 prev.filter(note => note.id !== payload?.id)
+            ))
+        } else if (action === 'update') {
+            setNotesList(prev => (
+                prev.map(note => (
+                    note.id === payload.id ? payload : note
+                ))
             ))
         }
     }
