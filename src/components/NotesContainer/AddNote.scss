@@ -116,6 +116,17 @@
     }
 }
 
+.add-note-icon-container{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.add-note-icons{
+    font-size: 1.1rem;
+    color: black;
+}
+
 @media screen and (min-width: 481px) and (max-width: 1024px){
     .add-note-container{
         width: 100%;
