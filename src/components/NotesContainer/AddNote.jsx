@@ -155,7 +155,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                     </div>
                                     <input type='text' name='description' value={formData.description} onChange={handleChange} placeholder='Take a note...' />
                                     <div className='add-note-expanded-icons-container'>
-                                        <div className={`${noteDetails ? 'add-note-icon-container-editMode' : 'add-note-icon-container'}`}>
+                                        <div className='add-note-icon-container'>
                                             <div className='add-note-icons-expanded'>
                                                 <LuBellPlus />
                                             </div>
