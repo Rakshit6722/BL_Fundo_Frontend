@@ -38,7 +38,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleIconClick = (noteDetailsParam=null,action) => {
+  const handleIconClick = (action, ...rest) => {
+    const [noteDetailsParam] = rest
     const archivePayload = {
       noteIdList: [noteDetails?.id],
       isArchived: true

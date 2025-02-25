@@ -109,7 +109,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         } else if (noteDetails) {
             updateNote({ ...noteDetails, title: formData.title, description: formData.description, noteId: noteDetails.id })
                 .then((res) => {
-                    handleIconClick({ ...noteDetails, title: formData.title, description: formData.description}, 'update')
+                    handleIconClick('update',{ ...noteDetails, title: formData.title, description: formData.description})
                 })
                 .catch(err => console.log(err))
 
