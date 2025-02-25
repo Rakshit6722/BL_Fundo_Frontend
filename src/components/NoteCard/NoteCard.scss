@@ -89,7 +89,7 @@
     -webkit-box-orient: vertical;
     margin-bottom: 0.5rem;
     flex: 1;
-    max-height: 9.6rem;
+    max-height: unset !important;
 }
 
 @media screen and (max-width: 480px) {
