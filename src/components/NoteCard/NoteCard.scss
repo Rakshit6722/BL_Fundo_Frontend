@@ -3,14 +3,12 @@
     flex-direction: column;
     width: 100%;
     max-width: 300px;
-    gap: 1rem;
-    padding: 1rem;
     border: 1px solid #e9e9e9;
     border-radius: .7rem;
     min-height: 120px;
     max-height: 200px;  
-    overflow: hidden;  
     transition: opacity .3s ease-in-out;
+    overflow: hidden;
 }
 
 .note-card-container:hover{
@@ -21,20 +19,34 @@
     opacity: 1;
 }
 
-.note-card-icons-container{
+/* Added this wrapper to control content flow */
+.note-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem 1rem 0.5rem;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.note-card-icons-container {
     width: 100%;
     display: flex;
     justify-content: space-around;
-    margin-top: .15rem;
+    padding: 0.5rem 0.5rem 0.75rem;
+    margin-top: auto; /* Push to bottom */
+    border-top: 1px solid transparent; /* Adds visual separation without taking space */
 }
 
-.note-card-delete-icons-container{
-     width: 100%;
+.note-card-delete-icons-container {
+    width: 100%;
     display: flex;
     gap: .5rem;
+    padding: 0.5rem 1rem 0.75rem;
+    margin-top: auto; /* Push to bottom */
 }
 
-.note-card-icon{
+.note-card-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,17 +56,17 @@
     width: 32px;
     padding: .25rem;
     border-radius: 50%;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
-.delete-icon{
+.delete-icon {
     font-size: 1.3rem;
 }
 
-.note-card-icon:hover{
+.note-card-icon:hover {
     cursor: pointer;
     background-color: #e9e9e991;
 }
-
 
 .note-card-title {
     font-weight: 500;
@@ -65,26 +77,28 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
+    margin-bottom: 0.5rem;
 }
 
 .note-card-description {
     font-size: 1.2rem;
-    max-height: 3.6rem;  
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; 
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
     -webkit-box-orient: vertical;
+    margin-bottom: 0.5rem;
+    flex: 1;
+    max-height: 9.6rem;
 }
 
-@media screen and (max-width: 480px){
-
-    .note-card-container{
+@media screen and (max-width: 480px) {
+    .note-card-container {
         transition: none;
         max-width: 250px;
     }
 
-    .note-card-container:hover{
+    .note-card-container:hover {
         box-shadow: unset;
     }
 
@@ -92,5 +106,4 @@
         opacity: 1;
         visibility: visible;
     }
-    
 }

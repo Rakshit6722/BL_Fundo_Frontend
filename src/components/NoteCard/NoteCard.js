@@ -23,9 +23,6 @@ import { archiveNote, deleteForeverNotes, trashNote } from '../../api';
 
 function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...props }) {
 
-  console.log("note", noteDetails)
-  // console.log("archive note", archiveNoteDetails)
-
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
@@ -125,15 +122,17 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
 
   return (
     <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick}>
-      <div className='note-card-title'>
-        {noteDetails?.title}
+      <div className="note-card-content">
+        <div className='note-card-title'>
+          {noteDetails?.title}
 
-        <div className='note-card-title-pin note-card-icon'>
-          <BsPin />
+          <div className='note-card-title-pin note-card-icon'>
+            <BsPin />
+          </div>
         </div>
-      </div>
-      <div className='note-card-description'>
-        {noteDetails?.description}
+        <div className='note-card-description'>
+          {noteDetails?.description}
+        </div>
       </div>
       {
         (container === 'notes' || container === 'archive') && <div className='note-card-icons-container'>
@@ -190,7 +189,6 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...p
                   <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
                       <MenuList
-                        // autoFocusItem={open}
                         id="composition-menu"
                         aria-labelledby="composition-button"
                         onKeyDown={handleListKeyDown}
