@@ -30,8 +30,8 @@ export default function TrashContainer() {
             <div className='show-trash-notes-note-container'>
               <NoteCard
                 container={'delete'}
-                trashNotesDetails={note}
-                handleTrashNotes={handleTrashNotes}
+                noteDetails={note}
+                handleNotes={handleTrashNotes}
               />
             </div>
           ))

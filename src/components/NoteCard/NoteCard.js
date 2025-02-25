@@ -21,10 +21,10 @@ import { MdDeleteForever } from "react-icons/md";
 import { FaTrashRestoreAlt } from "react-icons/fa";
 import { archiveNote, deleteForeverNotes, trashNote } from '../../api';
 
-function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTrashNotes, container, isActive, onClick, handleNotes, handleArchiveNotes, ...props }) {
+function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, ...props }) {
 
   console.log("note", noteDetails)
-  console.log("archive note", archiveNoteDetails)
+  // console.log("archive note", archiveNoteDetails)
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -39,7 +39,7 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
       isArchived: true
     }
     const unarchivePayload = {
-      noteIdList: [archiveNoteDetails?.id],
+      noteIdList: [noteDetails?.id],
       isArchived: false
     }
     const trashPayload = {
@@ -47,11 +47,11 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
       isDeleted: true
     }
     const restorePayload = {
-      noteIdList: [trashNotesDetails?.id],
+      noteIdList: [noteDetails?.id],
       isDeleted: false
     }
     const deleteForeverPayload = {
-      noteIdList: [trashNotesDetails?.id],
+      noteIdList: [noteDetails?.id],
       isDeleted: true
     }
     if (action === 'archive') {
@@ -73,23 +73,23 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
     } else if (action === 'unarchive') {
       archiveNote(unarchivePayload)
         .then(() => {
-          handleArchiveNotes(archiveNoteDetails)
+          handleNotes(noteDetails, 'archive')
         })
         .catch(err => {
           console.log(err.message)
         })
-    } else if(action === 'restore'){
+    } else if (action === 'restore') {
       trashNote(restorePayload)
         .then(() => {
-          handleTrashNotes(trashNotesDetails)
+          handleNotes(noteDetails, 'restore')
         })
         .catch(err => {
           console.log(err.message)
         })
-    }else if(action === 'deleteForever'){
+    } else if (action === 'deleteForever') {
       deleteForeverNotes(deleteForeverPayload)
         .then(() => {
-          handleTrashNotes(trashNotesDetails)
+          handleNotes(noteDetails, 'deleteForever')
         })
         .catch(err => {
           console.log(err.message)
@@ -126,20 +126,14 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
   return (
     <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick}>
       <div className='note-card-title'>
-        {(noteDetails && Object.keys(noteDetails).length > 0) ? noteDetails.title
-          : (archiveNoteDetails && Object.keys(archiveNoteDetails).length > 0) ? archiveNoteDetails.title
-            : (trashNotesDetails && Object.keys(trashNotesDetails).length > 0) ? trashNotesDetails.title
-              : ""}
+        {noteDetails?.title}
 
         <div className='note-card-title-pin note-card-icon'>
           <BsPin />
         </div>
       </div>
       <div className='note-card-description'>
-        {(noteDetails && Object.keys(noteDetails).length > 0) ? noteDetails.description
-          : (archiveNoteDetails && Object.keys(archiveNoteDetails).length > 0) ? archiveNoteDetails.description
-            : (trashNotesDetails && Object.keys(trashNotesDetails).length > 0) ? trashNotesDetails.description
-              : ""}
+        {noteDetails?.description}
       </div>
       {
         (container === 'notes' || container === 'archive') && <div className='note-card-icons-container'>

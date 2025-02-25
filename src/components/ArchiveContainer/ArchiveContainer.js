@@ -13,7 +13,7 @@ export default function ArchiveContainer() {
 
   const getArchiveNotesList = () => {
     getArchiveNotes()
-      .then((res) => setArchiveNotesList(res?.data?.data?.data))
+      .then((res) => setArchiveNotesList(res?.data?.data?.data.filter(note => note.isArchived === true && note.isDeleted === false)))
       .catch(err => console.log(err))
   }
 
@@ -31,8 +31,8 @@ export default function ArchiveContainer() {
             <div className='show-archiv-notes-note-container'>
               <NoteCard
                 container={'archive'}
-                archiveNoteDetails={note}
-                handleArchiveNotes={handleArchiveNotes}
+                noteDetails={note}
+                handleNotes={handleArchiveNotes}
               />
             </div>
           ))
