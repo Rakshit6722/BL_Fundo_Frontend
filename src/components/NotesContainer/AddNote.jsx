@@ -132,21 +132,21 @@ function AddNote({ handleNotes }) {
                                 <div ref={containerRef} className='add-note-expanded-container'>
                                     <div className='add-note-expanded-title'>
                                         <input type='text' name='title' value={formData.title} onChange={handleChange} placeholder='Title' />
-                                        <span>pin</span>
+                                        {/* <span>pin</span> */}
                                     </div>
                                     <input type='text' name='description' value={formData.description} onChange={handleChange} placeholder='Take a note...' />
                                     <div className='add-note-expanded-icons-container'>
                                         <div className='add-note-icon-container'>
-                                            <div className='add-note-icons'>
+                                            <div className='add-note-icons-expanded'>
                                                 <LuBellPlus />
                                             </div>
-                                            <div className='add-note-icons'>
+                                            <div className='add-note-icons-expanded'>
                                                 <RiUserAddLine />
                                             </div>
-                                            <div className='add-note-icons'>
+                                            <div className='add-note-icons-expanded'>
                                                 <IoColorPaletteOutline />
                                             </div>
-                                            <div className='add-note-icons'>
+                                            <div className='add-note-icons-expanded'>
                                                 <MdOutlineImage />
                                             </div>
 
