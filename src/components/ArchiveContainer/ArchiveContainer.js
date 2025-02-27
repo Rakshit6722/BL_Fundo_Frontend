@@ -6,6 +6,7 @@ import NoteCard from '../NoteCard/NoteCard'
 export default function ArchiveContainer() {
 
   const [archiveNotesList, setArchiveNotesList] = useState([])
+  const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
   useEffect(() => {
     getArchiveNotesList()
@@ -41,6 +42,8 @@ export default function ArchiveContainer() {
                 container={'archive'}
                 noteDetails={note}
                 handleNotes={handleArchiveNotes}
+                colorPaletteActive={colorPaletteActive}
+                setColorPaletteActive={setColorPaletteActive}
               />
             </div>
           ))

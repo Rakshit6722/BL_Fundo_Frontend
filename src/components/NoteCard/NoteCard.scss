@@ -1,3 +1,7 @@
+.notes-card-main-container {
+    position: relative;
+}
+
 .note-card-container {
     display: flex;
     flex-direction: column;
@@ -6,16 +10,16 @@
     border: 1px solid #e9e9e9;
     border-radius: .7rem;
     min-height: 120px;
-    max-height: 200px;  
+    max-height: 200px;
     transition: opacity .3s ease-in-out;
     overflow: hidden;
 }
 
-.note-card-container:hover{
+.note-card-container:hover {
     box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
 }
 
-.note-card-container:hover .note-card-icon{
+.note-card-container:hover .note-card-icon {
     opacity: 1;
 }
 
@@ -34,8 +38,10 @@
     display: flex;
     justify-content: space-around;
     padding: 0.5rem 0.5rem 0.75rem;
-    margin-top: auto; /* Push to bottom */
-    border-top: 1px solid transparent; /* Adds visual separation without taking space */
+    margin-top: auto;
+    /* Push to bottom */
+    border-top: 1px solid transparent;
+    /* Adds visual separation without taking space */
 }
 
 .note-card-delete-icons-container {
@@ -43,7 +49,8 @@
     display: flex;
     gap: .5rem;
     padding: 0.5rem 1rem 0.75rem;
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto;
+    /* Push to bottom */
 }
 
 .note-card-icon {
@@ -59,6 +66,17 @@
     transition: opacity 0.2s ease, background-color 0.2s ease;
 }
 
+
+// .note-card-container.active .note-card-icon {
+//     opacity: 1;
+//     visibility: visible;
+// }
+.note-card-icons-container.visible-icons .note-card-icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+
 .delete-icon {
     font-size: 1.3rem;
 }
@@ -71,9 +89,9 @@
 .note-card-title {
     font-weight: 500;
     font-size: 1.2rem;
-    white-space: nowrap;  
-    overflow: hidden;     
-    text-overflow: ellipsis; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -85,11 +103,112 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    -webkit-line-clamp: 3;
+    /* Limit to 3 lines */
     -webkit-box-orient: vertical;
     margin-bottom: 0.5rem;
     flex: 1;
     max-height: unset !important;
+}
+
+.color-palate-cnt {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 200%;
+    gap: .25rem;
+    padding: 4px 12px;
+    border-radius: 8px;
+    border: 1px solid #e9e9e9;
+    position: absolute;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
+    top: 90%;
+    left: -100px;
+}
+
+.color-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 200px;
+    margin: 8px 0px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.col1 {
+    @extend .color-btn;
+    background-color: #FFFFFF;
+    border: 1px solid #e7e7bc;
+}
+
+.col2 {
+    @extend .color-btn;
+    background-color: #FAAFA8;
+    border: 1px solid #FAAFA8;
+}
+
+.col3 {
+    @extend .color-btn;
+    background-color: #F39F76;
+    border: 1px solid #F39F76;
+}
+
+.col4 {
+    @extend .color-btn;
+    background-color: #FFF8B8;
+    border: 1px solid #FFF8B8;
+}
+
+.col5 {
+    @extend .color-btn;
+    background-color: #E2F6D3;
+    border: 1px solid #E2F6D3;
+}
+
+.col6 {
+    @extend .color-btn;
+    background-color: #B4DDD3;
+    border: 1px solid #B4DDD3;
+}
+
+.col7 {
+    @extend .color-btn;
+    background-color: #D4E4ED;
+    border: 1px solid #D4E4ED;
+}
+
+.col8 {
+    @extend .color-btn;
+    background-color: #AECCDC;
+    border: 1px solid #AECCDC;
+}
+
+.col9 {
+    @extend .color-btn;
+    background-color: #D3BFDB;
+    border: 1px solid #D3BFDB;
+}
+
+.col10 {
+    @extend .color-btn;
+    background-color: #F6E2DD;
+    border: 1px solid #F6E2DD;
+}
+
+.col11 {
+    @extend .color-btn;
+    background-color: #E9E3D4;
+    border: 1px solid #E9E3D4;
+}
+
+.col12 {
+    @extend .color-btn;
+    background-color: #EFEFF1;
+    border: 1px solid #EFEFF1;
 }
 
 @media screen and (max-width: 480px) {
@@ -102,8 +221,13 @@
         box-shadow: unset;
     }
 
-    .note-card-container.active .note-card-icon {  
+    .note-card-container.active .note-card-icon {
         opacity: 1;
         visibility: visible;
+    }
+
+    .color-palate-cnt {
+        width: 70%;
+        left: 27px;
     }
 }

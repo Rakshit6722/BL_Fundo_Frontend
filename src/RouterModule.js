@@ -24,21 +24,29 @@ const RouterModule = () => {
           element:<DashboardContainer/>,
           children:[
             {
-              path:"notes/",
+              path:"notes",
               element:<NotesContainer/>
             },
-            {
-              path:"notes/:id",
-              element:<NotesContainer/>
-            },
+            // {
+            //   path:"notes/:id",
+            //   element:<NotesContainer/>
+            // },
             {
               path:"archive",
               element:<ArchiveContainer/>
             },
+            // {
+            //   path:"archive/:id",
+            //   element:<ArchiveContainer/>
+            // },
             {
               path:"trash",
               element:<TrashContainer/>
             },
+            // {
+            //   path:"trash/:id",
+            //   element:<TrashContainer/>
+            // },
           ]
         }
     ])

@@ -37,7 +37,7 @@ export default function TrashContainer() {
           trashNotesList.map((note) => (
             <div className='show-trash-notes-note-container'>
               <NoteCard
-                container={'delete'}
+                container={'trash'}
                 noteDetails={note}
                 handleNotes={handleTrashNotes}
               />

@@ -76,3 +76,12 @@ export const updateNote = (payload) => {
         }
     })
 }
+
+
+export const changeColor = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/changesColorNotes`,payload,{
+        headers:{
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}

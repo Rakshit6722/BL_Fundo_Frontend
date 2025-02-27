@@ -25,9 +25,6 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
 
     const idParams = useParams()
     const { id } = idParams
-    console.log(id)
-    console.log(noteDetails?.id)
-    console.log(id === noteDetails?.id)
 
     const navigate = useNavigate()
 
@@ -94,7 +91,12 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         // noteDetails && setModalOpen(false)
         setIsExpanded(prev => !prev)
 
-        if (isExpanded && !noteDetails) {
+        if(isExpanded && !formData.title){
+            alert('Please enter title')
+            return
+        }
+
+        if (isExpanded && (formData.title) && !noteDetails) {
             addNote(formData)
                 .then(res => {
                     handleNotes(res?.data?.status?.details, 'add')
@@ -109,13 +111,17 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         } else if (noteDetails) {
             updateNote({ ...noteDetails, title: formData.title, description: formData.description, noteId: noteDetails.id })
                 .then((res) => {
-                    handleIconClick('update',{ ...noteDetails, title: formData.title, description: formData.description})
+                    handleIconClick('update', { ...noteDetails, title: formData.title, description: formData.description })
                 })
                 .catch(err => console.log(err))
 
             setModalOpen(false)
             // navigate(`/dashboard/notes`)   
-             }
+        }
+        setFormData({
+            title: '',
+            description: ''
+        })
     }
 
     const handleClickOutside = (e) => {
@@ -125,6 +131,8 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
             }
         }
     }
+
+
 
     return (
         <div className='add-note-main-container'>

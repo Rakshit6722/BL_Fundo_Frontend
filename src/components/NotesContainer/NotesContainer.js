@@ -8,11 +8,12 @@ export default function NotesContainer() {
 
     const [notesList, setNotesList] = useState([])
     const [isActive, setIsActive] = useState(null)
+    const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
     useEffect(() => {
         getNotes().then((data) => {
             console.log("data", data)
-            setNotesList(data?.data?.data?.data.filter((note) => note.isDeleted === false && note.isArchived === false))
+            setNotesList(data?.data?.data?.data.filter((note) => note.isDeleted === false && note.isArchived === false).reverse())
         })
     }, [])
 
@@ -56,6 +57,8 @@ export default function NotesContainer() {
                                 isActive={isActive === note?.id}
                                 onClick={() => handleCardClick(note?.id)}
                                 handleNotes={handleNotes}
+                                colorPaletteActive={colorPaletteActive}
+                                setColorPaletteActive={setColorPaletteActive}
                             />
                         </div>
                     ))

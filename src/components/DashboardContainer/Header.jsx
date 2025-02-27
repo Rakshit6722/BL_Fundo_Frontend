@@ -54,7 +54,7 @@ function Header({ handleSetOpen }) {
                         <IoIosMenu className='menu-logo' />
                     </div>
                     <img src={keepLogo} alt='keep_logo' />
-                    <p>Keep</p>
+                    <p>Fundo</p>
                 </div>
                 <div className='header-search-container'>
                     <div className='header-search-icon-container'>
