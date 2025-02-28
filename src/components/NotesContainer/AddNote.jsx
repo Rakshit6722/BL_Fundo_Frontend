@@ -39,6 +39,8 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
 
     const containerRef = useRef(null)
 
+    const textAreaRef = useRef(null)
+
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside)
 
@@ -133,6 +135,13 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
     }
 
 
+    const handleTextAreaHeight = () => {
+        const textArea = textAreaRef.current
+        textArea.style.height = 'auto'
+        textArea.style.height = `${textArea.scrollHeight}px`
+    }
+
+
 
     return (
         <div className='add-note-main-container'>
@@ -161,7 +170,10 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                         <input type='text' name='title' value={formData.title} onChange={handleChange} placeholder='Title' />
                                         {/* <span>pin</span> */}
                                     </div>
-                                    <input type='text' name='description' value={formData.description} onChange={handleChange} placeholder='Take a note...' />
+                                    <textarea ref={textAreaRef} className='add-note-expanded-container-desc-field' type='text' name='description' value={formData.description} onChange={(e) => {
+                                        handleChange(e)
+                                        handleTextAreaHeight()
+                                    }} placeholder='Take a note...' ></textarea>
                                     <div className='add-note-expanded-icons-container'>
                                         <div className='add-note-icon-container'>
                                             <div className='add-note-icons-expanded'>

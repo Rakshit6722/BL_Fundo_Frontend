@@ -1,4 +1,4 @@
-.add-note-main-container{
+.add-note-main-container {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -7,14 +7,14 @@
     padding: 2rem;
 }
 
-.add-note-sub-container{
+.add-note-sub-container {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.add-note-container{
+.add-note-container {
     padding: .5rem .7rem;
     width: 50%;
     display: flex;
@@ -22,17 +22,17 @@
     background-color: #ffffff;
     box-shadow: 0px 2.5px 6px 2px rgba(121, 121, 121, 0.358);
 
-    input{
+    input {
         width: 100%;
         // padding: 2rem;
         // min-height: 45px;
         // padding: 1rem;
         border: none;
         outline: none;
-       
+
     }
 
-    input::placeholder{
+    input::placeholder {
         color: #2b2b2b;
         font-size: 1rem;
         font-weight: 500;
@@ -40,20 +40,20 @@
     }
 }
 
-.add-note-icons-container{
+.add-note-icons-container {
     display: flex;
     align-items: center;
     gap: 1.2rem;
 }
 
-.add-note-icons{
+.add-note-icons {
     font-size: 1.5rem;
     color: #525151;
     margin-right: .5rem;
     cursor: pointer;
 }
 
-.add-note-expanded-container{
+.add-note-expanded-container {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -63,22 +63,23 @@
     padding: .6rem;
     border-radius: 7px;
     box-shadow: 0px 2.5px 6px 2px rgba(121, 121, 121, 0.358);
+    gap: .8rem;
 
-    input{
+    input {
         border: none;
         outline: none;
-        padding: .5rem; 
+        padding: .5rem;
     }
 
-    input::placeholder{
+    input::placeholder {
         color: #444444;
         font-size: .8rem;
-        font-weight: 500;
+        font-weight: 800;
         letter-spacing: .05em;
     }
 }
 
-.add-note-expanded-container-editMode{
+.add-note-expanded-container-editMode {
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -94,15 +95,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
 
-    input{
+    input {
         border: none;
         outline: none;
         font-size: 1rem;
-        padding: .5rem; 
+        padding: .5rem;
     }
 
 
-    input::placeholder{
+    input::placeholder {
         color: #444444;
         font-size: 1rem;
         font-weight: 500;
@@ -110,46 +111,65 @@
     }
 }
 
-.add-note-expanded-title{
+.add-note-expanded-container-desc-field {
+    outline: none;
+    border: none;
+    padding: 0px 0.75rem;
+    height: auto;
+    /* width: 289px; */
+    resize: none;
+
+    ::placeholder {
+        color: #444444;
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: .05em;
+    }
+}
+
+.add-note-expanded-title {
     display: flex;
     align-items: center;
-    input{
+
+    input {
         flex: 1;
         outline: none;
         border: none;
     }
 
-    input::placeholder{
+    input::placeholder {
         color: #444444;
         font-size: 1rem;
         font-weight: 500;
     }
 }
-.add-note-expanded-title-editMode{
+
+.add-note-expanded-title-editMode {
     display: flex;
     align-items: center;
-    input{
+
+    input {
         flex: 1;
         outline: none;
         border: none;
         font-size: 1.3rem;
     }
 
-    input::placeholder{
+    input::placeholder {
         color: #444444;
         font-size: 1.3rem;
         font-weight: 500;
     }
 }
 
-.add-note-expanded-icons-container{
+.add-note-expanded-icons-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0rem .5rem;
     width: 100%;
 
-    button{
+    button {
         padding: .6rem 1.8rem;
         font-weight: 500;
         outline: none;
@@ -158,27 +178,27 @@
         margin-right: 1.5rem;
     }
 
-    button:hover{
+    button:hover {
         background-color: #f1f1f16c;
         border-radius: 7px;
         cursor: pointer;
     }
 }
 
-.add-note-icon-container{
+.add-note-icon-container {
     display: flex;
     align-items: center;
     // gap: 2em;
 }
 
-.add-note-icon-container-editMode{
+.add-note-icon-container-editMode {
     display: flex;
     align-items: center;
     gap: 2em;
     margin-top: 1.25rem;
 }
 
-.add-note-icons-expanded{
+.add-note-icons-expanded {
     font-size: 1.1rem;
     color: black;
     width: 40px;
@@ -189,64 +209,66 @@
     border-radius: 50%;
 }
 
-.add-note-icons-expanded:hover{
+.add-note-icons-expanded:hover {
     cursor: pointer;
     background-color: #e9e9e991;
 
 }
 
-@media screen and (min-width: 481px) and (max-width: 1024px){
-    .add-note-container{
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    .add-note-container {
         width: 100%;
     }
 
     .add-note-expanded-container {
         width: 100%;
     }
+
     .add-note-expanded-container-editMode {
         width: 70%;
     }
-    
+
 }
 
-@media screen and (max-width: 480px){
-    .add-note-container{
+@media screen and (max-width: 480px) {
+    .add-note-container {
         width: 100%;
     }
 
-    .add-note-main-container{
+    .add-note-main-container {
         padding: 0 1rem;
     }
 
-    .add-note-icons-container{
+    .add-note-icons-container {
         gap: .8rem;
     }
 
-    .add-note-icons{
+    .add-note-icons {
         font-size: 1.1rem;
         // font-weight: bold;
     }
 
-    .add-note-container{
-        input::placeholder{
+    .add-note-container {
+        input::placeholder {
             font-size: .9rem;
         }
     }
 
-    .add-note-expanded-container{
+    .add-note-expanded-container {
         width: 100%;
     }
-    .add-note-expanded-container-editMode{
+
+    .add-note-expanded-container-editMode {
         width: 90%;
     }
 
-    .add-note-expanded-icons-container{
-        button{
+    .add-note-expanded-icons-container {
+        button {
             margin-right: unset;
         }
     }
 
-    .add-note-expanded-icons-container{
+    .add-note-expanded-icons-container {
         flex-direction: column;
         align-items: end;
     }
