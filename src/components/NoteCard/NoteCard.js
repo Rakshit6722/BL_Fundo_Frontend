@@ -227,6 +227,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                   transition
                   disablePortal
                   sx={{
+                    zIndex: 15,
                     borderRadius: "7px"
                   }}
                 >
@@ -238,7 +239,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                           placement === 'bottom-start' ? 'left top' : 'left bottom',
                       }}
                     >
-                      <Paper>
+                      <Paper >
                         <ClickAwayListener onClickAway={handleClose}>
                           <MenuList
                             id="composition-menu"
