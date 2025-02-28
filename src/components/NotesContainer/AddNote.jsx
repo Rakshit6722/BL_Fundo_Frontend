@@ -91,10 +91,10 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         // noteDetails && setModalOpen(false)
         setIsExpanded(prev => !prev)
 
-        if(isExpanded && !formData.title){
-            alert('Please enter title')
-            return
-        }
+        // if(isExpanded && !formData.title){
+        //     alert('Please enter title')
+        //     return
+        // }
 
         if (isExpanded && (formData.title) && !noteDetails) {
             addNote(formData)

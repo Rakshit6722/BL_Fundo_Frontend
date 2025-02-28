@@ -230,6 +230,17 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                     zIndex: 15,
                     borderRadius: "7px"
                   }}
+                  modifiers={[
+                    {
+                      name: 'flip',
+                      enabled: true,
+                      options: {
+                        altBoundary: true,
+                        rootBoundary: 'viewport',
+                        padding: 8,
+                      },
+                    },
+                  ]}
                 >
                   {({ TransitionProps, placement }) => (
                     <Grow

@@ -7,9 +7,15 @@ import keepLogo from '../../assets/keep_logo.png'
 import ProfileDropdown from './ProfileDropdown';
 import ProgressBar from './ProgressBar';
 import { logout } from '../../api';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Header({ handleSetOpen }) {
+
+    const location = useLocation()
+
+    console.log(location.pathname.split('/')[2])
+    console.log(location.pathname.split('/')[2] === 'archive')
+
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
@@ -46,17 +52,34 @@ function Header({ handleSetOpen }) {
         }
         return color;
     }
-    
+
 
     return (
         <>
-            <div className={`${isScrolled ? "header-main-container-shadow": ""} header-main-container`}>
+            <div className={`${isScrolled ? "header-main-container-shadow" : ""} header-main-container`}>
                 <div className='header-logo-container'>
                     <div className='menu-logo-container' onClick={handleSetOpen}>
                         <IoIosMenu className='menu-logo' />
                     </div>
-                    <img src={keepLogo} alt='keep_logo' />
-                    <p>Fundo</p>
+                    {
+                        location.pathname === '/dashboard/notes' && (
+                            <>
+                                <img src={keepLogo} alt='keep_logo' />
+                                <p>Fundo</p>
+                            </>
+                        )
+                    }
+                    {
+                        (location.pathname === '/dashboard/archive' || location.pathname === '/dashboard/trash') && (
+                            <>
+                                {/* <img src={keepLogo} alt='keep_logo' /> */}
+                                <p>{
+                                    location.pathname.split('/')[2] === 'archive' ? 'Archive' : 'Trash'
+                                }</p>
+                            </>
+                        )
+                    }
+
                 </div>
                 <div className='header-search-container'>
                     <div className='header-search-icon-container'>
