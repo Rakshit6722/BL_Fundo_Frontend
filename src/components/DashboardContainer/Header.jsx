@@ -6,27 +6,13 @@ import { MdOutlineRefresh } from "react-icons/md"
 import keepLogo from '../../assets/keep_logo.png'
 import ProfileDropdown from './ProfileDropdown';
 import ProgressBar from './ProgressBar';
+import { logout } from '../../api';
+import { useNavigate } from 'react-router-dom';
 
 function Header({ handleSetOpen }) {
-
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
-
-    const getInitials = () => {
-        let name = localStorage.getItem("firstName");
-        let initials = name?.charAt(0).toUpperCase();
-        return initials
-    }
-
-    const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
 
     useEffect(() => {
         setInitials(getInitials)
@@ -45,6 +31,22 @@ function Header({ handleSetOpen }) {
             window.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
+    const getInitials = () => {
+        let name = localStorage.getItem("firstName");
+        let initials = name?.charAt(0).toUpperCase();
+        return initials
+    }
+
+    const getRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    
 
     return (
         <>

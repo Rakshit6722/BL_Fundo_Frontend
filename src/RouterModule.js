@@ -6,53 +6,58 @@ import DashboardContainer from './components/DashboardContainer/DashboardContain
 import NotesContainer from './components/NotesContainer/NotesContainer'
 import TrashContainer from './components/TrashContainer/TrashContainer'
 import ArchiveContainer from './components/ArchiveContainer/ArchiveContainer'
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 
 const RouterModule = () => {
 
-    const routes = createBrowserRouter([
+  const routes = createBrowserRouter([
+    {
+      path: '',
+      element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
+    },
+    {
+      path: '/dashboard',
+      element: (
+        <ProtectedRoute>
+          <DashboardContainer />
+        </ProtectedRoute>
+      ),
+      children: [
         {
-            path:'',
-            element:<Login/>
+          path: "notes",
+          element: <NotesContainer />
         },
+        // {
+        //   path:"notes/:id",
+        //   element:<NotesContainer/>
+        // },
         {
-            path:'/register',
-            element:<Register/>
+          path: "archive",
+          element: <ArchiveContainer />
         },
+        // {
+        //   path:"archive/:id",
+        //   element:<ArchiveContainer/>
+        // },
         {
-          path:'/dashboard',
-          element:<DashboardContainer/>,
-          children:[
-            {
-              path:"notes",
-              element:<NotesContainer/>
-            },
-            // {
-            //   path:"notes/:id",
-            //   element:<NotesContainer/>
-            // },
-            {
-              path:"archive",
-              element:<ArchiveContainer/>
-            },
-            // {
-            //   path:"archive/:id",
-            //   element:<ArchiveContainer/>
-            // },
-            {
-              path:"trash",
-              element:<TrashContainer/>
-            },
-            // {
-            //   path:"trash/:id",
-            //   element:<TrashContainer/>
-            // },
-          ]
-        }
-    ])
+          path: "trash",
+          element: <TrashContainer />
+        },
+        // {
+        //   path:"trash/:id",
+        //   element:<TrashContainer/>
+        // },
+      ]
+    }
+  ])
 
   return (
-    <RouterProvider router={routes}/>
+    <RouterProvider router={routes} />
   )
 }
 
