@@ -165,7 +165,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
     <>
       <div className='notes-card-main-container'>
         <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick} style={{
-          backgroundColor: noteDetails?.color || 'white'
+          backgroundColor: noteDetails?.color || 'white',
         }}>
           <div className="note-card-content" onClick={(e) => {
             e.stopPropagation()
