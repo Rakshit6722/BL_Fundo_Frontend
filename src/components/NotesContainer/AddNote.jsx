@@ -48,6 +48,13 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
             document.removeEventListener("mousedown", handleClickOutside)
         }
     }, [[isExpanded]])
+
+    useEffect(() => {
+        if (formData.description) {
+            handleTextAreaHeight()
+        }
+    }, [formData.description])
+
     const handleClose = (event) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
@@ -137,7 +144,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
 
     const handleTextAreaHeight = () => {
         const textArea = textAreaRef.current
-        textArea.style.height = 'auto'
+        // textArea.style.height = 'auto'
         textArea.style.height = `${textArea.scrollHeight}px`
     }
 

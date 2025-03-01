@@ -118,6 +118,8 @@
     height: auto;
     /* width: 289px; */
     resize: none;
+    font-size: 1.1rem;
+    color: #2b2b2b;
 
     ::placeholder {
         color: #444444;
@@ -135,6 +137,7 @@
         flex: 1;
         outline: none;
         border: none;
+        font-size: 1.3rem;
     }
 
     input::placeholder {

@@ -3,6 +3,7 @@ import './Header.scss'
 import { IoIosMenu } from "react-icons/io";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5"
 import { MdOutlineRefresh } from "react-icons/md"
+import { IoCloseOutline } from "react-icons/io5";
 import keepLogo from '../../assets/keep_logo.png'
 import ProfileDropdown from './ProfileDropdown';
 import ProgressBar from './ProgressBar';
@@ -82,10 +83,13 @@ function Header({ handleSetOpen }) {
 
                 </div>
                 <div className='header-search-container'>
-                    <div className='header-search-icon-container'>
-                        <IoSearch className='header-search' />
-                    </div>
-                    <input type='text' placeholder='Search' />
+                        <div className='header-search-icon-container'>
+                            <IoSearch className='header-search' />
+                        </div>
+                        <input type='text' placeholder='Search' />
+                        <div className='header-search-close-icon-container'>
+                            <IoCloseOutline className='header-search-close' />
+                        </div>
                 </div>
                 <div className='header-additional-icons-container'>
 

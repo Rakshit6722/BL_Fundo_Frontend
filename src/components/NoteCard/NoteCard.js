@@ -25,7 +25,7 @@ import AddNote from '../NotesContainer/AddNote';
 import Box from '@mui/material/Box';
 import { useNavigate, useParams } from 'react-router-dom';
 
-function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
+function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
 
   const navigate = useNavigate()
 
@@ -233,17 +233,17 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                     zIndex: 15,
                     borderRadius: "7px"
                   }}
-                  modifiers={[
-                    {
-                      name: 'flip',
-                      enabled: true,
-                      options: {
-                        altBoundary: true,
-                        rootBoundary: 'viewport',
-                        padding: 8,
-                      },
-                    },
-                  ]}
+                  // modifiers={[
+                  //   {
+                  //     name: 'flip',
+                  //     enabled: true,
+                  //     options: {
+                  //       altBoundary: true,
+                  //       rootBoundary: 'viewport',
+                  //       padding: 8,
+                  //     },
+                  //   },
+                  // ]}
                 >
                   {({ TransitionProps, placement }) => (
                     <Grow

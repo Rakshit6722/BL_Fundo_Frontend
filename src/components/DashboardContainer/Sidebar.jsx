@@ -98,11 +98,11 @@ function Sidebar({ open }) {
             whiteSpace: 'nowrap',
             boxSizing: 'border-box',
             // position: 'relative',
-            top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
+            top: drawerWidth > 250 ? "62px" : drawerWidth > 210 ? "64px" : "40px",
             overflow: 'hidden',
             '& .MuiDrawer-paper': {
                 // position: 'relative',
-                top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
+                top: drawerWidth > 250 ? "62px" : drawerWidth > 210 ? "64px" : "40px",
                 height: '100vh',
                 boxShadow: drawerWidth <= 210 ? open ? "0 2px 4px rgba(3, 3, 3, 0.418)" : "none" : "none",
                 borderRight: "none",

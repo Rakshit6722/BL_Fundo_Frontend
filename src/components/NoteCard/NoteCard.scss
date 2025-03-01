@@ -88,7 +88,7 @@
 }
 
 .note-card-title {
-    font-weight: 500;
+    font-weight: bold;
     font-size: 1.2rem;
     white-space: nowrap;
     overflow: hidden;
@@ -97,19 +97,23 @@
     width: 100%;
     justify-content: space-between;
     margin-bottom: 0.5rem;
+    color: #2b2b2b;
+    letter-spacing: 0.035em;
 }
 
 .note-card-description {
     font-size: 1.2rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    /* Limit to 3 lines */
-    -webkit-box-orient: vertical;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 3;
+    // /* Limit to 3 lines */
+    // -webkit-box-orient: vertical;
     margin-bottom: 0.5rem;
     flex: 1;
     max-height: unset !important;
+    color: #2b2b2b;
+    letter-spacing: 0.035em;
 }
 
 .color-palate-cnt {
