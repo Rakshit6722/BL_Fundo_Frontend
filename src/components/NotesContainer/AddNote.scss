@@ -170,12 +170,14 @@
     width: 100%;
 
     button {
-        padding: .6rem 1.8rem;
-        font-weight: 500;
+        padding: 0.6rem 1.8rem;
+        font-weight: bold;
         outline: none;
         border: none;
         background-color: transparent;
         margin-right: 1.5rem;
+        font-size: 1rem;
+        color: #525151;
     }
 
     button:hover {

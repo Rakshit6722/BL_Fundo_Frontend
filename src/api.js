@@ -70,6 +70,7 @@ export const deleteForeverNotes = (payload) => {
 }
 
 export const updateNote = (payload) => {
+    console.log("payload",payload)
     return axios.post(`${NOTE_BASE_URL}/updateNotes`,payload,{
         headers:{
             Authorization: localStorage.getItem('token')

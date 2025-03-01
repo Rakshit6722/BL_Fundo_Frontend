@@ -32,6 +32,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
   const [modalOpen, setModalOpen] = useState(false)
+  const [activeColor, setActiveColor] = useState(noteDetails?.color || "#FFFFFF")
+  console.log("activeColor", activeColor)
 
   const colorPaletteRef = useRef(null)
 
@@ -119,6 +121,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
     } else if (action === 'update') {
       handleNotes(noteDetailsParam, 'update')
     } else if (action === 'changeColor') {
+      setActiveColor(noteDetailsParam)
       const changeColorPayload = {
         noteIdList: [noteDetails?.id],
         color: noteDetailsParam
@@ -127,7 +130,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
       changeColor(changeColorPayload)
         .then(() => {
           handleNotes({ ...noteDetails, color: noteDetailsParam }, 'update')
-          setColorPaletteActive(null)
+          // setColorPaletteActive(null)
         })
         .catch(err => {
           console.log(err.message)
@@ -291,20 +294,21 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
         </div>
         {
           colorPaletteActive === noteDetails?.id && (
-            <div class="color-palate-cnt" ref={colorPaletteRef}>
-              <div class="col1" matTooltip="Default" onClick={() => handleIconClick("changeColor", '#FFFFFF')}></div>
-              <div class="col2" matTooltip="Coral" onClick={() => handleIconClick("changeColor", '#FAAFA8')}></div>
-              <div class="col3" matTooltip="Peach" onClick={() => handleIconClick("changeColor", '#F39F76')}></div>
-              <div class="col4" matTooltip="Sand" onClick={() => handleIconClick("changeColor", '#FFF8B8')}></div>
-              <div class="col5" matTooltip="Mint" onClick={() => handleIconClick("changeColor", '#E2F6D3')}></div>
-              <div class="col6" matTooltip="Sage" onClick={() => handleIconClick("changeColor", '#B4DDD3')}></div>
-              <div class="col7" matTooltip="Fog" onClick={() => handleIconClick("changeColor", '#D4E4ED')}></div>
-              <div class="col8" matTooltip="Storm" onClick={() => handleIconClick("changeColor", '#AECCDC')}></div>
-              <div class="col9" matTooltip="Dusk" onClick={() => handleIconClick("changeColor", '#D3BFDB')}></div>
-              <div class="col10" matTooltip="Blossom" onClick={() => handleIconClick("changeColor", '#F6E2DD')}></div>
-              <div class="col11" matTooltip="Clay" onClick={() => handleIconClick("changeColor", '#E9E3D4')}></div>
-              <div class="col12" matTooltip="Chalk" onClick={() => handleIconClick("changeColor", '#EFEFF1')}></div>
+            <div className="color-palate-cnt" ref={colorPaletteRef}>
+              <div className={`col1 ${activeColor === '#FFFFFF' ? "active" : ""}`} matTooltip="Default" onClick={() => handleIconClick("changeColor", '#FFFFFF')}></div>
+              <div className={`col2 ${activeColor === '#FAAFA8' ? "active" : ""}`} matTooltip="Coral" onClick={() => handleIconClick("changeColor", '#FAAFA8')}></div>
+              <div className={`col3 ${activeColor === '#F39F76' ? "active" : ""}`} matTooltip="Peach" onClick={() => handleIconClick("changeColor", '#F39F76')}></div>
+              <div className={`col4 ${activeColor === '#FFF8B8' ? "active" : ""}`} matTooltip="Sand" onClick={() => handleIconClick("changeColor", '#FFF8B8')}></div>
+              <div className={`col5 ${activeColor === '#E2F6D3' ? "active" : ""}`} matTooltip="Mint" onClick={() => handleIconClick("changeColor", '#E2F6D3')}></div>
+              <div className={`col6 ${activeColor === '#B4DDD3' ? "active" : ""}`} matTooltip="Sage" onClick={() => handleIconClick("changeColor", '#B4DDD3')}></div>
+              <div className={`col7 ${activeColor === '#D4E4ED' ? "active" : ""}`} matTooltip="Fog" onClick={() => handleIconClick("changeColor", '#D4E4ED')}></div>
+              <div className={`col8 ${activeColor === '#AECCDC' ? "active" : ""}`} matTooltip="Storm" onClick={() => handleIconClick("changeColor", '#AECCDC')}></div>
+              <div className={`col9 ${activeColor === '#D3BFDB' ? "active" : ""}`} matTooltip="Dusk" onClick={() => handleIconClick("changeColor", '#D3BFDB')}></div>
+              <div className={`col10 ${activeColor === '#F6E2DD' ? "active" : ""}`} matTooltip="Blossom" onClick={() => handleIconClick("changeColor", '#F6E2DD')}></div>
+              <div className={`col11 ${activeColor === '#E9E3D4' ? "active" : ""} `} matTooltip="Clay" onClick={() => handleIconClick("changeColor", '#E9E3D4')}></div>
+              <div className={`col12 ${activeColor === '#EFEFF1' ? "active" : ""}`} matTooltip="Chalk" onClick={() => handleIconClick("changeColor", '#EFEFF1')}></div>
             </div>
+
           )
         }
       </div>
