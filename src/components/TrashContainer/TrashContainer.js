@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import NoteCard from '../NoteCard/NoteCard'
 import './TrashContainer.scss'
 import { getTrashNotes } from '../../api'
+import { NotesContext } from '../../context/NotesContextProvider'
 
 export default function TrashContainer() {
-  const [trashNotesList, setTrashNotesList] = useState([])
+  // const [trashNotesList, setTrashNotesList] = useState([])
 
-  useEffect(() => {
-    getTrashNotesList()
-  }, [])
+  const {trashNotesList, setTrashNotesList} = useContext(NotesContext)
 
-  const getTrashNotesList = () => {
-    getTrashNotes()
-      .then((res) => setTrashNotesList(res?.data?.data?.data))
-      .catch(err => console.log(err))
-  }
+  // useEffect(() => {
+  //   getTrashNotesList()
+  // }, [])
+
+  // const getTrashNotesList = () => {
+  //   getTrashNotes()
+  //     .then((res) => setTrashNotesList(res?.data?.data?.data))
+  //     .catch(err => console.log(err))
+  // }
 
   const handleTrashNotes = (payload, action) => {
     if (action === 'update') {

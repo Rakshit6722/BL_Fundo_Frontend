@@ -84,6 +84,10 @@
         background-color: white;
         box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
     }
+
+    &:focus-within .header-search-close-icon-container {
+        opacity: 1;
+    }
 }
 
 .header-search-icon-container {
@@ -92,11 +96,13 @@
     align-items: center;
     justify-content: center;
 }
+
 .header-search-close-icon-container {
     padding: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
 }
 
 .header-search-icon-container:hover {
@@ -104,6 +110,7 @@
     background-color: #e0e0e0;
     border-radius: 100%;
 }
+
 .header-search-close-icon-container:hover {
     cursor: pointer;
     background-color: #e0e0e0;

@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './ArchiveContainer.scss'
 import { getArchiveNotes } from '../../api'
 import NoteCard from '../NoteCard/NoteCard'
+import NotesContextProvider, { NotesContext } from '../../context/NotesContextProvider'
 
 export default function ArchiveContainer() {
 
-  const [archiveNotesList, setArchiveNotesList] = useState([])
+  // const [archiveNotesList, setArchiveNotesList] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-  useEffect(() => {
-    getArchiveNotesList()
-  }, [])
+  const { archiveNotesList,setArchiveNotesList } = useContext(NotesContext)
+
+  // useEffect(() => {
+  //   getArchiveNotesList()
+  // }, [])
 
   const getArchiveNotesList = () => {
     getArchiveNotes()
