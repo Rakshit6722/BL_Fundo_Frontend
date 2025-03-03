@@ -106,6 +106,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         // }
 
         if (isExpanded && (formData.title) && !noteDetails) {
+            if(textAreaRef.current) textAreaRef.current.focus()
             addNote(formData)
                 .then(res => {
                     handleNotes(res?.data?.status?.details, 'add')
@@ -144,11 +145,9 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
 
     const handleTextAreaHeight = () => {
         const textArea = textAreaRef.current
-        // textArea.style.height = 'auto'
+        textArea.style.height = 'auto'
         textArea.style.height = `${textArea.scrollHeight}px`
     }
-
-
 
     return (
         <div className='add-note-main-container'>
@@ -180,7 +179,12 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                     <textarea ref={textAreaRef} className='add-note-expanded-container-desc-field' type='text' name='description' value={formData.description} onChange={(e) => {
                                         handleChange(e)
                                         handleTextAreaHeight()
-                                    }} placeholder='Take a note...' ></textarea>
+                                    }} placeholder='Take a note...'
+                                    style={{
+                                        maxHeight:"500px",
+                                        overflowY: 'auto'
+                                    }}
+                                    ></textarea>
                                     <div className='add-note-expanded-icons-container'>
                                         <div className='add-note-icon-container'>
                                             <div className='add-note-icons-expanded'>

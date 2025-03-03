@@ -1,13 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import NoteCard from '../NoteCard/NoteCard'
 import './TrashContainer.scss'
 import { getTrashNotes } from '../../api'
 import { NotesContext } from '../../context/NotesContextProvider'
+import Masonry from 'react-layout-masonry';
 
 export default function TrashContainer() {
   // const [trashNotesList, setTrashNotesList] = useState([])
 
-  const { trashNotesList, setTrashNotesList } = useContext(NotesContext)
+  const { trashNotesList, notesList, setTrashNotesList, searchQuery } = useContext(NotesContext)
 
   useEffect(() => {
     getTrashNotesList()
@@ -15,7 +16,7 @@ export default function TrashContainer() {
 
   const getTrashNotesList = () => {
     getTrashNotes()
-      .then((res) => setTrashNotesList(res?.data?.data?.daata))
+      .then((res) => setTrashNotesList(res?.data?.data?.data))
       .catch(err => console.log(err))
   }
 
@@ -33,11 +34,16 @@ export default function TrashContainer() {
     }
   }
 
+  const filteredNotes = useMemo(() => {
+    if (!searchQuery.trim()) return trashNotesList
+    return notesList.filter((note) => note.title.toLowerCase().includes(searchQuery.toLowerCase()) || note.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  }, [searchQuery, trashNotesList])
+
   return (
     <div>
       <div className='show-trash-notes-container'>
-        {
-          trashNotesList.map((note) => (
+        {/* {
+          filteredNotes.map((note) => (
             <div className='show-trash-notes-note-container'>
               <NoteCard
                 container={'trash'}
@@ -46,7 +52,24 @@ export default function TrashContainer() {
               />
             </div>
           ))
-        }
+        } */}
+        <Masonry
+          columns={{ 350: 1, 750: 2, 900: 5 }}
+          gap={16}
+        >
+          {
+
+            filteredNotes.map((note) => (
+              <div>
+                <NoteCard
+                 container={'trash'}
+                 noteDetails={note}
+                 handleNotes={handleTrashNotes}
+                />
+              </div>
+            ))
+          }
+        </Masonry>
       </div>
     </div>
   )

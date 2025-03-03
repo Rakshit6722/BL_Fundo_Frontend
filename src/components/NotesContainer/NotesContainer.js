@@ -3,7 +3,10 @@ import NoteCard from '../NoteCard/NoteCard'
 import { getNotes } from '../../api'
 import './NotesContainer.scss'
 import AddNote from './AddNote'
+// import Masonry from '@mui/lab/Masonry';
 import { NotesContext } from '../../context/NotesContextProvider'
+// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
+import Masonry from 'react-layout-masonry';
 
 export default function NotesContainer() {
 
@@ -62,21 +65,76 @@ export default function NotesContainer() {
                 <AddNote handleNotes={handleNotes} />
             </div>
             <div className='show-notes-container'>
-                {
-                    filteredNotes.map((note) => (
-                        <div className='show-notes-note-container'>
-                            <NoteCard
-                                noteDetails={note}
-                                container={"notes"}
-                                isActive={isActive === note?.id}
-                                onClick={() => handleCardClick(note?.id)}
-                                handleNotes={handleNotes}
-                                colorPaletteActive={colorPaletteActive}
-                                setColorPaletteActive={setColorPaletteActive}
-                            />
-                        </div>
-                    ))
-                }
+                {/* <Masonry
+                    columns={{ xs: 1, sm: 1, md: 3, lg: 5 }}
+                    spacing={2}
+                    defaultHeight={700}
+                    defaultColumns={4}
+                    defaultSpacing={0}
+                >
+                    {
+
+                        filteredNotes.map((note) => (
+                            <div className='show-notes-note-container'>
+                                <NoteCard
+                                    noteDetails={note}
+                                    container={"notes"}
+                                    isActive={isActive === note?.id}
+                                    onClick={() => handleCardClick(note?.id)}
+                                    handleNotes={handleNotes}
+                                    colorPaletteActive={colorPaletteActive}
+                                    setColorPaletteActive={setColorPaletteActive}
+                                />
+                            </div>
+                        ))
+                    }
+                </Masonry> */}
+                {/* <ResponsiveMasonry
+                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 5 }}
+                    gutterBreakpoints={{ 350: "12px", 750: "16px", 900: "24px" }}
+                >
+                    <Masonry>
+                        {
+
+                            filteredNotes.map((note) => (
+                                <div>
+                                    <NoteCard
+                                        noteDetails={note}
+                                        container={"notes"}
+                                        isActive={isActive === note?.id}
+                                        onClick={() => handleCardClick(note?.id)}
+                                        handleNotes={handleNotes}
+                                        colorPaletteActive={colorPaletteActive}
+                                        setColorPaletteActive={setColorPaletteActive}
+                                    />
+                                </div>
+                            ))
+                        }
+                    </Masonry>
+                </ResponsiveMasonry> */}
+
+                <Masonry
+                    columns={{ 350: 1, 750: 2, 900: 5 }}
+                    gap={16}
+                >
+                    {
+
+                        filteredNotes.map((note) => (
+                            <div>
+                                <NoteCard
+                                    noteDetails={note}
+                                    container={"notes"}
+                                    isActive={isActive === note?.id}
+                                    onClick={() => handleCardClick(note?.id)}
+                                    handleNotes={handleNotes}
+                                    colorPaletteActive={colorPaletteActive}
+                                    setColorPaletteActive={setColorPaletteActive}
+                                />
+                            </div>
+                        ))
+                    }
+                </Masonry>
+
             </div>
         </div>
     )
