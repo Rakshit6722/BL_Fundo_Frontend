@@ -7,13 +7,24 @@ import AddNote from './AddNote'
 import { NotesContext } from '../../context/NotesContextProvider'
 // import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import Masonry from 'react-layout-masonry';
+import { SidebarContext } from '../../context/SidebarContext'
 
 export default function NotesContainer() {
-
     const [isActive, setIsActive] = useState(null)
     const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
     const { notesList, setNotesList, searchQuery } = useContext(NotesContext)
+    const { open } = useContext(SidebarContext)
+
+    console.log("open", open)
+
+    const columnConfig = useMemo(() => {
+        if (open) {
+            return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
+        } else {
+            return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
+        }
+    }, [open])
 
     useEffect(() => {
         getNotesList()
@@ -114,7 +125,7 @@ export default function NotesContainer() {
                 </ResponsiveMasonry> */}
 
                 <Masonry
-                    columns={{ 350: 1, 750: 2, 900: 5 }}
+                    columns={columnConfig}
                     gap={16}
                 >
                     {

@@ -4,15 +4,26 @@ import './TrashContainer.scss'
 import { getTrashNotes } from '../../api'
 import { NotesContext } from '../../context/NotesContextProvider'
 import Masonry from 'react-layout-masonry';
+import { SidebarContext } from '../../context/SidebarContext'
 
 export default function TrashContainer() {
   // const [trashNotesList, setTrashNotesList] = useState([])
 
   const { trashNotesList, notesList, setTrashNotesList, searchQuery } = useContext(NotesContext)
 
+  const { open } = useContext(SidebarContext)
+
   useEffect(() => {
     getTrashNotesList()
   }, [])
+
+    const columnConfig = useMemo(() => {
+      if (open) {
+        return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
+      } else {
+        return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
+      }
+    }, [open])
 
   const getTrashNotesList = () => {
     getTrashNotes()
@@ -54,7 +65,7 @@ export default function TrashContainer() {
           ))
         } */}
         <Masonry
-          columns={{ 350: 1, 750: 2, 900: 5 }}
+          columns={columnConfig}
           gap={16}
         >
           {

@@ -5,12 +5,24 @@ import NoteCard from '../NoteCard/NoteCard'
 import NotesContextProvider, { NotesContext } from '../../context/NotesContextProvider'
 import Masonry from 'react-layout-masonry';
 
+import { SidebarContext } from '../../context/SidebarContext'
+
 export default function ArchiveContainer() {
 
   // const [archiveNotesList, setArchiveNotesList] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
   const { archiveNotesList, setArchiveNotesList, searchQuery } = useContext(NotesContext)
+
+  const { open } = useContext(SidebarContext)
+
+  const columnConfig = useMemo(() => {
+    if (open) {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
+    } else {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
+    }
+  }, [open])
 
 
   useEffect(() => {
@@ -59,7 +71,7 @@ export default function ArchiveContainer() {
           ))
         } */}
         <Masonry
-          columns={{ 350: 1, 750: 2, 900: 5 }}
+          columns={columnConfig}
           gap={16}
         >
           {

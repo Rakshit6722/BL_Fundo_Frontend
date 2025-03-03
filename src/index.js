@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotesContextProvider from './context/NotesContextProvider';
+import SidebarContextProvider from './context/SidebarContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <NotesContextProvider>
-      <App />
+      <SidebarContextProvider>
+        <App />
+      </SidebarContextProvider>
     </NotesContextProvider>
   </React.StrictMode>
 );

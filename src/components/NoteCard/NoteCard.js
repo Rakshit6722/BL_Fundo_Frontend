@@ -33,7 +33,7 @@ function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, col
   const anchorRef = React.useRef(null);
   const [modalOpen, setModalOpen] = useState(false)
   const [activeColor, setActiveColor] = useState(noteDetails?.color || "#FFFFFF")
-  console.log("activeColor", activeColor)
+  // console.log("activeColor", activeColor)
 
   const colorPaletteRef = useRef(null)
 
