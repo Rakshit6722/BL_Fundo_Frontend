@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Header.scss'
 import { IoIosMenu } from "react-icons/io";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5"
@@ -9,17 +9,17 @@ import ProfileDropdown from './ProfileDropdown';
 import ProgressBar from './ProgressBar';
 import { logout } from '../../api';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { NotesContext } from '../../context/NotesContextProvider';
 
 function Header({ handleSetOpen }) {
 
     const location = useLocation()
 
-    console.log(location.pathname.split('/')[2])
-    console.log(location.pathname.split('/')[2] === 'archive')
-
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
+
+    const { searchQuery, setSearchQuery } = useContext(NotesContext)
 
     useEffect(() => {
         setInitials(getInitials)
@@ -38,6 +38,10 @@ function Header({ handleSetOpen }) {
             window.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
+    const handleInputChange = (e) => {
+        setSearchQuery(e.target.value)
+    }
 
     const getInitials = () => {
         let name = localStorage.getItem("firstName");
@@ -83,13 +87,13 @@ function Header({ handleSetOpen }) {
 
                 </div>
                 <div className='header-search-container'>
-                        <div className='header-search-icon-container'>
-                            <IoSearch className='header-search' />
-                        </div>
-                        <input type='text' placeholder='Search' />
-                        <div className='header-search-close-icon-container'>
-                            <IoCloseOutline className='header-search-close' />
-                        </div>
+                    <div className='header-search-icon-container'>
+                        <IoSearch className='header-search' />
+                    </div>
+                    <input type='text' placeholder='Search' onChange={(e) => handleInputChange(e)} value={searchQuery} />
+                    <div className='header-search-close-icon-container' onClick={() => setSearchQuery('')}>
+                        <IoCloseOutline className='header-search-close' />
+                    </div>
                 </div>
                 <div className='header-additional-icons-container'>
 

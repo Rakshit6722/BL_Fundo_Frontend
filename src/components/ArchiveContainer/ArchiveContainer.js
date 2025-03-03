@@ -11,9 +11,9 @@ export default function ArchiveContainer() {
 
   const { archiveNotesList,setArchiveNotesList } = useContext(NotesContext)
 
-  // useEffect(() => {
-  //   getArchiveNotesList()
-  // }, [])
+  useEffect(() => {
+    getArchiveNotesList()
+  }, [])
 
   const getArchiveNotesList = () => {
     getArchiveNotes()

@@ -7,17 +7,17 @@ import { NotesContext } from '../../context/NotesContextProvider'
 export default function TrashContainer() {
   // const [trashNotesList, setTrashNotesList] = useState([])
 
-  const {trashNotesList, setTrashNotesList} = useContext(NotesContext)
+  const { trashNotesList, setTrashNotesList } = useContext(NotesContext)
 
-  // useEffect(() => {
-  //   getTrashNotesList()
-  // }, [])
+  useEffect(() => {
+    getTrashNotesList()
+  }, [])
 
-  // const getTrashNotesList = () => {
-  //   getTrashNotes()
-  //     .then((res) => setTrashNotesList(res?.data?.data?.data))
-  //     .catch(err => console.log(err))
-  // }
+  const getTrashNotesList = () => {
+    getTrashNotes()
+      .then((res) => setTrashNotesList(res?.data?.data?.daata))
+      .catch(err => console.log(err))
+  }
 
   const handleTrashNotes = (payload, action) => {
     if (action === 'update') {
