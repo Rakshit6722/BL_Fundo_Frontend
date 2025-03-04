@@ -136,7 +136,7 @@ export default function NotesContainer() {
                                     noteDetails={note}
                                     container={"notes"}
                                     isActive={isActive === note?.id}
-                                    onClick={() => handleCardClick(note?.id)}
+                                      onClick={() => handleCardClick(note?.id)}
                                     handleNotes={handleNotes}
                                     colorPaletteActive={colorPaletteActive}
                                     setColorPaletteActive={setColorPaletteActive}

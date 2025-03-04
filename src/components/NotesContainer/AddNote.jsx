@@ -171,9 +171,14 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                     ) :
                         (
                             <>
-                                <div ref={containerRef} className={`${noteDetails ? 'add-note-expanded-container-editMode' : 'add-note-expanded-container'}`}>
+                                <div ref={containerRef} className={`${noteDetails ? 'add-note-expanded-container-editMode' : 'add-note-expanded-container'}`} style={{
+                                    backgroundColor: noteDetails?.color || 'white',
+                                    // borderRadius: '10px'
+                                }}>
                                     <div className={`${noteDetails ? 'add-note-expanded-title-editMode' : 'add-note-expanded-title'}`}>
-                                        <input type='text' name='title' value={formData.title} onChange={handleChange} placeholder='Title' />
+                                        <input type='text' name='title' value={formData.title} onChange={handleChange} placeholder='Title' style={{
+                                            backgroundColor: noteDetails?.color || 'white',
+                                        }} />
                                         {/* <span>pin</span> */}
                                     </div>
                                     <textarea ref={textAreaRef} className='add-note-expanded-container-desc-field' type='text' name='description' value={formData.description} onChange={(e) => {
@@ -182,7 +187,8 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                     }} placeholder='Take a note...'
                                     style={{
                                         maxHeight:"500px",
-                                        overflowY: 'auto'
+                                        overflowY: 'auto',
+                                        backgroundColor: noteDetails?.color || 'white',
                                     }}
                                     ></textarea>
                                     <div className='add-note-expanded-icons-container'>
