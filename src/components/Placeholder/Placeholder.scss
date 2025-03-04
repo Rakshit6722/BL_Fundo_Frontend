@@ -1,0 +1,34 @@
+.placeholder-main-notes-container {
+    // height: 100vh;
+    // width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 60vh;
+    gap: 1rem;
+    // transform: translateY(50%);
+}
+
+.placeholder-main-others-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 80vh;
+    gap: 1.5rem;
+}
+
+.placeholder-img-icon {
+    color: #dad9d9b5;
+}
+
+.placeholder-text-container {
+    p {
+        font-size: 1.45rem;
+        color: rgb(95, 99, 104);
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 1.75rem
+    }
+}

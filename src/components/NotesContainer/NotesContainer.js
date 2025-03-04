@@ -8,6 +8,7 @@ import { NotesContext } from '../../context/NotesContextProvider'
 // import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 import Masonry from 'react-layout-masonry';
 import { SidebarContext } from '../../context/SidebarContext'
+import Placeholder from '../Placeholder/Placeholder'
 
 export default function NotesContainer() {
     const [isActive, setIsActive] = useState(null)
@@ -35,6 +36,8 @@ export default function NotesContainer() {
         //here we do not use setNotesList coz in that case it would chane the notesList which in one of the dependency of this useMemo and eventually it will cause infinite loop and crash the application
         return notesList.filter((note) => note.title.toLowerCase().includes(searchQuery.toLowerCase()) || note.description.toLowerCase().includes(searchQuery.toLowerCase()))
     }, [notesList, searchQuery])
+
+    // const filteredNotes = []
 
     function getNotesList() {
         getNotes().then((data) => {
@@ -75,78 +78,37 @@ export default function NotesContainer() {
             <div className='notes-add-note-container'>
                 <AddNote handleNotes={handleNotes} />
             </div>
-            <div className='show-notes-container'>
-                {/* <Masonry
-                    columns={{ xs: 1, sm: 1, md: 3, lg: 5 }}
-                    spacing={2}
-                    defaultHeight={700}
-                    defaultColumns={4}
-                    defaultSpacing={0}
-                >
-                    {
+            {
+                filteredNotes.length === 0 ? (
+                    // <p>No notes present</p>
+                    <Placeholder container={'notes'} />
+                ) : (
+                    <div className='show-notes-container'>
+                        <Masonry
+                            columns={columnConfig}
+                            gap={16}
+                        >
 
-                        filteredNotes.map((note) => (
-                            <div className='show-notes-note-container'>
-                                <NoteCard
-                                    noteDetails={note}
-                                    container={"notes"}
-                                    isActive={isActive === note?.id}
-                                    onClick={() => handleCardClick(note?.id)}
-                                    handleNotes={handleNotes}
-                                    colorPaletteActive={colorPaletteActive}
-                                    setColorPaletteActive={setColorPaletteActive}
-                                />
-                            </div>
-                        ))
-                    }
-                </Masonry> */}
-                {/* <ResponsiveMasonry
-                    columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 5 }}
-                    gutterBreakpoints={{ 350: "12px", 750: "16px", 900: "24px" }}
-                >
-                    <Masonry>
-                        {
+                            {
 
-                            filteredNotes.map((note) => (
-                                <div>
-                                    <NoteCard
-                                        noteDetails={note}
-                                        container={"notes"}
-                                        isActive={isActive === note?.id}
-                                        onClick={() => handleCardClick(note?.id)}
-                                        handleNotes={handleNotes}
-                                        colorPaletteActive={colorPaletteActive}
-                                        setColorPaletteActive={setColorPaletteActive}
-                                    />
-                                </div>
-                            ))
-                        }
-                    </Masonry>
-                </ResponsiveMasonry> */}
-
-                <Masonry
-                    columns={columnConfig}
-                    gap={16}
-                >
-                    {
-
-                        filteredNotes.map((note) => (
-                            <div>
-                                <NoteCard
-                                    noteDetails={note}
-                                    container={"notes"}
-                                    isActive={isActive === note?.id}
-                                      onClick={() => handleCardClick(note?.id)}
-                                    handleNotes={handleNotes}
-                                    colorPaletteActive={colorPaletteActive}
-                                    setColorPaletteActive={setColorPaletteActive}
-                                />
-                            </div>
-                        ))
-                    }
-                </Masonry>
-
-            </div>
+                                filteredNotes.map((note) => (
+                                    <div>
+                                        <NoteCard
+                                            noteDetails={note}
+                                            container={"notes"}
+                                            isActive={isActive === note?.id}
+                                            onClick={() => handleCardClick(note?.id)}
+                                            handleNotes={handleNotes}
+                                            colorPaletteActive={colorPaletteActive}
+                                            setColorPaletteActive={setColorPaletteActive}
+                                        />
+                                    </div>
+                                ))
+                            }
+                        </Masonry>
+                    </div>
+                )
+            }
         </div>
     )
 }

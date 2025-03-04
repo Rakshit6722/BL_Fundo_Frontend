@@ -6,6 +6,7 @@ import NotesContextProvider, { NotesContext } from '../../context/NotesContextPr
 import Masonry from 'react-layout-masonry';
 
 import { SidebarContext } from '../../context/SidebarContext'
+import Placeholder from '../Placeholder/Placeholder'
 
 export default function ArchiveContainer() {
 
@@ -39,7 +40,7 @@ export default function ArchiveContainer() {
     if (!searchQuery.trim()) return archiveNotesList
     return archiveNotesList.filter((note) => note.title.toLowerCase().includes(searchQuery.toLowerCase()) || note.description.toLowerCase().includes(searchQuery.toLowerCase()))
   }, [searchQuery, archiveNotesList])
-
+  // const filteredNotes = []
   const handleArchiveNotes = (payload, action) => {
     if (action === 'update') {
       setArchiveNotesList(prev => (
@@ -56,40 +57,34 @@ export default function ArchiveContainer() {
 
   return (
     <>
-      <div className='show-archive-notes-container'>
-        {/* {
-          filteredNotes.map((note) => (
-            <div className='show-archiv-notes-note-container'>
-              <NoteCard
-                container={'archive'}
-                noteDetails={note}
-                handleNotes={handleArchiveNotes}
-                colorPaletteActive={colorPaletteActive}
-                setColorPaletteActive={setColorPaletteActive}
-              />
-            </div>
-          ))
-        } */}
-        <Masonry
-          columns={columnConfig}
-          gap={16}
-        >
-          {
+      {
+        filteredNotes.length > 0 ? (
+          <div className='show-archive-notes-container'>
+            <Masonry
+              columns={columnConfig}
+              gap={16}
+            >
+              {
 
-            filteredNotes.map((note) => (
-              <div>
-                <NoteCard
-                  container={'archive'}
-                  noteDetails={note}
-                  handleNotes={handleArchiveNotes}
-                  colorPaletteActive={colorPaletteActive}
-                  setColorPaletteActive={setColorPaletteActive}
-                />
-              </div>
-            ))
-          }
-        </Masonry>
-      </div>
+                filteredNotes.map((note) => (
+                  <div>
+                    <NoteCard
+                      container={'archive'}
+                      noteDetails={note}
+                      handleNotes={handleArchiveNotes}
+                      colorPaletteActive={colorPaletteActive}
+                      setColorPaletteActive={setColorPaletteActive}
+                    />
+                  </div>
+                ))
+              }
+            </Masonry>
+          </div>
+        ) : (
+          <Placeholder container={'archive'} />
+        )
+      }
+
     </>
   )
 }
