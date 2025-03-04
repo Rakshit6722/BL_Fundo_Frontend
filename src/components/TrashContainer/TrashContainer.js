@@ -56,7 +56,7 @@ export default function TrashContainer() {
   return (
     <div>
       {
-        filteredNotes > 0 ? (
+        filteredNotes.length > 0 ? (
           <div className='show-trash-notes-container'>
           <Masonry
             columns={columnConfig}
