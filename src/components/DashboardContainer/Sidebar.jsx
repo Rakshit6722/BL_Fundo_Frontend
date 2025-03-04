@@ -6,13 +6,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Typography from '@mui/material/Typography';
 import { IoArchiveOutline } from "react-icons/io5";
 import { MdLightbulbOutline } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import {  NavLink, useLocation } from 'react-router-dom';
 
 
 function Sidebar({ open }) {
@@ -100,11 +98,11 @@ function Sidebar({ open }) {
             whiteSpace: 'nowrap',
             boxSizing: 'border-box',
             // position: 'relative',
-            top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
+            top: drawerWidth > 250 ? "62px" : drawerWidth > 210 ? "64px" : "40px",
             overflow: 'hidden',
             '& .MuiDrawer-paper': {
                 // position: 'relative',
-                top: drawerWidth > 250 ? "57px" : drawerWidth > 210 ? "64px" : "40px",
+                top: drawerWidth > 250 ? "62px" : drawerWidth > 210 ? "64px" : "40px",
                 height: '100vh',
                 boxShadow: drawerWidth <= 210 ? open ? "0 2px 4px rgba(3, 3, 3, 0.418)" : "none" : "none",
                 borderRight: "none",

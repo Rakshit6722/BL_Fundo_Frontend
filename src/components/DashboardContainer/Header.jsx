@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Header.scss'
 import { IoIosMenu } from "react-icons/io";
 import { IoSearch, IoSettingsOutline } from "react-icons/io5"
 import { MdOutlineRefresh } from "react-icons/md"
+import { IoCloseOutline } from "react-icons/io5";
 import keepLogo from '../../assets/keep_logo.png'
 import ProfileDropdown from './ProfileDropdown';
 import ProgressBar from './ProgressBar';
+import { logout } from '../../api';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { NotesContext } from '../../context/NotesContextProvider';
 
 function Header({ handleSetOpen }) {
+
+    const location = useLocation()
 
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
 
-    const getInitials = () => {
-        let name = localStorage.getItem("firstName");
-        let initials = name?.charAt(0).toUpperCase();
-        return initials
-    }
-
-    const getRandomColor = () => {
-        const letters = '0123456789ABCDEF';
-        let color = '#';
-        for (let i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 16)];
-        }
-        return color;
-    }
+    const { searchQuery, setSearchQuery } = useContext(NotesContext)
 
     useEffect(() => {
         setInitials(getInitials)
@@ -46,21 +39,61 @@ function Header({ handleSetOpen }) {
         }
     }, [])
 
+    const handleInputChange = (e) => {
+        setSearchQuery(e.target.value)
+    }
+
+    const getInitials = () => {
+        let name = localStorage.getItem("firstName");
+        let initials = name?.charAt(0).toUpperCase();
+        return initials
+    }
+
+    const getRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+
     return (
         <>
-            <div className={`${isScrolled ? "header-main-container-shadow": ""} header-main-container`}>
+            <div className={`${isScrolled ? "header-main-container-shadow" : ""} header-main-container`}>
                 <div className='header-logo-container'>
                     <div className='menu-logo-container' onClick={handleSetOpen}>
                         <IoIosMenu className='menu-logo' />
                     </div>
-                    <img src={keepLogo} alt='keep_logo' />
-                    <p>Keep</p>
+                    {
+                        location.pathname === '/dashboard/notes' && (
+                            <>
+                                <img src={keepLogo} alt='keep_logo' />
+                                <p>Fundo</p>
+                            </>
+                        )
+                    }
+                    {
+                        (location.pathname === '/dashboard/archive' || location.pathname === '/dashboard/trash') && (
+                            <>
+                                {/* <img src={keepLogo} alt='keep_logo' /> */}
+                                <p>{
+                                    location.pathname.split('/')[2] === 'archive' ? 'Archive' : 'Trash'
+                                }</p>
+                            </>
+                        )
+                    }
+
                 </div>
                 <div className='header-search-container'>
                     <div className='header-search-icon-container'>
                         <IoSearch className='header-search' />
                     </div>
-                    <input type='text' placeholder='Search' />
+                    <input type='text' placeholder='Search' onChange={(e) => handleInputChange(e)} value={searchQuery} />
+                    <div className='header-search-close-icon-container' onClick={() => setSearchQuery('')}>
+                        <IoCloseOutline className='header-search-close' />
+                    </div>
                 </div>
                 <div className='header-additional-icons-container'>
 

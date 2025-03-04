@@ -1,11 +1,29 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import './ArchiveContainer.scss'
 import { getArchiveNotes } from '../../api'
 import NoteCard from '../NoteCard/NoteCard'
+import NotesContextProvider, { NotesContext } from '../../context/NotesContextProvider'
+import Masonry from 'react-layout-masonry';
+
+import { SidebarContext } from '../../context/SidebarContext'
 
 export default function ArchiveContainer() {
 
-  const [archiveNotesList, setArchiveNotesList] = useState([])
+  // const [archiveNotesList, setArchiveNotesList] = useState([])
+  const [colorPaletteActive, setColorPaletteActive] = useState(null)
+
+  const { archiveNotesList, setArchiveNotesList, searchQuery } = useContext(NotesContext)
+
+  const { open } = useContext(SidebarContext)
+
+  const columnConfig = useMemo(() => {
+    if (open) {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
+    } else {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
+    }
+  }, [open])
+
 
   useEffect(() => {
     getArchiveNotesList()
@@ -13,30 +31,64 @@ export default function ArchiveContainer() {
 
   const getArchiveNotesList = () => {
     getArchiveNotes()
-      .then((res) => setArchiveNotesList(res?.data?.data?.data))
+      .then((res) => setArchiveNotesList(res?.data?.data?.data.filter(note => note.isArchived === true && note.isDeleted === false)))
       .catch(err => console.log(err))
   }
 
-  const handleArchiveNotes = (payload) => {
-    setArchiveNotesList(prev => (
-      prev.filter(note => note.id !== payload?.id)
-    ))
+  const filteredNotes = useMemo(() => {
+    if (!searchQuery.trim()) return archiveNotesList
+    return archiveNotesList.filter((note) => note.title.toLowerCase().includes(searchQuery.toLowerCase()) || note.description.toLowerCase().includes(searchQuery.toLowerCase()))
+  }, [searchQuery, archiveNotesList])
+
+  const handleArchiveNotes = (payload, action) => {
+    if (action === 'update') {
+      setArchiveNotesList(prev => (
+        prev.map(note => (
+          note.id === payload.id ? payload : note
+        ))
+      ))
+    } else {
+      setArchiveNotesList(prev => (
+        prev.filter(note => note.id !== payload?.id)
+      ))
+    }
   }
 
   return (
     <>
       <div className='show-archive-notes-container'>
-        {
-          archiveNotesList.map((note) => (
+        {/* {
+          filteredNotes.map((note) => (
             <div className='show-archiv-notes-note-container'>
               <NoteCard
                 container={'archive'}
-                archiveNoteDetails={note}
-                handleArchiveNotes={handleArchiveNotes}
+                noteDetails={note}
+                handleNotes={handleArchiveNotes}
+                colorPaletteActive={colorPaletteActive}
+                setColorPaletteActive={setColorPaletteActive}
               />
             </div>
           ))
-        }
+        } */}
+        <Masonry
+          columns={columnConfig}
+          gap={16}
+        >
+          {
+
+            filteredNotes.map((note) => (
+              <div>
+                <NoteCard
+                  container={'archive'}
+                  noteDetails={note}
+                  handleNotes={handleArchiveNotes}
+                  colorPaletteActive={colorPaletteActive}
+                  setColorPaletteActive={setColorPaletteActive}
+                />
+              </div>
+            ))
+          }
+        </Masonry>
       </div>
     </>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './NoteCard.scss'
 import { LuBellPlus } from "react-icons/lu";
 import { RiUserAddLine } from "react-icons/ri";
@@ -19,27 +19,51 @@ import MenuList from '@mui/material/MenuList';
 import { MdDelete } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
 import { FaTrashRestoreAlt } from "react-icons/fa";
-import { archiveNote, deleteForeverNotes, trashNote } from '../../api';
+import { archiveNote, changeColor, deleteForeverNotes, trashNote } from '../../api';
+import Modal from '@mui/material/Modal';
+import AddNote from '../NotesContainer/AddNote';
+import Box from '@mui/material/Box';
+import { useNavigate, useParams } from 'react-router-dom';
 
-function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTrashNotes, container, isActive, onClick, handleNotes, handleArchiveNotes, ...props }) {
+function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
 
-  console.log("note", noteDetails)
-  console.log("archive note", archiveNoteDetails)
+  const navigate = useNavigate()
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+  const [modalOpen, setModalOpen] = useState(false)
+  const [activeColor, setActiveColor] = useState(noteDetails?.color || "#FFFFFF")
+  // console.log("activeColor", activeColor)
+
+  const colorPaletteRef = useRef(null)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleIconClick = (action) => {
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutsideColorPalette)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutsideColorPalette)
+    }
+  }, [colorPaletteActive])
+
+
+  const handleClickOutsideColorPalette = (e) => {
+    if (colorPaletteRef.current && !colorPaletteRef.current.contains(e.target) &&
+      !e.target.closest('.note-card-icon')) {
+      setColorPaletteActive(null)
+    }
+  }
+
+  const handleIconClick = (action, ...rest) => {
+    const [noteDetailsParam] = rest
     const archivePayload = {
       noteIdList: [noteDetails?.id],
       isArchived: true
     }
     const unarchivePayload = {
-      noteIdList: [archiveNoteDetails?.id],
+      noteIdList: [noteDetails?.id],
       isArchived: false
     }
     const trashPayload = {
@@ -47,11 +71,11 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
       isDeleted: true
     }
     const restorePayload = {
-      noteIdList: [trashNotesDetails?.id],
+      noteIdList: [noteDetails?.id],
       isDeleted: false
     }
     const deleteForeverPayload = {
-      noteIdList: [trashNotesDetails?.id],
+      noteIdList: [noteDetails?.id],
       isDeleted: true
     }
     if (action === 'archive') {
@@ -73,23 +97,40 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
     } else if (action === 'unarchive') {
       archiveNote(unarchivePayload)
         .then(() => {
-          handleArchiveNotes(archiveNoteDetails)
+          handleNotes(noteDetails, 'archive')
         })
         .catch(err => {
           console.log(err.message)
         })
-    } else if(action === 'restore'){
+    } else if (action === 'restore') {
       trashNote(restorePayload)
         .then(() => {
-          handleTrashNotes(trashNotesDetails)
+          handleNotes(noteDetails, 'restore')
         })
         .catch(err => {
           console.log(err.message)
         })
-    }else if(action === 'deleteForever'){
+    } else if (action === 'deleteForever') {
       deleteForeverNotes(deleteForeverPayload)
         .then(() => {
-          handleTrashNotes(trashNotesDetails)
+          handleNotes(noteDetails, 'deleteForever')
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
+    } else if (action === 'update') {
+      handleNotes(noteDetailsParam, 'update')
+    } else if (action === 'changeColor') {
+      setActiveColor(noteDetailsParam)
+      const changeColorPayload = {
+        noteIdList: [noteDetails?.id],
+        color: noteDetailsParam
+      }
+
+      changeColor(changeColorPayload)
+        .then(() => {
+          handleNotes({ ...noteDetails, color: noteDetailsParam }, 'update')
+          // setColorPaletteActive(null)
         })
         .catch(err => {
           console.log(err.message)
@@ -124,106 +165,155 @@ function NoteCard({ noteDetails, archiveNoteDetails, trashNotesDetails, handleTr
   }, [open]);
 
   return (
-    <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick}>
-      <div className='note-card-title'>
-        {(noteDetails && Object.keys(noteDetails).length > 0) ? noteDetails.title
-          : (archiveNoteDetails && Object.keys(archiveNoteDetails).length > 0) ? archiveNoteDetails.title
-            : (trashNotesDetails && Object.keys(trashNotesDetails).length > 0) ? trashNotesDetails.title
-              : ""}
+    <>
+      <div className='notes-card-main-container'>
+        <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick} style={{
+          backgroundColor: noteDetails?.color || 'white',
+        }}>
+          <div className="note-card-content" onClick={(e) => {
+            e.stopPropagation()
+            setModalOpen(true)
+            // navigate(`/dashboard/${container}/${noteDetails?.id}`)
+          }}>
+            <div className='note-card-title'>
+              {noteDetails?.title}
+              <div className='note-card-title-pin note-card-icon'>
+                <BsPin />
+              </div>
+            </div>
+            <div className='note-card-description'>
+              {noteDetails?.description}
+            </div>
+          </div>
 
-        <div className='note-card-title-pin note-card-icon'>
-          <BsPin />
-        </div>
-      </div>
-      <div className='note-card-description'>
-        {(noteDetails && Object.keys(noteDetails).length > 0) ? noteDetails.description
-          : (archiveNoteDetails && Object.keys(archiveNoteDetails).length > 0) ? archiveNoteDetails.description
-            : (trashNotesDetails && Object.keys(trashNotesDetails).length > 0) ? trashNotesDetails.description
-              : ""}
-      </div>
-      {
-        (container === 'notes' || container === 'archive') && <div className='note-card-icons-container'>
-          <div className='note-card-icon'>
-            <LuBellPlus />
-          </div>
-          <div className='note-card-icon'>
-            <RiUserAddLine />
-          </div>
-          <div className='note-card-icon'>
-            <IoColorPaletteOutline />
-          </div>
-          <div className='note-card-icon'>
-            <MdOutlineImage />
-          </div>
           {
-            container === 'notes' ? (<div className='note-card-icon' onClick={() => handleIconClick('archive')}>
-              <RiInboxArchiveLine />
-            </div>) :
-              (<div className='note-card-icon' onClick={() => handleIconClick('unarchive')}>
-                <RiInboxUnarchiveLine />
-              </div>)
-          }
+            (container === 'notes' || container === 'archive') && <div className={`note-card-icons-container ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
+              <div className='note-card-icon'>
+                <LuBellPlus />
+              </div>
+              <div className='note-card-icon'>
+                <RiUserAddLine />
+              </div>
+              <div className='note-card-icon' onClick={(e) => {
+                e.stopPropagation()
+                setColorPaletteActive(prev => prev === noteDetails?.id ? null : noteDetails?.id)
+              }}>
+                <IoColorPaletteOutline />
+              </div>
+              <div className='note-card-icon'>
+                <MdOutlineImage />
+              </div>
+              {
+                container === 'notes' ? (<div className='note-card-icon' onClick={() => handleIconClick('archive')}>
+                  <RiInboxArchiveLine />
+                </div>) :
+                  (<div className='note-card-icon' onClick={() => handleIconClick('unarchive')}>
+                    <RiInboxUnarchiveLine />
+                  </div>)
+              }
 
-          <div
-            className='note-card-icon'
-            ref={anchorRef}
-            id="composition-button"
-            aria-controls={open ? 'composition-menu' : undefined}
-            aria-expanded={open ? 'true' : undefined}
-            aria-haspopup="true"
-            onClick={handleToggle}
-          >
-            <BsThreeDotsVertical />
-            <Popper
-              open={open}
-              anchorEl={anchorRef.current}
-              role={undefined}
-              placement="bottom-start"
-              transition
-              disablePortal
-              sx={{
-                borderRadius: "7px"
-              }}
-            >
-              {({ TransitionProps, placement }) => (
-                <Grow
-                  {...TransitionProps}
-                  style={{
-                    transformOrigin:
-                      placement === 'bottom-start' ? 'left top' : 'left bottom',
+              <div
+                className='note-card-icon'
+                ref={anchorRef}
+                id="composition-button"
+                aria-controls={open ? 'composition-menu' : undefined}
+                aria-expanded={open ? 'true' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+              >
+                <BsThreeDotsVertical />
+                <Popper
+                  open={open}
+                  anchorEl={anchorRef.current}
+                  role={undefined}
+                  placement="bottom-start"
+                  transition
+                  disablePortal
+                  sx={{
+                    zIndex: 15,
+                    borderRadius: "7px"
                   }}
+                  // modifiers={[
+                  //   {
+                  //     name: 'flip',
+                  //     enabled: true,
+                  //     options: {
+                  //       altBoundary: true,
+                  //       rootBoundary: 'viewport',
+                  //       padding: 8,
+                  //     },
+                  //   },
+                  // ]}
                 >
-                  <Paper>
-                    <ClickAwayListener onClickAway={handleClose}>
-                      <MenuList
-                        // autoFocusItem={open}
-                        id="composition-menu"
-                        aria-labelledby="composition-button"
-                        onKeyDown={handleListKeyDown}
-                      >
-                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={() => handleIconClick('trash')}>Delete Note</MenuItem>
-                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add label</MenuItem>
-                        <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add drawing</MenuItem>
-                      </MenuList>
-                    </ClickAwayListener>
-                  </Paper>
-                </Grow>
-              )}
-            </Popper>
-          </div>
+                  {({ TransitionProps, placement }) => (
+                    <Grow
+                      {...TransitionProps}
+                      style={{
+                        transformOrigin:
+                          placement === 'bottom-start' ? 'left top' : 'left bottom',
+                      }}
+                    >
+                      <Paper >
+                        <ClickAwayListener onClickAway={handleClose}>
+                          <MenuList
+                            id="composition-menu"
+                            aria-labelledby="composition-button"
+                            onKeyDown={handleListKeyDown}
+                          >
+                            <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={() => handleIconClick('trash')}>Delete Note</MenuItem>
+                            <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add label</MenuItem>
+                            <MenuItem sx={{ fontSize: { xs: '.8rem', sm: '.8rem', md: '1rem' }, color: "rgb(88, 88, 88)" }} onClick={handleClose}>Add drawing</MenuItem>
+                          </MenuList>
+                        </ClickAwayListener>
+                      </Paper>
+                    </Grow>
+                  )}
+                </Popper>
+              </div>
+            </div>
+          }
+          {
+            container === 'trash' && <div className='note-card-delete-icons-container'>
+              <div className='note-card-icon delete-icon' onClick={() => handleIconClick('deleteForever')}>
+                <MdDeleteForever />
+              </div>
+              <div className='note-card-icon delete-icon' onClick={() => handleIconClick('restore')}>
+                <MdRestoreFromTrash />
+              </div>
+            </div>
+          }
+          <Modal
+            open={modalOpen}
+            // onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            onclick={() => setModalOpen(false)}
+          >
+            <AddNote setModalOpen={setModalOpen} noteDetails={noteDetails} handleIconClick={handleIconClick} />
+          </Modal>
         </div>
-      }
-      {
-        container === 'delete' && <div className='note-card-delete-icons-container'>
-          <div className='note-card-icon delete-icon' onClick={() => handleIconClick('deleteForever')}>
-            <MdDeleteForever />
-          </div>
-          <div className='note-card-icon delete-icon' onClick={() => handleIconClick('restore')}>
-            <MdRestoreFromTrash />
-          </div>
-        </div>
-      }
-    </div>
+        {
+          colorPaletteActive === noteDetails?.id && (
+            <div className="color-palate-cnt" ref={colorPaletteRef}>
+              <div className={`col1 ${activeColor === '#FFFFFF' ? "active" : ""}`} matTooltip="Default" onClick={() => handleIconClick("changeColor", '#FFFFFF')}></div>
+              <div className={`col2 ${activeColor === '#FAAFA8' ? "active" : ""}`} matTooltip="Coral" onClick={() => handleIconClick("changeColor", '#FAAFA8')}></div>
+              <div className={`col3 ${activeColor === '#F39F76' ? "active" : ""}`} matTooltip="Peach" onClick={() => handleIconClick("changeColor", '#F39F76')}></div>
+              <div className={`col4 ${activeColor === '#FFF8B8' ? "active" : ""}`} matTooltip="Sand" onClick={() => handleIconClick("changeColor", '#FFF8B8')}></div>
+              <div className={`col5 ${activeColor === '#E2F6D3' ? "active" : ""}`} matTooltip="Mint" onClick={() => handleIconClick("changeColor", '#E2F6D3')}></div>
+              <div className={`col6 ${activeColor === '#B4DDD3' ? "active" : ""}`} matTooltip="Sage" onClick={() => handleIconClick("changeColor", '#B4DDD3')}></div>
+              <div className={`col7 ${activeColor === '#D4E4ED' ? "active" : ""}`} matTooltip="Fog" onClick={() => handleIconClick("changeColor", '#D4E4ED')}></div>
+              <div className={`col8 ${activeColor === '#AECCDC' ? "active" : ""}`} matTooltip="Storm" onClick={() => handleIconClick("changeColor", '#AECCDC')}></div>
+              <div className={`col9 ${activeColor === '#D3BFDB' ? "active" : ""}`} matTooltip="Dusk" onClick={() => handleIconClick("changeColor", '#D3BFDB')}></div>
+              <div className={`col10 ${activeColor === '#F6E2DD' ? "active" : ""}`} matTooltip="Blossom" onClick={() => handleIconClick("changeColor", '#F6E2DD')}></div>
+              <div className={`col11 ${activeColor === '#E9E3D4' ? "active" : ""} `} matTooltip="Clay" onClick={() => handleIconClick("changeColor", '#E9E3D4')}></div>
+              <div className={`col12 ${activeColor === '#EFEFF1' ? "active" : ""}`} matTooltip="Chalk" onClick={() => handleIconClick("changeColor", '#EFEFF1')}></div>
+            </div>
+
+          )
+        }
+      </div>
+    </>
+
   )
 }
 

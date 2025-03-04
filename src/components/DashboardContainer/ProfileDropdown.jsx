@@ -8,8 +8,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Logout from '@mui/icons-material/Logout';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../api';
 
 function ProfileDropdown({ initials, color }) {
+
+    const navigate = useNavigate()
+
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -18,6 +23,10 @@ function ProfileDropdown({ initials, color }) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleLogout = () => {
+        logout(navigate)
+    }
 
     return (
         <>
@@ -103,7 +112,10 @@ function ProfileDropdown({ initials, color }) {
                         </ListItemIcon>
                         Settings
                     </MenuItem> */}
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={()=>{
+                        handleLogout()
+                        handleClose()
+                        }}>
                         <ListItemIcon>
                             <Logout fontSize="small" />
                         </ListItemIcon>

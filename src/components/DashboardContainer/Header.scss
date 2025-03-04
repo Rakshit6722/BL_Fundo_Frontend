@@ -2,15 +2,16 @@
     width: 100%;
     display: flex;
     align-items: center;
-    padding: .4rem .7rem;
+    padding: .5rem .7rem;
     justify-content: space-between;
     border-bottom: 1px solid #e0e0e0;
     position: fixed;
     top: 0;
     background-color: white;
+    z-index: 5
 }
 
-.header-main-container-shadow{
+.header-main-container-shadow {
     box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
 }
 
@@ -27,10 +28,12 @@
     }
 
     p {
-        font-size: 1.3rem;
-        color: rgb(88, 88, 88);
+        font-size: 1.5rem;
+        color: #5f6368;
+        -webkit-user-select: none;
         user-select: none;
-        font-weight: 550;
+        font-weight: bold;
+        letter-spacing: 0.035em;
     }
 }
 
@@ -68,6 +71,7 @@
         background-color: transparent;
         width: 100%;
         height: auto;
+        font-size: 1.1rem;
     }
 
     input::placeholder {
@@ -75,13 +79,39 @@
         color: rgb(88, 88, 88);
         font-weight: 500;
     }
+
+    &:focus-within {
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(3, 3, 3, 0.418);
+    }
+
+    &:focus-within .header-search-close-icon-container {
+        opacity: 1;
+    }
 }
 
 .header-search-icon-container {
-    padding: .6rem;
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-search-close-icon-container {
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
 }
 
 .header-search-icon-container:hover {
+    cursor: pointer;
+    background-color: #e0e0e0;
+    border-radius: 100%;
+}
+
+.header-search-close-icon-container:hover {
     cursor: pointer;
     background-color: #e0e0e0;
     border-radius: 100%;
@@ -92,6 +122,14 @@
     color: rgb(88, 88, 88);
     font-weight: bold;
 }
+
+.header-search-close {
+    font-size: 1.9rem;
+    color: rgb(88, 88, 88);
+    font-weight: bold;
+}
+
+
 
 .header-additional-icons-container {
     display: flex;
@@ -122,49 +160,49 @@
     color: black;
 }
 
-.header-profile-initial-container{
+.header-profile-initial-container {
     margin-left: 1rem;
     cursor: pointer;
     user-select: none;
 }
 
-.header-additional-search-icon-container{
+.header-additional-search-icon-container {
     display: none;
 }
 
-.header-additional-icons-sub-container1{
+.header-additional-icons-sub-container1 {
     display: flex;
     align-items: center;
     // gap: 1rem;
 }
 
-@media (min-width:769px) and (max-width: 892px){
-    .header-search-container{
+@media (min-width:769px) and (max-width: 892px) {
+    .header-search-container {
         display: none;
     }
 
-    .header-additional-search-icon-container{
+    .header-additional-search-icon-container {
         display: block;
         padding: .5rem;
         border-radius: 100%;
     }
 }
 
-@media (min-width: 481px) and (max-width: 768px){
-    .header-search-container{
+@media (min-width: 481px) and (max-width: 768px) {
+    .header-search-container {
         display: none;
     }
 
-    .header-additional-search-icon-container{
+    .header-additional-search-icon-container {
         display: block;
         padding: .5rem;
         border-radius: 100%;
     }
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 480px) {
 
-    .header-main-container{
+    .header-main-container {
         padding: .12rem .3rem;
     }
 
@@ -172,7 +210,7 @@
         display: none;
     }
 
-    .header-additional-search-icon-container{
+    .header-additional-search-icon-container {
         display: block;
         padding: .5rem;
         border-radius: 100%;
@@ -193,31 +231,32 @@
         color: black;
     }
 
-    .header-logo-container{
-        p{
+    .header-logo-container {
+        p {
             font-size: 1rem;
             letter-spacing: .04rem;
             font-weight: 600;
         }
     }
 
-    .header-additional-icons-container{
+    .header-additional-icons-container {
         gap: .4rem;
     }
 
-    .header-additional-icon{
+    .header-additional-icon {
         font-size: 1rem;
     }
 
-    .menu-logo{
+    .menu-logo {
         font-size: 1.2rem;
     }
 
     .menu-logo-container {
         padding: 0.3rem;
     }
-    .header-logo-container{
-        img{
+
+    .header-logo-container {
+        img {
             width: 32px;
             height: 32px;
         }
