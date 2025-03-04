@@ -189,6 +189,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                         maxHeight:"500px",
                                         overflowY: 'auto',
                                         backgroundColor: noteDetails?.color || 'white',
+                                        // color: noteDetails?.color ? 'black' : ''
                                     }}
                                     ></textarea>
                                     <div className='add-note-expanded-icons-container'>
