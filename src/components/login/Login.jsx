@@ -79,6 +79,7 @@ const Login = () => {
                             {emailValidError && <span className='login-main-form-input-email-valid-error'>Email is not valid</span>}
                             <TextField
                                 id="outlined-basic"
+                                type='password'
                                 label='password*'
                                 variant="outlined"
                                 className='login-form-custom-class'

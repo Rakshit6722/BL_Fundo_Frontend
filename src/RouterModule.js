@@ -18,7 +18,7 @@ const RouterModule = () => {
       element: <AuthRoute>
         <Login />
       </AuthRoute>
-    },
+    },  
     {
       path: '/register',
       element: <AuthRoute>
