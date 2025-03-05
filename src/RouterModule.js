@@ -7,6 +7,7 @@ import NotesContainer from './components/NotesContainer/NotesContainer'
 import TrashContainer from './components/TrashContainer/TrashContainer'
 import ArchiveContainer from './components/ArchiveContainer/ArchiveContainer'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import AuthRoute from './components/ProtectedRoute/AuthRoute'
 
 
 const RouterModule = () => {
@@ -14,11 +15,15 @@ const RouterModule = () => {
   const routes = createBrowserRouter([
     {
       path: '',
-      element: <Login />
+      element: <AuthRoute>
+        <Login />
+      </AuthRoute>
     },
     {
       path: '/register',
-      element: <Register />
+      element: <AuthRoute>
+        <Register />
+      </AuthRoute>
     },
     {
       path: '/dashboard',
@@ -29,7 +34,7 @@ const RouterModule = () => {
       ),
       children: [
         {
-          path: "notes",
+          path: "notes", index: true,
           element: <NotesContainer />
         },
         // {
