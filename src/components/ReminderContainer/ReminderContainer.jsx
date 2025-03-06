@@ -40,6 +40,7 @@ const ReminderContainer = () => {
 
 
   return (
+    
     <div>
       {
         filteredNotes.length > 0 ? (
