@@ -55,7 +55,7 @@ export default function NotesContainer() {
                 ...prev
             ])
             )
-        } else if (action === 'archive' || action === 'trash') {
+        } else if (action === 'archive' || action === 'trash' ) {
             setNotesList(prev => (
                 prev.filter(note => note.id !== payload?.id)
             ))

@@ -16,14 +16,14 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { MdDeleteForever } from "react-icons/md";
-import { archiveNote, changeColor, deleteForeverNotes, trashNote } from '../../api';
+import { archiveNote, changeColor, deleteForeverNotes, removeReminder, trashNote } from '../../api';
 import Modal from '@mui/material/Modal';
 import AddNote from '../NotesContainer/AddNote';
 import { useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import { MdOutlineAccessTime } from "react-icons/md";
-
+import { IoMdClose } from "react-icons/io";
 import ReminderCard from '../Reminder/ReminderCard';
 
 
@@ -137,6 +137,18 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
         .catch(err => {
           console.log(err.message)
         })
+    } else if (action === 'removeReminder') {
+      // handleNotes('removeReminder',noteDetails)
+      const payload = {
+        noteIdList: [noteDetails?.id],
+      }
+      removeReminder(payload)
+        .then(() => {
+          handleNotes({...noteDetails,reminder:[]}, 'update')
+        })
+        .catch(err => {
+          console.lor(err.messagae)
+        })
     }
   }
 
@@ -201,11 +213,11 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
       formattedDate = `${String(reminderDay).padStart(2, "0")}-${String(reminderMonth + 1).padStart(2, "0")}-${String(reminderYear).slice(-2)}`;
     }
 
-  
+
     let hours = reminderDate.getHours();
     let minutes = String(reminderDate.getMinutes()).padStart(2, "0");
     let ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12; 
+    hours = hours % 12 || 12;
 
     const formattedTime = `${hours}:${minutes} ${ampm}`;
 
@@ -248,6 +260,9 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                   <p className="note-card-reminder">{
                     noteDetails?.reminder.length > 0 ? formatReminder(noteDetails?.reminder[0]) : ""
                   }</p>
+                </div>
+                <div className='note-card-reminder-close-icon-container' onClick={() => handleIconClick('removeReminder')}>
+                  <IoMdClose className='reminder-close-icon' />
                 </div>
               </div>
             )

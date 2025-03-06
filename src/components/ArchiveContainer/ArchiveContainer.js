@@ -42,7 +42,7 @@ export default function ArchiveContainer() {
   }, [searchQuery, archiveNotesList])
   // const filteredNotes = []
   const handleArchiveNotes = (payload, action) => {
-    if (action === 'update') {
+    if (action === 'update' || action === 'removeReminder') {
       setArchiveNotesList(prev => (
         prev.map(note => (
           note.id === payload.id ? payload : note

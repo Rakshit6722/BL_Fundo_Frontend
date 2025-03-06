@@ -327,14 +327,34 @@
 
     &:hover {
         cursor: pointer;
+        max-width: 60%;
+    }
+
+    &:hover .reminder-close-icon {
+        display: block;
     }
 }
+
+
 
 .note-card-reminder {
     font-size: 0.66rem;
     font-weight: bold;
     color: #3a3a3a;
 
+}
+
+.note-card-reminder-close-icon-container{
+    // padding: .25rem;
+    border-radius: 50%;
+    &:hover {
+        background-color: #dcd9d999;
+    }
+}
+
+.reminder-close-icon{
+    display: none;
+    color: #3a3a3a ;
 }
 
 .reminder-time-icon {

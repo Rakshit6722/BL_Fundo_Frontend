@@ -107,3 +107,11 @@ export const getReminderNotes = () => {
         }
     })
 }
+
+export const removeReminder = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/removeReminderNotes`,payload,{
+        headers:{
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}

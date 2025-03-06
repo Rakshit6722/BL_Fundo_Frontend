@@ -32,6 +32,14 @@ const ReminderContainer = () => {
       .catch(err => console.log(err.message))
   })
 
+  const handleNotes = (action, payload) => {
+    if (action === 'removeReminder') {
+      setReminderNotes(prev => (
+        prev.filter(note => note.id !== payload?.id)
+      ))
+    }
+  }
+
   const filteredNotes = useMemo(() => {
     if (!searchQuery.trim()) return reminderNotes
     return reminderNotes.filter((note) => note.title.toLowerCase().includes(searchQuery.toLowerCase()) || note.description.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -40,7 +48,7 @@ const ReminderContainer = () => {
 
 
   return (
-    
+
     <div>
       {
         filteredNotes.length > 0 ? (
@@ -56,7 +64,7 @@ const ReminderContainer = () => {
                     <NoteCard
                       container={'reminder'}
                       noteDetails={note}
-                      // handleNotes={handleArchiveNotes}
+                      handleNotes={handleNotes}
                       colorPaletteActive={colorPaletteActive}
                       setColorPaletteActive={setColorPaletteActive}
                     />
@@ -66,7 +74,7 @@ const ReminderContainer = () => {
             </Masonry>
           </div>
         ) : (
-          <Placeholder container={'archive'} />
+          <Placeholder container={'reminder'} />
         )
       }
     </div>
