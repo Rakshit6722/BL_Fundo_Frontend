@@ -30,7 +30,7 @@ const ReminderContainer = () => {
         setReminderNotes(res?.data?.data?.data)
       })
       .catch(err => console.log(err.message))
-  })
+  },[])
 
   const handleNotes = (action, payload) => {
     if (action === 'removeReminder') {

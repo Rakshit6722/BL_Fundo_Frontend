@@ -301,7 +301,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                     paper: {
                       elevation: 0,
                       sx: {
-                        borderRadius:"7px",
+                        borderRadius: "7px",
                         minWidth: "280px",
                         // padding: "1rem",
                         overflow: 'visible',
@@ -350,7 +350,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                 <MdOutlineImage />
               </div>
               {
-                container === 'notes' ? (<div className='note-card-icon' onClick={() => handleIconClick('archive')}>
+                (noteDetails?.isArchived === false) ? (<div className='note-card-icon' onClick={() => handleIconClick('archive')}>
                   <RiInboxArchiveLine />
                 </div>) :
                   (<div className='note-card-icon' onClick={() => handleIconClick('unarchive')}>
