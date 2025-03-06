@@ -10,7 +10,8 @@ import Typography from '@mui/material/Typography';
 import { IoArchiveOutline } from "react-icons/io5";
 import { MdLightbulbOutline } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
-import {  NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { BiBell } from "react-icons/bi";
 
 
 function Sidebar({ open }) {
@@ -61,6 +62,14 @@ function Sidebar({ open }) {
             />
         },
         {
+            icon: <BiBell style={{
+                color: location.pathname === '/dashboard/reminder' ? "black" : "rgb(88, 88, 88)",
+                fontSize: "1.5rem",
+                marginLeft: open ? "0" : window.innerWidth <= 480 ? ".87rem" : ".8rem",
+                fontSize: window.innerWidth > 768 ? "1.5rem" : window.innerWidth > 600 ? "1.3rem" : "1.1rem"
+            }} />
+        },
+        {
             icon: <BsTrash style={{
                 color: location.pathname === '/dashboard/trash' ? "black" : "rgb(88, 88, 88)",
                 fontSize: "1.5rem",
@@ -68,6 +77,7 @@ function Sidebar({ open }) {
                 fontSize: window.innerWidth > 768 ? "1.5rem" : window.innerWidth > 600 ? "1.3rem" : "1.1rem"
             }} />
         },
+
     ]
 
     const openedMixin = (theme) => ({
@@ -146,9 +156,14 @@ function Sidebar({ open }) {
                             path: "/dashboard/archive"
                         },
                         {
+                            text: "Reminders",
+                            path: "/dashboard/reminder"
+                        },
+                        {
                             text: "Trash",
                             path: "/dashboard/trash"
                         },
+
                     ].map((item, index) => (
                         <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
                             <NavLink to={item.path} style={{
@@ -157,10 +172,10 @@ function Sidebar({ open }) {
                                 <ListItemButton
                                     sx={[
                                         {
-                                            width: "100%", 
+                                            width: "100%",
                                             minHeight: 48,
                                             px: open ? 2.5 : 0,
-                                            py: {xs:0,sm:1,md:1.4},
+                                            py: { xs: 0, sm: 1, md: 1.4 },
                                             display: 'flex',
                                             alignItems: 'center',
                                             gap: open ? { xs: ".5rem", sm: "1rem", md: ".8rem" } : "0",

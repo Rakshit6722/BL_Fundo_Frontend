@@ -322,7 +322,12 @@
     background-color: rgba(235, 234, 234, 0.4705882353);
     margin-left: 0.8rem;
     max-width: 55%;
-    justify-content: center
+
+    justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .note-card-reminder {
@@ -377,7 +382,7 @@
         left: 123px;
     }
 
-    .note-card-reminder-container{
+    .note-card-reminder-container {
         min-width: none;
         max-width: none;
         width: 66%;

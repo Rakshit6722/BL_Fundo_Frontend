@@ -8,6 +8,7 @@ import TrashContainer from './components/TrashContainer/TrashContainer'
 import ArchiveContainer from './components/ArchiveContainer/ArchiveContainer'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import AuthRoute from './components/ProtectedRoute/AuthRoute'
+import ReminderContainer from './components/ReminderContainer/ReminderContainer'
 
 
 const RouterModule = () => {
@@ -52,6 +53,10 @@ const RouterModule = () => {
         {
           path: "trash",
           element: <TrashContainer />
+        },
+        {
+          path: "reminder",
+          element: <ReminderContainer />
         },
         // {
         //   path:"trash/:id",

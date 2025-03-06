@@ -3,6 +3,8 @@ import './Placeholder.scss'
 import { MdOutlineLightbulb } from "react-icons/md";
 import { MdOutlineArchive } from "react-icons/md";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { BiBell } from "react-icons/bi";
+
 
 function Placeholder({ container }) {
     return (
@@ -13,8 +15,10 @@ function Placeholder({ container }) {
                         <MdOutlineLightbulb size={120} className='placeholder-img-icon' />
                     ) : container === 'archive' ? (
                         <MdOutlineArchive size={120} className='placeholder-img-icon' />
+                    ) : container === 'trash' ? (
+                        <FaRegTrashAlt size={90} className='placeholder-img-icon' />
                     ) : (
-                        <FaRegTrashAlt size={90} className='placeholder-img-icon'/>
+                        <BiBell size={90} className='placeholder-img-icon' />
                     )
                 }
             </div>
@@ -25,8 +29,10 @@ function Placeholder({ container }) {
                         <p>Notes you add appear here</p>
                     ) : container === 'archive' ? (
                         <p>Notes you archive appear here</p>
-                    ) : (
+                    ) : container === 'trash' ? (
                         <p>No notes in Trash </p>
+                    ) : (
+                        <p>Notes with upcoming reminder appears here</p>
                     )
                 }
             </div>

@@ -183,7 +183,6 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
     const reminderDate = new Date(reminderDateStr);
     const now = new Date();
 
-    // Extracting date parts
     const reminderDay = reminderDate.getDate();
     const reminderMonth = reminderDate.getMonth();
     const reminderYear = reminderDate.getFullYear();
@@ -202,11 +201,11 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
       formattedDate = `${String(reminderDay).padStart(2, "0")}-${String(reminderMonth + 1).padStart(2, "0")}-${String(reminderYear).slice(-2)}`;
     }
 
-    // Formatting time in 12-hour format
+  
     let hours = reminderDate.getHours();
     let minutes = String(reminderDate.getMinutes()).padStart(2, "0");
     let ampm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12; // Convert 0 to 12
+    hours = hours % 12 || 12; 
 
     const formattedTime = `${hours}:${minutes} ${ampm}`;
 
@@ -236,7 +235,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
           </div>
 
           {
-            (container === 'notes' || container === 'archive') && noteDetails?.reminder && (
+            (container === 'notes' || container === 'archive' || container === 'reminder') && noteDetails?.reminder && (
               <div style={{
                 display: noteDetails?.reminder.length > 0 ? 'flex' : 'none'
               }}
@@ -255,7 +254,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
           }
 
           {
-            (container === 'notes' || container === 'archive') && <div className={`note-card-icons-container ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
+            (container === 'notes' || container === 'archive' || container === 'reminder') && <div className={`note-card-icons-container ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
               <div className='note-card-icon'
               >
 
@@ -313,6 +312,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                       },
                     },
                   }}
+                  keepMounted
+                  disablePortal
                   transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >

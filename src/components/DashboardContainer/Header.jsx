@@ -75,11 +75,11 @@ function Header({ handleSetOpen }) {
                         )
                     }
                     {
-                        (location.pathname === '/dashboard/archive' || location.pathname === '/dashboard/trash') && (
+                        (location.pathname === '/dashboard/archive' || location.pathname === '/dashboard/trash' || location.pathname === '/dashboard/reminder') && (
                             <>
                                 {/* <img src={keepLogo} alt='keep_logo' /> */}
                                 <p>{
-                                    location.pathname.split('/')[2] === 'archive' ? 'Archive' : 'Trash'
+                                    location.pathname.split('/')[2] === 'archive' ? 'Archive' : location.pathname.split('/')[2] === 'reminder' ? 'Reminders' : 'Trash'
                                 }</p>
                             </>
                         )

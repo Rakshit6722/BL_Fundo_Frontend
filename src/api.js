@@ -99,3 +99,11 @@ export const addUpdateReminder = (payload) => {
         }
     })
 }
+
+export const getReminderNotes = () => {
+    return axios.get(`${NOTE_BASE_URL}/getReminderNotesList`,{
+        headers:{
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}
