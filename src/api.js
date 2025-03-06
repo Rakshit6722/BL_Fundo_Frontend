@@ -91,3 +91,11 @@ export const logout = (navigate) => {
     localStorage.removeItem('token')
     navigate('/')
 }
+
+export const addUpdateReminder = (payload) => {
+    return axios.post(`${NOTE_BASE_URL}/addUpdateReminderNotes`,payload,{
+        headers:{
+            Authorization: localStorage.getItem('token')
+        }
+    })
+}

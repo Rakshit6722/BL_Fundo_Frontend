@@ -12,20 +12,22 @@ import { RiInboxUnarchiveLine } from "react-icons/ri";
 import { MdRestoreFromTrash } from "react-icons/md"
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
-import { AiOutlineDelete } from "react-icons/ai";
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
-import { MdDelete } from "react-icons/md";
 import { MdDeleteForever } from "react-icons/md";
-import { FaTrashRestoreAlt } from "react-icons/fa";
 import { archiveNote, changeColor, deleteForeverNotes, trashNote } from '../../api';
 import Modal from '@mui/material/Modal';
 import AddNote from '../NotesContainer/AddNote';
-import Box from '@mui/material/Box';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Menu from '@mui/material/Menu';
+import IconButton from '@mui/material/IconButton';
+import { MdOutlineAccessTime } from "react-icons/md";
 
-function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
+import ReminderCard from '../Reminder/ReminderCard';
+
+
+function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
 
   const navigate = useNavigate()
 
@@ -164,6 +166,53 @@ function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, col
     prevOpen.current = open;
   }, [open]);
 
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const openReminder = Boolean(anchorEl);
+  const handleClickReminder = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseReminder = () => {
+    setAnchorEl(null);
+    // if (event && event.target && !event.target.closest('#reminder-menu')) {
+    //   setAnchorEl(null);
+    // }
+  };
+
+  function formatReminder(reminderDateStr) {
+    const reminderDate = new Date(reminderDateStr);
+    const now = new Date();
+
+    // Extracting date parts
+    const reminderDay = reminderDate.getDate();
+    const reminderMonth = reminderDate.getMonth();
+    const reminderYear = reminderDate.getFullYear();
+
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    let formattedDate;
+
+    if (reminderDate >= today && reminderDate < tomorrow) {
+      formattedDate = "Today";
+    } else if (reminderDate >= tomorrow && reminderDate < new Date(tomorrow.getTime() + 86400000)) {
+      formattedDate = "Tomorrow";
+    } else {
+      formattedDate = `${String(reminderDay).padStart(2, "0")}-${String(reminderMonth + 1).padStart(2, "0")}-${String(reminderYear).slice(-2)}`;
+    }
+
+    // Formatting time in 12-hour format
+    let hours = reminderDate.getHours();
+    let minutes = String(reminderDate.getMinutes()).padStart(2, "0");
+    let ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12; // Convert 0 to 12
+
+    const formattedTime = `${hours}:${minutes} ${ampm}`;
+
+    return `${formattedDate}, ${formattedTime}`;
+  }
+
   return (
     <>
       <div className='notes-card-main-container'>
@@ -187,9 +236,90 @@ function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, col
           </div>
 
           {
+            (container === 'notes' || container === 'archive') && noteDetails?.reminder && (
+              <div style={{
+                display: noteDetails?.reminder.length > 0 ? 'flex' : 'none'
+              }}
+                className='note-card-reminder-container'
+              >
+                <div>
+                  <MdOutlineAccessTime className='reminder-time-icon' />
+                </div>
+                <div>
+                  <p className="note-card-reminder">{
+                    noteDetails?.reminder.length > 0 ? formatReminder(noteDetails?.reminder[0]) : ""
+                  }</p>
+                </div>
+              </div>
+            )
+          }
+
+          {
             (container === 'notes' || container === 'archive') && <div className={`note-card-icons-container ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
-              <div className='note-card-icon'>
-                <LuBellPlus />
+              <div className='note-card-icon'
+              >
+
+                <IconButton
+                  onClick={handleClickReminder}
+                  size="small"
+                  sx={{
+                    color: 'black'
+                  }}
+                // sx={{ ml: 2 }}
+                // aria-controls={open ? 'account-menu' : undefined}
+                // aria-haspopup="true"
+                // aria-expanded={open ? 'true' : undefined}
+                >
+                  <LuBellPlus />
+
+                </IconButton>
+                {/* reminder menu */}
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={openReminder}
+                  onClose={handleCloseReminder}
+                  // onClick={(e) => {
+                  //   e.stopPropagation()
+                  //   handleCloseReminder()
+                  // }}
+                  slotProps={{
+                    paper: {
+                      elevation: 0,
+                      sx: {
+                        minWidth: "280px",
+                        // padding: "1rem",
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: 1.5,
+                        '& .MuiAvatar-root': {
+                          width: 32,
+                          height: 32,
+                          ml: 0,
+                          mr: 1,
+                        },
+                        '&::before': {
+                          content: '""',
+                          display: { xs: 'none', sm: 'none', lg: 'none' },
+                          position: 'absolute',
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: 'background.paper',
+                          transform: 'translateY(-50%) rotate(45deg)',
+                          zIndex: 0,
+                        },
+                      },
+                    },
+                  }}
+                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                  <ReminderCard noteDetails={noteDetails} handleNotes={handleNotes} handleCloseReminder={handleCloseReminder} />
+
+                </Menu>
+
               </div>
               <div className='note-card-icon'>
                 <RiUserAddLine />
@@ -233,17 +363,6 @@ function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, col
                     zIndex: 15,
                     borderRadius: "7px"
                   }}
-                  // modifiers={[
-                  //   {
-                  //     name: 'flip',
-                  //     enabled: true,
-                  //     options: {
-                  //       altBoundary: true,
-                  //       rootBoundary: 'viewport',
-                  //       padding: 8,
-                  //     },
-                  //   },
-                  // ]}
                 >
                   {({ TransitionProps, placement }) => (
                     <Grow
@@ -269,6 +388,8 @@ function  NoteCard({ noteDetails, container, isActive, onClick, handleNotes, col
                     </Grow>
                   )}
                 </Popper>
+
+
               </div>
             </div>
           }
