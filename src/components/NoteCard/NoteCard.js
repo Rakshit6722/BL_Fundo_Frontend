@@ -144,7 +144,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
       }
       removeReminder(payload)
         .then(() => {
-          handleNotes({...noteDetails,reminder:[]}, 'update')
+          handleNotes({ ...noteDetails, reminder: [] }, 'update')
         })
         .catch(err => {
           console.lor(err.messagae)
@@ -301,6 +301,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                     paper: {
                       elevation: 0,
                       sx: {
+                        borderRadius:"7px",
                         minWidth: "280px",
                         // padding: "1rem",
                         overflow: 'visible',
@@ -333,7 +334,6 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                   anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                 >
                   <ReminderCard noteDetails={noteDetails} handleNotes={handleNotes} handleCloseReminder={handleCloseReminder} />
-
                 </Menu>
 
               </div>
@@ -426,7 +426,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
             aria-describedby="modal-modal-description"
             onclick={() => setModalOpen(false)}
           >
-            <AddNote setModalOpen={setModalOpen} noteDetails={noteDetails} handleIconClick={handleIconClick} />
+            <AddNote setModalOpen={setModalOpen} formatReminder={formatReminder} noteDetails={noteDetails} handleIconClick={handleIconClick} />
           </Modal>
         </div>
         {

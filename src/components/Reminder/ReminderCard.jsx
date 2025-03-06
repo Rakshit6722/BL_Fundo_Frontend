@@ -13,7 +13,7 @@ function ReminderCard({ noteDetails, handleNotes, handleCloseReminder }) {
     const [error, setError] = useState("");
 
     const handleSubmit = () => {
-        setError(""); 
+        setError("");
 
         if (!date || !time) {
             setError("Please select both date and time.");
@@ -40,11 +40,14 @@ function ReminderCard({ noteDetails, handleNotes, handleCloseReminder }) {
             .then((res) => {
                 console.log(res)
                 handleNotes({ ...noteDetails, reminder: [isoDateTime] }, "update")
+
             })
             .catch((err) => {
                 console.log(err)
             })
 
+        setTime('')
+        setDate('')
         handleCloseReminder()
     }
 
@@ -63,7 +66,7 @@ function ReminderCard({ noteDetails, handleNotes, handleCloseReminder }) {
                 <input type="time" onChange={(e) => setTime(e.target.value)} />
 
                 {error && <p className="error-message">{error}</p>}
-                
+
                 <button onClick={handleSubmit}>Save</button>
 
             </div>

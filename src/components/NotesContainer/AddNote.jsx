@@ -20,8 +20,10 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import { useParams, useNavigate } from 'react-router-dom';
+import { MdOutlineAccessTime } from "react-icons/md";
+import { IoMdClose } from "react-icons/io";
 
-function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
+function AddNote({ handleNotes, formatReminder, setModalOpen, noteDetails, handleIconClick }) {
 
     const idParams = useParams()
     const { id } = idParams
@@ -106,7 +108,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
         // }
 
         if (isExpanded && (formData.title) && !noteDetails) {
-            if(textAreaRef.current) textAreaRef.current.focus()
+            if (textAreaRef.current) textAreaRef.current.focus()
             addNote(formData)
                 .then(res => {
                     handleNotes(res?.data?.status?.details, 'add')
@@ -185,13 +187,37 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                         handleChange(e)
                                         handleTextAreaHeight()
                                     }} placeholder='Take a note...'
-                                    style={{
-                                        maxHeight:"500px",
-                                        overflowY: 'auto',
-                                        backgroundColor: noteDetails?.color || 'white',
-                                        // color: noteDetails?.color ? 'black' : ''
-                                    }}
+                                        style={{
+                                            maxHeight: "500px",
+                                            overflowY: 'auto',
+                                            backgroundColor: noteDetails?.color || 'white',
+                                            // color: noteDetails?.color ? 'black' : ''
+                                        }}
+
                                     ></textarea>
+                                    {
+                                        noteDetails?.reminder.length > 0 && (
+                                            <div
+                                                className='note-card-reminder-container'
+                                                // style={{
+                                                //     minWidth: 'unset',
+                                                //     width: 'fit-content',
+                                                // }}
+                                            >
+                                                <div>
+                                                    <MdOutlineAccessTime className='reminder-time-icon' />
+                                                </div>
+                                                <div>
+                                                    <p className="note-card-reminder">{
+                                                        noteDetails?.reminder.length > 0 ? formatReminder(noteDetails?.reminder[0]) : ""
+                                                    }</p>
+                                                </div>
+                                                <div className='note-card-reminder-close-icon-container' onClick={() => handleIconClick('removeReminder')}>
+                                                    <IoMdClose className='reminder-close-icon' />
+                                                </div>
+                                            </div>
+                                        )
+                                    }
                                     <div className='add-note-expanded-icons-container'>
                                         <div className='add-note-icon-container'>
                                             <div className='add-note-icons-expanded'>
@@ -255,7 +281,7 @@ function AddNote({ handleNotes, setModalOpen, noteDetails, handleIconClick }) {
                                                 </Popper>
                                             </div>
                                         </div>
-                                        <button onClick={() => {
+                                        <button className='addNote-close-button-container' onClick={() => {
                                             handleToggle()
                                         }
                                         }>Close</button>

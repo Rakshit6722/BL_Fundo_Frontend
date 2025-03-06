@@ -314,51 +314,63 @@
 
 .note-card-reminder-container {
     display: flex;
-    gap: 0.5rem;
     align-items: center;
+    gap: 0.5rem;
     padding: 0.5rem 1rem;
-    min-width: 49%;
     border-radius: 50px;
-    background-color: rgba(235, 234, 234, 0.4705882353);
+    background-color: rgba(235, 234, 234, 0.47);
     margin-left: 0.8rem;
-    max-width: 55%;
-
-    justify-content: center;
-
-    &:hover {
-        cursor: pointer;
-        max-width: 60%;
-    }
-
-    &:hover .reminder-close-icon {
-        display: block;
-    }
+    width: fit-content;
+    max-width: 60%; 
+ 
+    flex-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap; 
+    position: relative; 
 }
 
+.note-card-reminder-container:hover {
+    cursor: pointer;
+   
+}
 
+.reminder-close-icon {
+    display: none;
+    position: absolute; 
+    right: 0.5rem; 
+}
+
+.note-card-reminder-container:hover .reminder-close-icon {
+    display: block;
+}
 
 .note-card-reminder {
-    font-size: 0.66rem;
+    font-size: 0.6rem; 
     font-weight: bold;
     color: #3a3a3a;
-
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
-
-.note-card-reminder-close-icon-container{
-    // padding: .25rem;
+.note-card-reminder-close-icon-container {
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // padding: 0.25rem;
+    transition: background-color 0.2s ease-in-out;
+
     &:hover {
-        background-color: #dcd9d999;
+        // background-color: #463838;
     }
 }
 
-.reminder-close-icon{
+.reminder-close-icon {
     display: none;
-    color: #3a3a3a ;
+    color: #3a3a3a;
 }
 
 .reminder-time-icon {
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: #3a3a3a;
 }
 
