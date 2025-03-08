@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './NoteCard.scss'
 import { LuBellPlus } from "react-icons/lu";
 import { RiUserAddLine } from "react-icons/ri";
@@ -25,6 +25,7 @@ import IconButton from '@mui/material/IconButton';
 import { MdOutlineAccessTime } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import ReminderCard from '../Reminder/ReminderCard';
+import { NotesContext } from '../../context/NotesContextProvider';
 
 
 function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
@@ -36,6 +37,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
   const [modalOpen, setModalOpen] = useState(false)
   const [activeColor, setActiveColor] = useState(noteDetails?.color || "#FFFFFF")
   // console.log("activeColor", activeColor)
+
+  const { listView } = useContext(NotesContext)
 
   const colorPaletteRef = useRef(null)
 
@@ -226,8 +229,8 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
 
   return (
     <>
-      <div className='notes-card-main-container'>
-        <div className={`note-card-container ${isActive ? "active" : ""}`} onClick={onClick} style={{
+      <div className={`${listView ? "notes-card-main-container-list-view" : "notes-card-main-container"}`}>
+        <div className={`${listView ? "note-card-container-list-view" : "note-card-container"} ${isActive ? "active" : ""}`} onClick={onClick} style={{
           backgroundColor: noteDetails?.color || 'white',
         }}>
           <div className="note-card-content" onClick={(e) => {
@@ -269,7 +272,7 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
           }
 
           {
-            (container === 'notes' || container === 'archive' || container === 'reminder') && <div className={`note-card-icons-container ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
+            (container === 'notes' || container === 'archive' || container === 'reminder') && <div className={`${listView ? "note-card-icons-container-list-view" : "note-card-icons-container"} ${colorPaletteActive === noteDetails?.id ? 'visible-icons' : ''}`}>
               <div className='note-card-icon'
               >
 

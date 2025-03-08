@@ -35,7 +35,7 @@ const RouterModule = () => {
       ),
       children: [
         {
-          path: "notes", index: true,
+          path: "notes",
           element: <NotesContainer />
         },
         // {

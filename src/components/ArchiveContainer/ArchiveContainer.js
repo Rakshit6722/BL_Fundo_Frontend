@@ -13,7 +13,7 @@ export default function ArchiveContainer() {
   // const [archiveNotesList, setArchiveNotesList] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-  const { archiveNotesList, setArchiveNotesList, searchQuery } = useContext(NotesContext)
+  const { archiveNotesList, setArchiveNotesList, searchQuery, listView } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
@@ -61,7 +61,7 @@ export default function ArchiveContainer() {
         filteredNotes.length > 0 ? (
           <div className='show-archive-notes-container'>
             <Masonry
-              columns={columnConfig}
+              columns={listView ? 1 : columnConfig}
               gap={16}
             >
               {

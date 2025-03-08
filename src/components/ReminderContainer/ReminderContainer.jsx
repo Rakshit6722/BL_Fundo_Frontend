@@ -12,7 +12,7 @@ const ReminderContainer = () => {
   const [reminderNotes, setReminderNotes] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-  const { searchQuery } = useContext(NotesContext)
+  const { searchQuery, listView } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
@@ -54,7 +54,7 @@ const ReminderContainer = () => {
         filteredNotes.length > 0 ? (
           <div className='show-reminder-notes-container'>
             <Masonry
-              columns={columnConfig}
+              columns={listView ? 1 : columnConfig}
               gap={16}
             >
               {

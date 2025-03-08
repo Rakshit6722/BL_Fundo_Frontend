@@ -10,7 +10,7 @@ import Placeholder from '../Placeholder/Placeholder'
 export default function TrashContainer() {
   // const [trashNotesList, setTrashNotesList] = useState([])
 
-  const { trashNotesList, notesList, setTrashNotesList, searchQuery } = useContext(NotesContext)
+  const { trashNotesList, notesList, setTrashNotesList, searchQuery, listView } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
@@ -18,13 +18,13 @@ export default function TrashContainer() {
     getTrashNotesList()
   }, [])
 
-    const columnConfig = useMemo(() => {
-      if (open) {
-        return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
-      } else {
-        return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
-      }
-    }, [open])
+  const columnConfig = useMemo(() => {
+    if (open) {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 4 }
+    } else {
+      return { 350: 1, 750: 2, 1100: 3, 1400: 5, 1700: 5 }
+    }
+  }, [open])
 
   const getTrashNotesList = () => {
     getTrashNotes()
@@ -58,29 +58,29 @@ export default function TrashContainer() {
       {
         filteredNotes.length > 0 ? (
           <div className='show-trash-notes-container'>
-          <Masonry
-            columns={columnConfig}
-            gap={16}
-          >
-            {
-  
-              filteredNotes.map((note) => (
-                <div>
-                  <NoteCard
-                   container={'trash'}
-                   noteDetails={note}
-                   handleNotes={handleTrashNotes}
-                  />
-                </div>
-              ))
-            }
-          </Masonry>
-        </div>
+            <Masonry
+              columns={listView ? 1 : columnConfig}
+              gap={16}
+            >
+              {
+
+                filteredNotes.map((note) => (
+                  <div>
+                    <NoteCard
+                      container={'trash'}
+                      noteDetails={note}
+                      handleNotes={handleTrashNotes}
+                    />
+                  </div>
+                ))
+              }
+            </Masonry>
+          </div>
         ) : (
           <Placeholder container={'trash'} />
         )
       }
- 
+
     </div>
   )
 }

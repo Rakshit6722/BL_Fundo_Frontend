@@ -12,6 +12,7 @@ import { MdLightbulbOutline } from "react-icons/md";
 import { BsTrash } from "react-icons/bs";
 import { NavLink, useLocation } from 'react-router-dom';
 import { BiBell } from "react-icons/bi";
+import Tooltip from '@mui/material/Tooltip';
 
 
 function Sidebar({ open }) {
@@ -198,23 +199,48 @@ function Sidebar({ open }) {
                                             },
                                     ]}
                                 >
-                                    <ListItemIcon
-                                        sx={[
-                                            {
-                                                minWidth: 0,
-                                                justifyContent: 'center',
-                                            },
-                                            open
-                                                ? {
-                                                    mr: 3,
-                                                }
-                                                : {
-                                                    mr: 'auto',
-                                                },
-                                        ]}
-                                    >
-                                        {drawerIcon[index].icon}
-                                    </ListItemIcon>
+                                    {
+                                        !open ? (<>
+                                            <Tooltip title={item.text}>
+                                                <ListItemIcon
+                                                    sx={[
+                                                        {
+                                                            minWidth: 0,
+                                                            justifyContent: 'center',
+                                                        },
+                                                        open
+                                                            ? {
+                                                                mr: 3,
+                                                            }
+                                                            : {
+                                                                mr: 'auto',
+                                                            },
+                                                    ]}
+                                                >
+                                                    {drawerIcon[index].icon}
+                                                </ListItemIcon>
+                                            </Tooltip>
+                                        </>) : (<>
+                                            <ListItemIcon
+                                                sx={[
+                                                    {
+                                                        minWidth: 0,
+                                                        justifyContent: 'center',
+                                                    },
+                                                    open
+                                                        ? {
+                                                            mr: 3,
+                                                        }
+                                                        : {
+                                                            mr: 'auto',
+                                                        },
+                                                ]}
+                                            >
+                                                {drawerIcon[index].icon}
+                                            </ListItemIcon>
+                                        </>)
+                                    }
+
                                     <ListItemText
                                         primary={
                                             <Typography

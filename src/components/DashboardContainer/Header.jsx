@@ -10,6 +10,9 @@ import ProgressBar from './ProgressBar';
 import { logout } from '../../api';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NotesContext } from '../../context/NotesContextProvider';
+import Tooltip from '@mui/material/Tooltip';
+import { CiGrid2H } from "react-icons/ci";
+import { IoGridOutline } from "react-icons/io5";
 
 function Header({ handleSetOpen }) {
 
@@ -19,8 +22,7 @@ function Header({ handleSetOpen }) {
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
 
-    const { searchQuery, setSearchQuery } = useContext(NotesContext)
-
+    const { searchQuery, setSearchQuery, listView, setListView } = useContext(NotesContext)
     useEffect(() => {
         setInitials(getInitials)
         setColor(getRandomColor)
@@ -64,7 +66,9 @@ function Header({ handleSetOpen }) {
             <div className={`${isScrolled ? "header-main-container-shadow" : ""} header-main-container`}>
                 <div className='header-logo-container'>
                     <div className='menu-logo-container' onClick={handleSetOpen}>
-                        <IoIosMenu className='menu-logo' />
+                        <Tooltip title='Main menu'>
+                            <IoIosMenu className='menu-logo' />
+                        </Tooltip>
                     </div>
                     {
                         location.pathname === '/dashboard/notes' && (
@@ -103,11 +107,32 @@ function Header({ handleSetOpen }) {
                         </div>
 
                         <div className='header-additional-icon-sub-container'>
-                            <MdOutlineRefresh className='header-additional-icon' />
+                            <Tooltip title='Refresh'>
+                                <MdOutlineRefresh className='header-additional-icon' />
+                            </Tooltip>
                         </div>
 
+                        {
+                            !listView ? (<>
+                                <div className='header-additional-icon-sub-container' onClick={() => setListView(!listView)}>
+                                    <Tooltip title='List view'>
+                                        <CiGrid2H className='header-additional-icon' />
+                                    </Tooltip>
+                                </div>
+                            </>) : (<>
+                                <div className='header-additional-icon-sub-container' onClick={() => setListView(!listView)}>
+                                    <Tooltip title='Grid view'>
+                                        <IoGridOutline className='header-additional-icon' />
+                                    </Tooltip>
+                                </div>
+                            </>)
+                        }
+
+
                         <div className='header-additional-icon-sub-container'>
-                            <IoSettingsOutline className='header-additional-icon' />
+                            <Tooltip title='Settings'>
+                                <IoSettingsOutline className='header-additional-icon' />
+                            </Tooltip>
                         </div>
                     </div>
 

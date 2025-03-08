@@ -14,7 +14,7 @@ export default function NotesContainer() {
     const [isActive, setIsActive] = useState(null)
     const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-    const { notesList, setNotesList, searchQuery } = useContext(NotesContext)
+    const { notesList, setNotesList, searchQuery, listView } = useContext(NotesContext)
     const { open } = useContext(SidebarContext)
 
     console.log("open", open)
@@ -85,7 +85,7 @@ export default function NotesContainer() {
                 ) : (
                     <div className='show-notes-container'>
                         <Masonry
-                            columns={columnConfig}
+                            columns={listView ? 1 : columnConfig}
                             gap={16}
                         >
 
