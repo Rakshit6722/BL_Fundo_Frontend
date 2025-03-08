@@ -26,6 +26,7 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import ReminderCard from '../Reminder/ReminderCard';
 import { NotesContext } from '../../context/NotesContextProvider';
+import { Tooltip } from '@mui/material';
 
 
 function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colorPaletteActive, setColorPaletteActive, ...props }) {
@@ -287,7 +288,9 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                 // aria-haspopup="true"
                 // aria-expanded={open ? 'true' : undefined}
                 >
-                  <LuBellPlus />
+                  <Tooltip title="Remind me">
+                    <LuBellPlus />
+                  </Tooltip>
 
                 </IconButton>
                 {/* reminder menu */}
@@ -341,23 +344,33 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
 
               </div>
               <div className='note-card-icon'>
-                <RiUserAddLine />
+                <Tooltip title="Collaborator">
+                  <RiUserAddLine />
+                </Tooltip>
               </div>
               <div className='note-card-icon' onClick={(e) => {
                 e.stopPropagation()
                 setColorPaletteActive(prev => prev === noteDetails?.id ? null : noteDetails?.id)
               }}>
-                <IoColorPaletteOutline />
+                <Tooltip title='Background options'>
+                  <IoColorPaletteOutline />
+                </Tooltip>
               </div>
               <div className='note-card-icon'>
-                <MdOutlineImage />
+                <Tooltip title="Add image">
+                  <MdOutlineImage />
+                </Tooltip>
               </div>
               {
                 (noteDetails?.isArchived === false) ? (<div className='note-card-icon' onClick={() => handleIconClick('archive')}>
-                  <RiInboxArchiveLine />
+                  <Tooltip title="Archive">
+                    <RiInboxArchiveLine />
+                  </Tooltip>
                 </div>) :
                   (<div className='note-card-icon' onClick={() => handleIconClick('unarchive')}>
-                    <RiInboxUnarchiveLine />
+                    <Tooltip title="Unarchive">
+                      <RiInboxUnarchiveLine />
+                    </Tooltip>
                   </div>)
               }
 
@@ -370,7 +383,9 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
                 aria-haspopup="true"
                 onClick={handleToggle}
               >
-                <BsThreeDotsVertical />
+                <Tooltip title="More">
+                  <BsThreeDotsVertical />
+                </Tooltip>
                 <Popper
                   open={open}
                   anchorEl={anchorRef.current}
@@ -415,10 +430,14 @@ function NoteCard({ noteDetails, container, isActive, onClick, handleNotes, colo
           {
             container === 'trash' && <div className='note-card-delete-icons-container'>
               <div className='note-card-icon delete-icon' onClick={() => handleIconClick('deleteForever')}>
-                <MdDeleteForever />
+                <Tooltip title="Delete forever">
+                  <MdDeleteForever />
+                </Tooltip>
               </div>
               <div className='note-card-icon delete-icon' onClick={() => handleIconClick('restore')}>
-                <MdRestoreFromTrash />
+                <Tooltip title="Restore">
+                  <MdRestoreFromTrash />
+                </Tooltip>
               </div>
             </div>
           }

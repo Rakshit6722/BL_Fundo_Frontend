@@ -21,6 +21,7 @@ function Header({ handleSetOpen }) {
     const [initials, setInitials] = useState('')
     const [color, setColor] = useState('')
     const [isScrolled, setIsScrolled] = useState(false)
+    const [mobileView, setMobileView] = useState(() => window.innerWidth < 768)
 
     const { searchQuery, setSearchQuery, listView, setListView } = useContext(NotesContext)
     useEffect(() => {
@@ -40,6 +41,20 @@ function Header({ handleSetOpen }) {
             window.removeEventListener('scroll', handleScroll)
         }
     }, [])
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setMobileView(true)
+            } else {
+                setMobileView(false)
+            }
+        }
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [mobileView])
 
     const handleInputChange = (e) => {
         setSearchQuery(e.target.value)
@@ -113,7 +128,8 @@ function Header({ handleSetOpen }) {
                         </div>
 
                         {
-                            !listView ? (<>
+                            !mobileView &&
+                            (!listView ? (<>
                                 <div className='header-additional-icon-sub-container' onClick={() => setListView(!listView)}>
                                     <Tooltip title='List view'>
                                         <CiGrid2H className='header-additional-icon' />
@@ -125,7 +141,7 @@ function Header({ handleSetOpen }) {
                                         <IoGridOutline className='header-additional-icon' />
                                     </Tooltip>
                                 </div>
-                            </>)
+                            </>))
                         }
 
 
