@@ -7,13 +7,14 @@ import Masonry from 'react-layout-masonry';
 
 import { SidebarContext } from '../../context/SidebarContext'
 import Placeholder from '../Placeholder/Placeholder'
+import toast from 'react-hot-toast'
 
 export default function ArchiveContainer() {
 
   // const [archiveNotesList, setArchiveNotesList] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-  const { archiveNotesList, setArchiveNotesList, searchQuery, listView } = useContext(NotesContext)
+  const { archiveNotesList, setArchiveNotesList, searchQuery, listView, refresh, setRefresh } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
@@ -29,6 +30,16 @@ export default function ArchiveContainer() {
   useEffect(() => {
     getArchiveNotesList()
   }, [])
+
+  useEffect(() => {
+    if (refresh) {
+      setTimeout(() => {
+        getArchiveNotesList()
+        toast.success("Notes refreshed")
+        setRefresh(false)
+      }, 1000)}
+  },[refresh])
+
 
   const getArchiveNotesList = () => {
     getArchiveNotes()

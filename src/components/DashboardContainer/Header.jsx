@@ -13,6 +13,8 @@ import { NotesContext } from '../../context/NotesContextProvider';
 import Tooltip from '@mui/material/Tooltip';
 import { CiGrid2H } from "react-icons/ci";
 import { IoGridOutline } from "react-icons/io5";
+import { setRef } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Header({ handleSetOpen }) {
 
@@ -23,7 +25,7 @@ function Header({ handleSetOpen }) {
     const [isScrolled, setIsScrolled] = useState(false)
     const [mobileView, setMobileView] = useState(() => window.innerWidth < 768)
 
-    const { searchQuery, setSearchQuery, listView, setListView } = useContext(NotesContext)
+    const { searchQuery, setSearchQuery, listView, setListView, refresh, setRefresh } = useContext(NotesContext)
     useEffect(() => {
         setInitials(getInitials)
         setColor(getRandomColor)
@@ -121,10 +123,16 @@ function Header({ handleSetOpen }) {
                             <IoSearch className='header-additional-icon' />
                         </div>
 
-                        <div className='header-additional-icon-sub-container'>
-                            <Tooltip title='Refresh'>
-                                <MdOutlineRefresh className='header-additional-icon' />
-                            </Tooltip>
+                        <div onClick={() => setRefresh(true)} className='header-additional-icon-sub-container'>
+                            {
+                                refresh ? <CircularProgress size={30} /> : (
+                                    <>
+                                        <Tooltip title='Refresh'>
+                                            <MdOutlineRefresh className='header-additional-icon' />
+                                        </Tooltip>
+                                    </>
+                                )
+                            }
                         </div>
 
                         {

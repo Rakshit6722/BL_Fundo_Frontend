@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotesContextProvider from './context/NotesContextProvider';
 import SidebarContextProvider from './context/SidebarContext';
+import { Toaster } from 'react-hot-toast';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +13,7 @@ root.render(
     <NotesContextProvider>
       <SidebarContextProvider>
         <App />
+        <Toaster/>
       </SidebarContextProvider>
     </NotesContextProvider>
   </React.StrictMode>

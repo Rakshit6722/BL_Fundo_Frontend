@@ -9,12 +9,14 @@ import { NotesContext } from '../../context/NotesContextProvider'
 import Masonry from 'react-layout-masonry';
 import { SidebarContext } from '../../context/SidebarContext'
 import Placeholder from '../Placeholder/Placeholder'
+import { setRef } from '@mui/material'
+import toast from 'react-hot-toast'
 
 export default function NotesContainer() {
     const [isActive, setIsActive] = useState(null)
     const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-    const { notesList, setNotesList, searchQuery, listView } = useContext(NotesContext)
+    const { notesList, setNotesList, searchQuery, listView, refresh, setRefresh } = useContext(NotesContext)
     const { open } = useContext(SidebarContext)
 
     console.log("open", open)
@@ -30,6 +32,16 @@ export default function NotesContainer() {
     useEffect(() => {
         getNotesList()
     }, [])
+
+    useEffect(() => {
+        if(refresh){
+            setTimeout(() => {       
+                getNotesList()
+                toast.success("Notes refreshed")
+                setRefresh(false)  
+            },1000)
+        }
+    },[refresh])
 
     const filteredNotes = useMemo(() => {
         if (!searchQuery.trim()) return notesList

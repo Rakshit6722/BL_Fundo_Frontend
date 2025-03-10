@@ -6,17 +6,27 @@ import { NotesContext } from '../../context/NotesContextProvider'
 import Masonry from 'react-layout-masonry';
 import { SidebarContext } from '../../context/SidebarContext'
 import Placeholder from '../Placeholder/Placeholder'
+import toast from 'react-hot-toast'
 
 export default function TrashContainer() {
   // const [trashNotesList, setTrashNotesList] = useState([])
 
-  const { trashNotesList, notesList, setTrashNotesList, searchQuery, listView } = useContext(NotesContext)
+  const { trashNotesList, notesList, setTrashNotesList, searchQuery, listView, refresh, setRefresh } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
   useEffect(() => {
     getTrashNotesList()
   }, [])
+
+  useEffect(() => {
+    if (refresh) {
+      setTimeout(() => {
+        getTrashNotesList()
+        toast.success("Notes refreshed")
+        setRefresh(false)
+      }, 1000)}
+  },[refresh])
 
   const columnConfig = useMemo(() => {
     if (open) {

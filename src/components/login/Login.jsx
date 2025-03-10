@@ -4,13 +4,14 @@ import Button from '@mui/material/Button';
 import './Login.scss'
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../../api';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const [loading, setLoading] = useState(false)
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [emailValidError, setEmailValidError] = useState(false)
@@ -19,11 +20,23 @@ const Login = () => {
         setEmailError(false);
         setPasswordError(false);
         setEmailValidError(false);
+        setLoading(true)
 
-        if (!email) return setEmailError(true);
-        if (!password) return setPasswordError(true);
-        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email))
-            return setEmailValidError(true);
+        if (!email){
+            setLoading(false)
+            setEmailError(true);
+            return;
+        };
+        if (!password){
+            setLoading(false)
+            setPasswordError(true);
+            return;
+        };
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)){
+            setLoading(false)
+            setEmailValidError(true);
+            return;
+        }
 
         const payload = {
             email,
@@ -34,21 +47,27 @@ const Login = () => {
             .then((res) => {
                 localStorage.setItem("token", res?.data?.id)
                 localStorage.setItem("firstName", res?.data?.firstName)
+                toast.success(`Login success! Welcome ${res?.data?.firstName}`)
+
                 navigate('/dashboard/notes')
                 // alert("Login success!")
             })
             .catch((err) => {
                 console.log(err)
-                alert(`Login failed! ${err.message}`)
+                toast.error(`Login failed! ${err.message}`)
+            })
+            .finally(() => {
+                setLoading(false)
             })
 
+        // setLoading(false)
         setEmail('');
         setPassword('');
     };
 
 
 
-    
+
 
     return (
         <div className='login-container'>
@@ -104,6 +123,10 @@ const Login = () => {
                             <p>Create account</p>
                         </Link>
                         <Button
+                            style={{
+                                width: '100px',
+                            }}
+                            disabled={loading}
                             variant="contained"
                             onClick={handleLogin}
                         >Login</Button>

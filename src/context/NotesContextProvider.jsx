@@ -10,6 +10,7 @@ const NotesContextProvider = ({ children }) => {
     const [trashNotesList, setTrashNotesList] = useState([])
     const [searchQuery, setSearchQuery] = useState("")
     const [listView, setListView] = useState(false)
+    const [refresh, setRefresh] = useState(false)
 
     const value = {
         notesList,
@@ -21,7 +22,9 @@ const NotesContextProvider = ({ children }) => {
         searchQuery,
         setSearchQuery,
         listView,
-        setListView
+        setListView,
+        refresh,
+        setRefresh
     }
 
     return (
