@@ -35,7 +35,6 @@ export default function ArchiveContainer() {
     if (refresh) {
       setTimeout(() => {
         getArchiveNotesList()
-        toast.success("Notes refreshed")
         setRefresh(false)
       }, 1000)}
   },[refresh])

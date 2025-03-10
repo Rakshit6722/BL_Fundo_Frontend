@@ -37,7 +37,6 @@ export default function NotesContainer() {
         if(refresh){
             setTimeout(() => {       
                 getNotesList()
-                toast.success("Notes refreshed")
                 setRefresh(false)  
             },1000)
         }

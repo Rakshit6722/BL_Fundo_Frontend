@@ -12,7 +12,7 @@ const ReminderContainer = () => {
   const [reminderNotes, setReminderNotes] = useState([])
   const [colorPaletteActive, setColorPaletteActive] = useState(null)
 
-  const { searchQuery, listView } = useContext(NotesContext)
+  const { searchQuery, listView, refresh, setRefresh } = useContext(NotesContext)
 
   const { open } = useContext(SidebarContext)
 
@@ -31,6 +31,15 @@ const ReminderContainer = () => {
       })
       .catch(err => console.log(err.message))
   },[])
+
+  useEffect(() => {
+    if (refresh) {
+      setTimeout(() => {
+        getReminderNotes()
+        setRefresh(false)
+      }, 1000)
+    }
+  },[refresh])
 
   const handleNotes = (action, payload) => {
     if (action === 'removeReminder') {

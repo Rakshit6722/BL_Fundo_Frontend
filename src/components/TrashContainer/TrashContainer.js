@@ -23,7 +23,6 @@ export default function TrashContainer() {
     if (refresh) {
       setTimeout(() => {
         getTrashNotesList()
-        toast.success("Notes refreshed")
         setRefresh(false)
       }, 1000)}
   },[refresh])
