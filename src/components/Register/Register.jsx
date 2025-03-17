@@ -88,7 +88,6 @@ const Register = () => {
       }
     });
     
-    // Clear the error for this field when the user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
