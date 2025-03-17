@@ -7,7 +7,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../../api';
 
 const Register = () => {
-
   const navigate = useNavigate()
 
   const [formData, setFormData] = useState({
@@ -16,20 +15,92 @@ const Register = () => {
     username: '',
     password: '',
     confirmPassword: '',
-    service:"advance"
+    service: "advance"
   })
 
+  const [errors, setErrors] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    confirmPassword: ''
+  })
+
+  const validate = () => {
+    let isValid = true;
+    const newErrors = {
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+      confirmPassword: ''
+    };
+
+    // First name validation
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+      isValid = false;
+    }
+
+    // Last name validation
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+      isValid = false;
+    }
+
+    // Username validation
+    if (!formData.username.trim()) {
+      newErrors.username = 'Username is required';
+      isValid = false;
+    } else if (!/^[A-Za-z0-9.]+$/.test(formData.username)) {
+      newErrors.username = 'Only letters, numbers, and periods allowed';
+      isValid = false;
+    }
+
+    // Password validation
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+      isValid = false;
+    } else if (formData.password.length < 8) {
+      newErrors.password = 'Password must be at least 8 characters';
+      isValid = false;
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]/.test(formData.password)) {
+      newErrors.password = 'Include letters, numbers & symbols';
+      isValid = false;
+    }
+
+    // Confirm password validation
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  }
+
   const handleChange = (e) => {
-    const {name, value} = e.target;
-    setFormData((prev)=>{
+    const { name, value } = e.target;
+    setFormData((prev) => {
       return {
         ...prev,
         [name]: value
       }
-    })
+    });
+    
+    // Clear the error for this field when the user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   }
 
   const handleSignup = () => {
+    if (!validate()) {
+      return;
+    }
 
     const payload = {
       firstName: formData.firstName,
@@ -39,34 +110,27 @@ const Register = () => {
       service: "advance"
     }
 
-
-    console.log(formData)
-
     signup(payload)
-      .then((res)=>{
+      .then((res) => {
         alert("Signup success!")
         navigate('/')
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err)
         alert(`Signup failed! ${err.message}`)
       });
 
-      setFormData((prev)=>{
-        return {
-          ...prev,
-          firstName: '',
-          lastName: '',
-          username: '',
-          password: '',
-          confirmPassword: ''
-        }
-      })
-
+    setFormData((prev) => {
+      return {
+        ...prev,
+        firstName: '',
+        lastName: '',
+        username: '',
+        password: '',
+        confirmPassword: ''
+      }
+    })
   }
-
-
-  
 
   return (
     <div className='register-container'>
@@ -78,43 +142,52 @@ const Register = () => {
           </div>
 
           <form>
-
             <div className='register-input-name-fields'>
-              <TextField
-                id="outlined-basic"
-                label='First Name*'
-                variant="outlined"
-                className='register-input-fields-custom-class'
-                InputLabelProps={{
-                  style: {
-                    fontSize: '0.8rem',
-                    top: '-5px'
-                  }
-                }}
-                name='firstName'
-                value={formData.firstName}
-                onChange={(e) => handleChange(e)}
-              />
-              <TextField
-                id="outlined-basic"
-                label='Last Name*'
-                variant="outlined"
-                className='register-input-fields-custom-class'
-                InputLabelProps={{
-                  style: {
-                    fontSize: '0.8rem',
-                    top: '-5px'
-                  }
-                }}
-                name='lastName'
-                value={formData.lastName}
-                onChange={(e) =>handleChange(e)}
-              />
+              <div style={{ width: '100%' }}>
+                <TextField
+                  id="firstName"
+                  label='First Name*'
+                  variant="outlined"
+                  className='register-input-fields-custom-class'
+                  InputLabelProps={{
+                    style: {
+                      fontSize: '0.8rem',
+                      top: '-5px'
+                    }
+                  }}
+                  name='firstName'
+                  value={formData.firstName}
+                  onChange={(e) => handleChange(e)}
+                  error={!!errors.firstName}
+                  fullWidth
+                />
+                {errors.firstName && <p className="error-message" style={{ color: 'red', fontSize: '12px', margin: '4px 0 0 4px' }}>{errors.firstName}</p>}
+              </div>
+              <div style={{ width: '100%' }}>
+                <TextField
+                  id="lastName"
+                  label='Last Name*'
+                  variant="outlined"
+                  className='register-input-fields-custom-class'
+                  InputLabelProps={{
+                    style: {
+                      fontSize: '0.8rem',
+                      top: '-5px'
+                    }
+                  }}
+                  name='lastName'
+                  value={formData.lastName}
+                  onChange={(e) => handleChange(e)}
+                  error={!!errors.lastName}
+                  fullWidth
+                />
+                {errors.lastName && <p className="error-message" style={{ color: 'red', fontSize: '12px', margin: '4px 0 0 4px' }}>{errors.lastName}</p>}
+              </div>
             </div>
 
             <div className='register-input-fields'>
               <TextField
-                id="outlined-basic"
+                id="username"
                 label='Username*'
                 variant="outlined"
                 className='register-input-fields-custom-class'
@@ -126,47 +199,66 @@ const Register = () => {
                 }}
                 name='username'
                 value={formData.username}
-                onChange={(e) =>handleChange(e)}
+                onChange={(e) => handleChange(e)}
+                error={!!errors.username}
+                fullWidth
               />
-              <p>You can use letters, numbers & periods</p>
+              {errors.username ? (
+                <p className="error-message" style={{ color: 'red', fontSize: '12px', margin: '4px 0 0 4px' }}>{errors.username}</p>
+              ) : (
+                <p>You can use letters, numbers & periods</p>
+              )}
             </div>
 
             <div className='register-input-fields'>
               <div className='register-input-fields-password'>
-                <TextField
-                  id="outlined-basic"
-                  label='Password*'
-                  variant="outlined"
-                  className='register-input-fields-custom-class'
-                  InputLabelProps={{
-                    style: {
-                      fontSize: '0.8rem',
-                      top: '-5px'
-                    }
-                  }}
-                  name='password'
-                  value={formData.password}
-                  onChange={(e) =>handleChange(e)}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label='Confirm*'
-                  variant="outlined"
-                  className='register-input-fields-custom-class'
-                  InputLabelProps={{
-                    style: {
-                      fontSize: '0.8rem',
-                      top: '-5px'
-                    }
-                  }}
-                  name='confirmPassword'
-                  value={formData.confirmPassword}
-                  onChange={(e) =>handleChange(e)}
-                />
+                <div style={{ width: '100%' }}>
+                  <TextField
+                    id="password"
+                    label='Password*'
+                    variant="outlined"
+                    type="password"
+                    className='register-input-fields-custom-class'
+                    InputLabelProps={{
+                      style: {
+                        fontSize: '0.8rem',
+                        top: '-5px'
+                      }
+                    }}
+                    name='password'
+                    value={formData.password}
+                    onChange={(e) => handleChange(e)}
+                    error={!!errors.password}
+                    fullWidth
+                  />
+                  {errors.password && <p className="error-message" style={{ color: 'red', fontSize: '12px', margin: '4px 0 0 4px' }}>{errors.password}</p>}
+                </div>
+                <div style={{ width: '100%' }}>
+                  <TextField
+                    id="confirmPassword"
+                    label='Confirm*'
+                    variant="outlined"
+                    type="password"
+                    className='register-input-fields-custom-class'
+                    InputLabelProps={{
+                      style: {
+                        fontSize: '0.8rem',
+                        top: '-5px'
+                      }
+                    }}
+                    name='confirmPassword'
+                    value={formData.confirmPassword}
+                    onChange={(e) => handleChange(e)}
+                    error={!!errors.confirmPassword}
+                    fullWidth
+                  />
+                  {errors.confirmPassword && <p className="error-message" style={{ color: 'red', fontSize: '12px', margin: '4px 0 0 4px' }}>{errors.confirmPassword}</p>}
+                </div>
               </div>
-              <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
+              {!errors.password && !errors.confirmPassword && (
+                <p>Use 8 or more characters with a mix of letters, numbers & symbols</p>
+              )}
             </div>
-
           </form>
 
           <div className='register-sub-container-buttons'>
